@@ -63,7 +63,7 @@ TruongData=load('TruongData_PMMA_PS.mat');
 % scattdata.optical.inel_dcsdata=load([inel_dcsdata_path 'Inelastic_DCS_Data.mat']);
 % [filename,pathname,fid]=uigetfile(['*.mat'],'Select DDCS Data File');
 %pathname='C:\Users\suche_000\Documents\Research\PhD\LEE_Interactions\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
-pathname='..\..\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
+pathname='F:\Users\suche_000\Documents\Research\PhD\LEE_Interactions\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
 filename='DDCSdata_Ef=0p5_Elossmin=0.001eV_Erange=[5,1000].mat';
 filename='DDCSdata_withICSData_Ef=10_Elossmin=0.001eV_Erange=[5,1000].mat';
 filename='DDCSdata_Fuji_Ef=15.5_Elossmin=3eV_Erange=[19,200]_EQCons=Pines.mat';
@@ -132,8 +132,6 @@ event{1}.scatt_Elim=20;
 event{1}.lowEthr=20;
 event{1}.lowEimfp=3.67;
 
-
-% Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
 ntrials=1;
