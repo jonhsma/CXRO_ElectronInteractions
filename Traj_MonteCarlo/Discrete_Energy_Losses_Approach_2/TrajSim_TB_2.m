@@ -1,6 +1,6 @@
 %%%%----------------------Scattering Sims---------------------------%%%%
-%   Note: Now it's written in a way that as long as one copies the 
-%   ElectronInteractions completely no change is needed for the paths
+%   Note: Now it's written in a portable way that as long as one copies 
+%   the ElectronInteractions completely no change is needed for the paths
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0 Initialization
