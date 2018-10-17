@@ -3,6 +3,10 @@
 %   the ElectronInteractions completely no change is needed for the paths
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% The illustration variable toggles whether explainative remarks show up
+global illustration
+illustration = 1;
+
 %% 0 Initialization
 clear;
 clc;
@@ -116,8 +120,12 @@ E_in=91;
 
 event{1}.Ein=E_in;
 event{1}.Eout=0;
-
 event{1}.Eloss=0;
+% The energy of the "secondary electron" generated or the starting energy
+% if a new trace is created out of this event
+% The primary event is the incidence and the primary electron energy goes
+% there to trigger Scarrcalc_lowE. It signifies an "energetic electron" 
+% (and another event trace) is created
 event{1}.Ese=91;
 event{1}.act='SE';
 event{1}.nacid=0;
@@ -136,13 +144,11 @@ event{1}.lowEimfp=3.67;
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=1;
-
+ntrials=10;
 tstart=tic;
-
 % Configuring Esweep
 % Esweep=linspace(20,100,5);
-Esweep=[39];
+Esweep=[40];
 % Esweep=[30];
 
 pathlen=[];

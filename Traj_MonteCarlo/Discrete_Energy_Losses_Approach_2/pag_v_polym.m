@@ -1,3 +1,9 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%     pagidx      index of the pag that is the closest to the ref. pos.
+%%%     npags       number of pags nearby (within the reaction radius)
+%%%     polymidx    indices of ionizable polymers nearby
+%%%     npolyms     number of ionizable polymers nearby
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [pagidx,npags,polymidx,npolyms]=pag_v_polym(xyz,pag_grid,pagimg,polym_img,rcnrad)
 
 xgrid=pag_grid.x;
@@ -8,6 +14,7 @@ xref=xyz(1);
 yref=xyz(2);
 zref=xyz(3);
 
+%% masking out the area covered by the reaction radius
 tmpmask=zeros(size(xgrid));
 
 % susmq=(xgrid-xref).^2+(ygrid-yref).^2;
@@ -21,6 +28,7 @@ if sum(sum(sum(tmpmask==1)))~=0
     dbg=1;
 end
 
+%% Identifying the usable pags and locate the closest one
 pag_removable=pagimg.*tmpmask;
 polym_ionizable=polym_img.*tmpmask;
 
@@ -36,9 +44,10 @@ if ~isempty(diff)
 %     pagidx=pagidx(tmpidx(1));
     pagidx=pagidx(tmpidx);
 end
-
+%% Identifying the ionizable polymers
 polymidx=find(polym_ionizable~=0);
 npolyms=sum(polym_ionizable(polymidx));
+end
 
 %%%%%%%% defaults if no PAG is found within vicinity
 % yesno=0;
