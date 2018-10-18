@@ -57,8 +57,12 @@ global illustration;
                         plot3(ev2{j}.xyz(1),ev2{j}.xyz(2),ev2{j}.xyz(3),'o');drawnow;
                         xlabel('x (nm)');ylabel('y (nm)');zlabel('z (nm)');
                     end
+                    
                     %%%% the emitted secondaries have random angles:
-                    ev2{j}.theta_in=-pi+pi*rand;
+                    % Solid angle compensated distribution
+                    cosTheta    =   rand(1)*2-1;
+                    ev2{j}.theta_in = acos(cosTheta);
+                    %ev2{j}.theta_in=-pi+pi*rand;
                     ev2{j}.phi_in=2*pi*rand;
                     ev2{j}.scatt_Elim=scatt_Elim;
                     ev2{j}.lowEthr=lowEthr;

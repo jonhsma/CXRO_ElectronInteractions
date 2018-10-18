@@ -5,7 +5,7 @@
 
 % The illustration variable toggles whether explainative remarks show up
 global illustration
-illustration = 1;
+illustration = 0;
 
 %% 0 Initialization
 clear;
@@ -84,7 +84,7 @@ px_nm=[1 1 1]*1;
 
 % univ is the volume of concern
 % size of the grid in nm
-univ.size_nm=[50 50 50]; % nm
+univ.size_nm=[51 51 51]; % nm
 % voxel size in nm
 univ.px_nm=px_nm;
 % size of the grid in # of voxels
@@ -148,7 +148,7 @@ ntrials=10;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);
-Esweep=[40];
+Esweep=[80];
 % Esweep=[30];
 
 pathlen=[];
@@ -160,7 +160,7 @@ Energy=[];
 elecimg_inc=zeros([univ.npx(1) univ.npx(2)]);
 
 % The pattern of incidence
-pattsize=5; % nm
+pattsize=0; % nm (5 nm by default)
 % The linespaces for the incedent square
 rowsel=round(univ.npx(1)/2-pattsize/2/univ.px_nm(1)):round(univ.npx(1)/2+pattsize/2/univ.px_nm(1));
 colsel=round(univ.npx(2)/2-pattsize/2/univ.px_nm(2)):round(univ.npx(2)/2+pattsize/2/univ.px_nm(2));
@@ -306,8 +306,8 @@ for E_count=1:length(Esweep)
             % Back out the position of the electron in nm
             xval=univ.grid.x(1,x_inc(xyz_count),y_inc(xyz_count));
             yval=univ.grid.y(1,x_inc(xyz_count),y_inc(xyz_count));
-            zval=min(univ.grid.z(:)); % put the electron at the origin in z.
-%           zval=0; % put it in the center
+%            zval=min(univ.grid.z(:)); % put the electron at the origin in z.
+            zval=0; % put it in the center
 
             for photon_count=1:nelectrons
                 %% 4..4 Iteration for a single electron
@@ -322,9 +322,14 @@ for E_count=1:length(Esweep)
 %                 event{1}.phi_in=0;
                 
                 %%%%% initial conditions [for non-LEEM: do whatever you want, perhaps photo-electron emission angle]:
-                rng('shuffle');
-%               event{1}.theta_in=-pi+pi*rand;
-                event{1}.theta_in=0;
+                rng('shuffle');                 
+                
+                %Suchit's initialization
+                %event{1}.theta_in=-pi+pi*rand; 
+                
+                %Jonathan's initialization
+                cosTheta    =   rand(1)*2-1;
+                event{1}.theta_in = acos(cosTheta);
                 theta_init=[theta_init event{1}.theta_in];
                 rng('shuffle');
                 event{1}.phi_in=2*pi*rand; % Actually this does nothing, as in trajcalc3, first phi used is sampled from distributions
@@ -468,7 +473,16 @@ for E_count=1:length(Esweep)
         end
         dbg=1;
         
-        save(sprintf('LEEMRes\\Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat',Esweep(E_count),Dose/prod(univ.px_nm(2:3)),event{1}.pag.rcnrad,trial_count));
+        %{
+        %%% Default saving
+        save(sprintf('LEEMRes\\Center_thetaSuchit\\Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat',Esweep(E_count),Dose/prod(univ.px_nm(2:3)),event{1}.pag.rcnrad,trial_count));
+        %}
+        %%% Acid position only saving
+        save(sprintf(strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
+            'ElectronInteractions\\LEEMRes\\Center_thetaJonathan\\',...
+            'Tester_Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat'),...
+            Esweep(E_count),Dose/prod(univ.px_nm(2:3)),event{1}.pag.rcnrad,trial_count),...
+        'acid_xyz');
 
 %         tend=toc(tst_trials);
 %         fprintf('...Took %.2f s \n',tend);
