@@ -39,12 +39,14 @@ scattdata.vibr.imfp_func=@ephscatt;
 % optdata_path='C:\Users\suche_000\Documents\Research\PhD\LEE_Interactions\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
 optdata_path='..\..\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
 
-
+%{
 % scattdata.optical=load([optdata_path 'Sp_IMFP_Inelastic_Components_Ef=0p5eV_Elossmin=0.001eV_Erange=[5,1000]_DDCSData.mat']); % _v2 has data structures better suited to the subsequently called programs
 % scattdata.optical=load([optdata_path 'Sp_withICSData_IMFP_Inelastic_Components_Ef=10eV_Elossmin=0.001eV_Erange=[5,1000]_DDCSData.mat']);
 % scattdata.optical=load([optdata_path 'Sp_Fuji_IMFP_Inelastic_Components_Ef=15.5eV_Elossmin=0.001eV_Erange=[16,200]_DDCSData_EQCons=Pines.mat']);
+%}
 scattdata.optical=load([optdata_path 'Sp_Fuji_IMFP_Inelastic_Components_Ef=15.5eV_Elossmin=0.001eV_Erange=[16,200]_DDCSData.mat']);
 
+%{
 %%% File containing the Sp values
 % Spdata_path='F:\Documents and Settings\sbhattarai\My Documents\Research\LEE_Interactions\Traj_MonteCarlo\Discrete_Energy_Losses_Approach\';
 % Spdata_file='Sp_IMFP_Inelastic_Components_Ef=5eV_Elossmin=0.001eV_Erange=[6,200]_DDCSData.mat';
@@ -60,13 +62,15 @@ scattdata.optical=load([optdata_path 'Sp_Fuji_IMFP_Inelastic_Components_Ef=15.5e
 % scattdata.optical.imfp=imfpdata.imfp;
 % scattdata.optical.imfp=interp1(imfpdata.E,imfpdata.imfp,scattdata.optical.E);
 % scattdata.optical.Ef=imfpdata.Ef;
-
+%}
 TruongData=load('TruongData_PMMA_PS.mat');
 
+%{
 % inel_dcsdata_path='F:\Documents and Settings\sbhattarai\My Documents\Research\LEE_Interactions\Traj_MonteCarlo\';
 % scattdata.optical.inel_dcsdata=load([inel_dcsdata_path 'Inelastic_DCS_Data.mat']);
 % [filename,pathname,fid]=uigetfile(['*.mat'],'Select DDCS Data File');
 %pathname='C:\Users\suche_000\Documents\Research\PhD\LEE_Interactions\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
+%}
 pathname='..\..\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
 filename='DDCSdata_Ef=0p5_Elossmin=0.001eV_Erange=[5,1000].mat';
 filename='DDCSdata_withICSData_Ef=10_Elossmin=0.001eV_Erange=[5,1000].mat';
@@ -75,6 +79,10 @@ filename='DDCSdata_Fuji_Ef=15.5_Elossmin=0.001eV_Erange=[16,200].mat';
 scattdata.optical.inel_dcsdata=load([pathname filename]);
 
 scattdata.E_inel_thr=min(scattdata.optical.E);
+
+% File output base path
+outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
+            'ElectronInteractions\\LEEMRes\\LowERand_ArD_Reverted_Restarted_2\\');
 
 %% 1 Creating the PAG grid
 rho_pag=0.4; % pag per nm^3
@@ -140,11 +148,11 @@ event{1}.scatt_Elim=20;
 event{1}.lowEthr=20;
 event{1}.lowEimfp=3.67;
 
-
+%% 3 Scan sweep parameters
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=10;
+ntrials=1000;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);
@@ -154,7 +162,7 @@ Esweep=[80];
 pathlen=[];
 Energy=[];
 
-%% 3 Initiating electron incidence and dose parameters
+%% 4 Initiating electron incidence and dose parameters
 % electron incidence grid (2D)
 % in pixel coordinates
 elecimg_inc=zeros([univ.npx(1) univ.npx(2)]);
@@ -201,7 +209,7 @@ figure;imagesc(elecimg_inc);colorbar;title('Electron image');drawnow;
 % Acquireing the coordinates of the electrons
 [x_inc,y_inc]=ind2sub(size(elecimg_inc),find(elecimg_inc>=1));
 
-%% 4 The Simulation Loops
+%% 5 The Simulation Loops
 fig1=figure;
 
 logfile_fid=fopen('logfile.dat','w');
@@ -209,7 +217,7 @@ fprintf(logfile_fid,'Simulation started at %s\n',datestr(now));
 
 % A loop through the energies of interest
 for E_count=1:length(Esweep)
-    %% 4..1 Iteration for an energy of interest
+    %% 5..1 Iteration for an energy of interest
     event{1}.Ein=Esweep(E_count);
     event{1}.Ese=Esweep(E_count);
         
@@ -242,7 +250,7 @@ for E_count=1:length(Esweep)
     
     % A loop through the number of trials
     for trial_count=1:ntrials
-        %% 4..2 Iteration for trial
+        %% 5..2 Iteration for trial
         acid_xyz=[];
         radius_acids=[];
         radius_ions=[];
@@ -297,7 +305,7 @@ for E_count=1:length(Esweep)
         
         % loop through all positions with incidend electrons
         for xyz_count=1:length(x_inc)
-            %% 4..3 Iteration for dosed positions
+            %% 5..3 Iteration for dosed positions
             tst_coordinates=tic;
             fprintf(logfile_fid,'\n...Co-ordinate %d of %d\n',xyz_count,length(x_inc));
 %             fprintf('\nEnergy %d of %d; Trial %d of %d\n',E_count,length(Esweep),trial_count,ntrials);
@@ -310,7 +318,7 @@ for E_count=1:length(Esweep)
             zval=0; % put it in the center
 
             for photon_count=1:nelectrons
-                %% 4..4 Iteration for a single electron
+                %% 5..4 Iteration for a single electron
                 tst_nelec=tic;
                 fprintf('......Electron %d of %d\n',photon_count,nelectrons);
                 fprintf(logfile_fid,'......Electron %d of %d\n',photon_count,nelectrons);
@@ -365,7 +373,7 @@ for E_count=1:length(Esweep)
 %               pagimg=eventdata{end}.pag.img;
 %               pagimg(pagimg<0)=0;
 
-                %% 4..4.1 In loop analysis of the results
+                %% 5..5.1 In loop analysis of the results
                 nacids_total=[nacids_total sum(acidimg(:))];
 
                 act={};nSE=[];imfp=[];theta=[];phi=[];nacids=[];nacids_unsat_total_tmp=[];
@@ -478,9 +486,8 @@ for E_count=1:length(Esweep)
         save(sprintf('LEEMRes\\Center_thetaSuchit\\Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat',Esweep(E_count),Dose/prod(univ.px_nm(2:3)),event{1}.pag.rcnrad,trial_count));
         %}
         %%% Acid position only saving
-        save(sprintf(strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\Center_thetaJonathan\\',...
-            'Tester_Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat'),...
+        save(sprintf(strcat(outputBasePath,...
+            'Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat'),...
             Esweep(E_count),Dose/prod(univ.px_nm(2:3)),event{1}.pag.rcnrad,trial_count),...
         'acid_xyz');
 

@@ -226,6 +226,7 @@ global illustration;
                 else
                     act='LowEnergy';
                     theta=-pi+2*pi*rand;
+                    %theta = acos(2*rand-1);
                     phi=2*pi*rand;
                 end
             end
