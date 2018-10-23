@@ -16,36 +16,32 @@ zref=xyz(3);
 
 %% masking out the area covered by the reaction radius
 tmpmask=zeros(size(xgrid));
-
 % susmq=(xgrid-xref).^2+(ygrid-yref).^2;
 % tmp=(susmq<=rcnrad^2).*sqrt(rcnrad^2-susmq);
 % tmpmask(abs(zgrid-zref)<=tmp & tmp~=0)=1;
-
 idx=find((xgrid-xref).^2+(ygrid-yref).^2+(zgrid-zref).^2<=rcnrad^2);
 tmpmask(idx)=1;
-
 if sum(sum(sum(tmpmask==1)))~=0
     dbg=1;
 end
-
-%% Identifying the usable pags and locate the closest one
+%% Masking out the acids and polymers in the masked region
 pag_removable=pagimg.*tmpmask;
 polym_ionizable=polym_img.*tmpmask;
-
+%% Identifying the usable pags and locate the closest one(s)
 pagidx=find(pag_removable~=0);
 npags=sum(pag_removable(pagidx));
-diff=[];
+diff    =   ones([1 length(pagidx)]);
 for i = 1:length(pagidx)
-%     [xidx_tmp,yidx_tmp,zidx_tmp]=ind2sub(size(xgrid),pagidx(i));
     diff(i)=sqrt((xref-xgrid(pagidx(i))).^2+(yref-ygrid(pagidx(i))).^2+(zref-zgrid(pagidx(i))).^2);
 end
 if ~isempty(diff)
     tmpidx=find(diff==min(diff));
-%     pagidx=pagidx(tmpidx(1));
     pagidx=pagidx(tmpidx);
 end
 %% Identifying the ionizable polymers
+%%% Positions where there are ionizable polymers
 polymidx=find(polym_ionizable~=0);
+%%% Total number of polymers inside the reaction radius
 npolyms=sum(polym_ionizable(polymidx));
 end
 

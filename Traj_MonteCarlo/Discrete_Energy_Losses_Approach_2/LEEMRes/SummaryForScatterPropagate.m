@@ -116,6 +116,186 @@ end
 sig_80_J_6 = std(acid_xyz_80_J_6);
 mu_80_J_6 = mean(acid_xyz_80_J_6,1);
 
+%% Isotropic random scattering (in lab frame)
+
+counter = 1;
+acid_xyz_80_J_7=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\IsoScatt_NoAngleAddition_0\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_7(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+
+sig_80_J_7 = std(acid_xyz_80_J_7);
+mu_80_J_7 = mean(acid_xyz_80_J_7,1);
+
+counter = 1;
+acid_xyz_80_J_8=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\IsoScatt_NoAngleAddition_1\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_8(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_8 = std(acid_xyz_80_J_8);
+mu_80_J_8 = mean(acid_xyz_80_J_8,1);
+
+%% Coordinate Transform Debug
+counter = 1;
+acid_xyz_80_J_9=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\RealScatt_CoordTransform_0\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_9(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_9 = std(acid_xyz_80_J_9);
+mu_80_J_9 = mean(acid_xyz_80_J_9,1);
+
+counter = 1;
+acid_xyz_80_J_10=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\RealScatt_CoordTransform_1\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_10(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_10 = std(acid_xyz_80_J_10);
+mu_80_J_10 = mean(acid_xyz_80_J_10,1);
+
+counter = 1;
+acid_xyz_80_J_11=[];
+for i = 1:300
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\RealScatt_CoordTransform_2\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_11(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_11 = std(acid_xyz_80_J_11);
+mu_80_J_11 = mean(acid_xyz_80_J_11,1);
+
+counter = 1;
+acid_xyz_80_J_12=[];
+for i = 1:2000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\RealScatt_CoordTransform_3\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_12(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_12 = std(acid_xyz_80_J_12);
+mu_80_J_12 = mean(acid_xyz_80_J_12,1);
+
+%% Using Forward scattering to further narrow down the problem
+%%% Later on an artangent problem was identified
+counter = 1;
+acid_xyz_80_J_13=[];
+for i = 1:2000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\ForwardScatt_CoordTransform_0\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_13(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_13 = std(acid_xyz_80_J_13);
+mu_80_J_13 = mean(acid_xyz_80_J_13,1);
+
+counter = 1;
+acid_xyz_80_J_15=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\ForwardScatt_CoordTransform_d2\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_15(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_15 = std(acid_xyz_80_J_15);
+mu_80_J_15 = mean(acid_xyz_80_J_15,1);
+
+%% Forward Scattering with all known mathematical problem fixed
+counter = 1;
+acid_xyz_80_J_16=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\ForwardScatt_CoordTransform_1\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_16(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_16 = std(acid_xyz_80_J_16);
+mu_80_J_16 = mean(acid_xyz_80_J_16,1);
+
+%% Orthogonal Scattering for comparison with forward scattering
+counter = 1;
+acid_xyz_80_J_17=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\OrthogonalScatt_0\',...
+        'Ein=80.00_Dose=2.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_17(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_17 = std(acid_xyz_80_J_17);
+mu_80_J_17 = mean(acid_xyz_80_J_17,1);
+%% Orthogonal Scattering for comparison with forward scattering
+counter = 1;
+acid_xyz_80_J_18=[];
+for i = 1:1000
+    load(strcat('..\..\..\..\..\',...
+        'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\Quarter_nm_pixel_0\',...
+        'Ein=80.00_Dose=32.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+   if size(acid_xyz,1)>=1
+        acid_xyz_80_J_18(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
+        counter = counter+size(acid_xyz,1);
+    end
+end
+sig_80_J_18 = std(acid_xyz_80_J_18);
+mu_80_J_18 = mean(acid_xyz_80_J_18,1);
+
+figure(5001);
+hold off
+histogram(acid_xyz_80_J_18(:,1)-mu_80_J_18(1),21,'BinEdges',-5.25:0.5:5.25);
+hold on
+histogram(acid_xyz_80_J_18(:,2)-mu_80_J_18(2),21,'BinEdges',-5.25:0.5:5.25);
+histogram(acid_xyz_80_J_18(:,3)-mu_80_J_18(3),21,'BinEdges',-5.25:0.5:5.25);
+legend('x','y','z')
+
+%%% Angle distribution of acids
+r3_18 = acid_xyz_80_J_18(:,:)-mu_80_J_18(:)';
+r_18  = sqrt(r3_18(:,1).^2+r3_18(:,2).^2+r3_18(:,3).^2);
+acid_direction_18 = r3_18./r_18;
+figure(5002)
+hold off
+scatter3(acid_direction_18(:,1),...
+    acid_direction_18(:,2),...
+    acid_direction_18(:,3),'.')
+
 %% Calculating the spread (the 2-D gaussian width)
 com_80 = mean(acid_xyz_80,1);
 sig_xy_80 = sqrt((sum((acid_xyz_80(:,1)-com_80(1)).^2)...
