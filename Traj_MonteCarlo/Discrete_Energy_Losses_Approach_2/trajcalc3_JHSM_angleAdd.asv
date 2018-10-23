@@ -278,10 +278,8 @@ global illustration scattVector thetaLog;
                     SE_act_xyz_idx=[SE_act_xyz_idx pagidx(remove_idx)];
     %                 polym_img(pagidx(remove_idx))=polym_img(pagidx(remove_idx))+1;
                 end
-                %%%Register the acid generation events
-                acid_act_xyz_idx    =   [acid_act_xyz_idx pagidx(remove_idx)];
-                acid_act_xyz        =   [acid_act_xyz;...
-                    xEvent, yEvent, zEvent];
+                acid_act_xyz_idx=[acid_act_xyz_idx pagidx(remove_idx)];
+                acid_
                 act='acid';
             else
     %             Eloss_val=0; % if no pag available, no energy loss.
@@ -395,8 +393,7 @@ global illustration scattVector thetaLog;
         count=count+1;
     end
     pagdata.pagimg=pagimg;
-    pagdata.acid_act_xyz_idx    =   acid_act_xyz_idx;
-    pagdata.acid_act_xyz        =   acid_act_xyz;
+    pagdata.acid_act_xyz_idx=acid_act_xyz_idx;
 
     polymdata.polym_img=polym_img;
     polymdata.SE_act_xyz_idx=SE_act_xyz_idx;

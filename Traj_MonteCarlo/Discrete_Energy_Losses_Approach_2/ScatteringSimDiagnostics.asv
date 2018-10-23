@@ -67,25 +67,23 @@ hold off
 scatter3(acid_direction(:,1),...
     acid_direction(:,2),...
     acid_direction(:,3),'.')
-title('Distribution of direction of acids-pixelated coordinates');
-pbaspect([1 1 1]);
-
-figure(5003)
 hold off
+figure(5003)
 scatter3(acid_fine_direction(:,1),...
     acid_fine_direction(:,2),...
     acid_fine_direction(:,3),'.')
-title('Distribution of direction of acids-machine precision');
-pbaspect([1 1 1]);
+title('Distribution of direction of acids');
+legend('Pixelated coordinates','Machine precision coordinates')
+daspect([1 1 1]);
+axes = gca;
+axes.XLabel = 'nm';
 
-
-figure(5004);
+figure(5003);
 hold off
-histogram(r3,'BinEdges',-0.125:0.25:5.125);
+histogram(r3,21,'BinEdges',-0.125:0.25:5.125);
 hold on
-histogram(r3_fine,'BinEdges',-0.0625:0.125:5.0625);
 title('Radial Distribution of acids');
-legend('pixelated acid position','machine precision event position')
+legend('x','y','z')
 %% Distributions of angles
 figure(4000); hist(theta_init,20)
 title('Incident electrons theta distribution');

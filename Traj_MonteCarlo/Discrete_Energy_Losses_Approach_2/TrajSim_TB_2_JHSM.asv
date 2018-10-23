@@ -68,16 +68,16 @@ univ.size_nm=[50.25 50.25 50.25]; % nm
 % voxel size in nm
 univ.px_nm=px_nm;
 % size of the grid in # of voxels
-univ.npx=floor(univ.size_nm./univ.px_nm);
+univ.npx=ceil(univ.size_nm./univ.px_nm+1);
 
 % x,y,z coordinates of the voxels in nm
-xgrid=-univ.size_nm(1)/2+px_nm(1)/2     :px_nm(1)   :univ.size_nm(1)/2-px_nm(1)/2;
-ygrid=-univ.size_nm(2)/2+px_nm(2)/2     :px_nm(2)   :univ.size_nm(2)/2-px_nm(2)/2;
-zgrid=-univ.size_nm(3)/2+px_nm(3)/2     :px_nm(3)   :univ.size_nm(3)/2-px_nm(3)/2;
-% To generate a meshgrid whose indices correspond to axes (x,y,z)
+xgrid=-univ.size_nm(1)/2:px_nm(1):univ.size_nm(1)/2;%-px_nm(1);
+ygrid=-univ.size_nm(2)/2:px_nm(2):univ.size_nm(2)/2;%-px_nm(2);
+zgrid=-univ.size_nm(3)/2:px_nm(3):univ.size_nm(3)/2;%-px_nm(3);
+% To generate a meshgrid such that the indices correspond to axes (x,y,z)
 [ygrid,xgrid,zgrid]     =       meshgrid(ygrid,xgrid,zgrid);
 
-
+[xgrid,zgrid,ygrid]     =       meshgrid(xgrid,xgrid,zgrid);
 % converting line spaces into meshgrids
 univ.grid.x=xgrid;
 univ.grid.y=ygrid;
@@ -126,7 +126,7 @@ event{1}.lowEimfp=3.67;
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=300;
+ntrials=1;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);

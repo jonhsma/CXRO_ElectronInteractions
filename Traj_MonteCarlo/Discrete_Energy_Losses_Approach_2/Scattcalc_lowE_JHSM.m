@@ -65,7 +65,6 @@ global illustration secSpawningTheta;
                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                     secSpawningTheta = [secSpawningTheta ev2{j}.theta_in];
                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    %ev2{j}.theta_in=-pi+pi*rand;
                     ev2{j}.phi_in=2*pi*rand;
                     ev2{j}.scatt_Elim=scatt_Elim;
                     ev2{j}.lowEthr=lowEthr;
