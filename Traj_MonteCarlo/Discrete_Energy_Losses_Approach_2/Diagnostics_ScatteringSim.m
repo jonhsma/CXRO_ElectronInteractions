@@ -5,7 +5,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pull up a certain workspace from the data folder
 clear;
-nameOfRun = 'AcidEventPosLogging_0';
+nameOfRun = 'AcidEventPosLogging_1';
 load(strcat('..\..\..\..\',...
         'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
         nameOfRun,'\',...
@@ -44,13 +44,17 @@ mu_acid_fine    = mean(acid_fine_xyz_accul,1);
 
 %%% Sptial distribution of acids
 figure(5001);
-hold off
-histogram(acid_xyz_accul(:,1)-mu_acid(1),21,'BinEdges',-5.25:0.5:5.25);
-hold on
-histogram(acid_xyz_accul(:,2)-mu_acid(2),21,'BinEdges',-5.25:0.5:5.25);
-histogram(acid_xyz_accul(:,3)-mu_acid(3),21,'BinEdges',-5.25:0.5:5.25);
 title('Distribution of acid positions');
-legend('x','y','z')
+subplot(3,1,1)
+hold off
+histogram(acid_xyz_accul(:,1)-mu_acid(1),'BinEdges',-5.125:0.25:5.125);
+legend('x')
+subplot(3,1,2)
+histogram(acid_xyz_accul(:,2)-mu_acid(2),'BinEdges',-5.125:0.25:5.125);
+legend('y')
+subplot(3,1,3)
+histogram(acid_xyz_accul(:,3)-mu_acid(3),'BinEdges',-5.125:0.25:5.125);
+legend('z')
 
 %%% Angle distribution of acids
 r3      = acid_xyz_accul(:,:)-mu_acid(:)';
@@ -110,4 +114,14 @@ disp(std(xyz_electron_global(1:sampleSize/3,:)))
 disp(std(xyz_electron_global(sampleSize/3+1:sampleSize/3*2,:)))
 disp(std(xyz_electron_global(sampleSize/3*2+1:sampleSize,:)))
 
+mu_e = mean(xyz_electron_global);
+
+figure(4005);
+hold off
+histogram(xyz_electron_global(:,1)-mu_e(1),21,'BinEdges',-5.25:0.5:5.25);
+hold on
+histogram(xyz_electron_global(:,2)-mu_e(2),21,'BinEdges',-5.25:0.5:5.25);
+histogram(xyz_electron_global(:,3)-mu_e(3),21,'BinEdges',-5.25:0.5:5.25);
+title('Distribution of electron scattering event positions');
+legend('x','y','z')
 %%
