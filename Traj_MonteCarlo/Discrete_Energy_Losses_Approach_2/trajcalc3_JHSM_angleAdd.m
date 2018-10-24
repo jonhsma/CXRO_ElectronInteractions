@@ -4,7 +4,7 @@
 %%% This is a toy model in an attempt to dix the anisotropy problem
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [events,pagdata,polymdata]=trajcalc3_JHSM_angleAdd(event,scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid)
-global illustration scattVector thetaLog;
+global illustration scattVector thetaLog debugOutput;
 
     % Energy thresholds for various events
     pag_Eamin=5;
@@ -153,7 +153,7 @@ global illustration scattVector thetaLog;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% Debug: To select a known form of scattering
         %%%================================================================
-            scatteringDebug = 'orthogonal';
+            scatteringDebug = 'none';
         %%% (options are 'forward', 'orthogonal', 'random' and 
         %%% 'none'(which is equal to not intervening)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -281,8 +281,25 @@ global illustration scattVector thetaLog;
                 %%%Register the acid generation events
                 acid_act_xyz_idx    =   [acid_act_xyz_idx pagidx(remove_idx)];
                 acid_act_xyz        =   [acid_act_xyz;...
-                    xEvent, yEvent, zEvent];
+                    ones([length(remove_idx) 1])*[xEvent, yEvent, zEvent]];
                 act='acid';
+                
+                
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%     Debug code to figure out why the fine position arrays is
+                %%%     not as long as the pixelated one
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %{
+                if length(acid_act_xyz_idx)~=size(acid_act_xyz,1)
+                    debugObject = {};
+                    debugObject.condition   =   'The two acid vectors have different lengths';
+                    debugObject.level       =   'trajcalc';
+                    debugObject.coarseArrayLength   = length(acid_act_xyz_idx);
+                    debugObject.fineArrayLength     = size(acid_act_xyz,1);
+                    debugOutput{size(debugOutput,2)+1} = debugObject;
+                end                    
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %}
             else
     %             Eloss_val=0; % if no pag available, no energy loss.
     %             nacid=0;

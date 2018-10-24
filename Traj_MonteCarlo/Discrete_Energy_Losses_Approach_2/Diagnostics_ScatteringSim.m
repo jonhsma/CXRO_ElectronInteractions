@@ -5,63 +5,72 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pull up a certain workspace from the data folder
 clear;
-nameOfRun = 'AcidEventPosLogging_1';
+nameOfRun = 'RealScatt_80_1_1nmGrid';
 load(strcat('..\..\..\..\',...
         'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
         nameOfRun,'\',...
-        'WorkSpace.mat'))
+        'WorkSpace.mat'));
+res     =   1;
+doseStr =   '2.00';
 %% Pull up the acid distribution
 counter = 1;
 counter_f = 1;
 acid_xyz_accul=[];
+acid_fine_xyz_accul=[];
 for i = 1:1000
     try
         load(strcat('..\..\..\..\',...
             'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
             nameOfRun,...
-            '\Ein=80.00_Dose=32.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+            '\Ein=80.00_Dose=',doseStr,'epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
         if size(acid_xyz,1)>=1
             acid_xyz_accul(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
             counter = counter+size(acid_xyz,1);
         end
         if size(acid_fine_xyz,1)>=1
-            acid_fine_xyz_accul(counter:counter + size(acid_fine_xyz,1)-1,1:3)=acid_fine_xyz(:,:);
+            acid_fine_xyz_accul(counter_f:counter_f + size(acid_fine_xyz,1)-1,1:3)=acid_fine_xyz(:,:);
             counter_f = counter_f+size(acid_fine_xyz,1);
         end
         if counter_f~=counter
             fprintf('Length mismatch between pixelated acid positions and the continuous one')
         end        
     catch exception
+        disp(exception);
         fprintf('Problem reading the %d-th file\n', i);
         break;
     end
 end
-
 %% Acid Statistics
 sig_acid        = std(acid_xyz_accul);
 mu_acid         = mean(acid_xyz_accul,1);
 mu_acid_fine    = mean(acid_fine_xyz_accul,1);
 
+
 %%% Sptial distribution of acids
+binEdges = -5-res/2:res:5+res/2;
+
 figure(5001);
-title('Distribution of acid positions');
 subplot(3,1,1)
 hold off
-histogram(acid_xyz_accul(:,1)-mu_acid(1),'BinEdges',-5.125:0.25:5.125);
+histogram(acid_xyz_accul(:,1)-mu_acid(1),'BinEdges',binEdges);
+title('Distribution of acid positions-pixelated coorinates');
 legend('x')
 subplot(3,1,2)
-histogram(acid_xyz_accul(:,2)-mu_acid(2),'BinEdges',-5.125:0.25:5.125);
+histogram(acid_xyz_accul(:,2)-mu_acid(2),'BinEdges',binEdges);
 legend('y')
 subplot(3,1,3)
-histogram(acid_xyz_accul(:,3)-mu_acid(3),'BinEdges',-5.125:0.25:5.125);
+histogram(acid_xyz_accul(:,3)-mu_acid(3),'BinEdges',binEdges);
 legend('z')
 
 %%% Angle distribution of acids
 r3      = acid_xyz_accul(:,:)-mu_acid(:)';
 r3_fine = acid_fine_xyz_accul(:,:)-mu_acid_fine(:)';
+diff3   = acid_fine_xyz_accul-acid_xyz_accul;
 
 rabs        =   sqrt(r3(:,1).^2+r3(:,2).^2+r3(:,3).^2);
 rabs_fine   =   sqrt(r3_fine(:,1).^2+r3_fine(:,2).^2+r3_fine(:,3).^2);
+diffabs     =   sqrt(diff3(:,1).^2+diff3(:,2).^2+diff3(:,3).^2);
+
 
 acid_direction = r3./rabs;
 acid_fine_direction = r3_fine./rabs_fine;
@@ -82,12 +91,13 @@ scatter3(acid_fine_direction(:,1),...
 title('Distribution of direction of acids-machine precision');
 pbaspect([1 1 1]);
 
+radialBins = -res/8:res/4:5+res/8;
 
 figure(5004);
 hold off
-histogram(r3,'BinEdges',-0.125:0.25:5.125);
+histogram(rabs,'BinEdges',radialBins);
 hold on
-histogram(r3_fine,'BinEdges',-0.0625:0.125:5.0625);
+histogram(rabs_fine,'BinEdges',radialBins);
 title('Radial Distribution of acids');
 legend('pixelated acid position','machine precision event position')
 %% Distributions of angles
@@ -102,7 +112,7 @@ figure(4003);hist(thetaLog,20)
 title('theta distribution for all events');
 nBin = 7;
 binsX = round((pi/nBin/2:pi/nBin:pi-pi/nBin/2)*10)/10;
-figure(4004);hist(theta_global,binsX);
+figure(4004);hist(theta_global,-pi:pi/8:pi);
 title('Theta distribution for all events in scattering frame');
 %% Electron Statistics
 fprintf('Standard deviations and means of data\n');
@@ -124,4 +134,17 @@ histogram(xyz_electron_global(:,2)-mu_e(2),21,'BinEdges',-5.25:0.5:5.25);
 histogram(xyz_electron_global(:,3)-mu_e(3),21,'BinEdges',-5.25:0.5:5.25);
 title('Distribution of electron scattering event positions');
 legend('x','y','z')
-%%
+%% Event Activation Analysis
+figure(3000); 
+plot(rabs_fine,rabs,'.')
+title('Event and activation radial positions')
+xlabel('Event radial position')
+ylabel('Activated acid voxel center radial position')
+axis([0,5,0,5])
+
+figure(3001)
+plot(rabs_fine,diffabs,'.')
+title('Distance of activation')
+xlabel('Event radial position')
+ylabel('Distance between acid voxel center and activation event')
+axis([0,3,0,2.5])

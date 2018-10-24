@@ -40,7 +40,8 @@ function Elossrand=genrandEloss_OptData(varargin)
             return;
         end
     end
-
+    
+    %{
     %%%% Pick one of the several inelastic mechanisms [CAREFUL: ASSIGNING Sp
     %%%% Below]
     % inel_choice=choose_inelastic_mech(optdata.merm,Eo);
@@ -52,6 +53,7 @@ function Elossrand=genrandEloss_OptData(varargin)
     %     Spval=interp1(optdata.merm{inel_choice.idx}.E,optdata.merm{inel_choice.idx}.Sp,Eo);
     % end
     % Elossval=imfpval*Spval;
+    %}
 
     if do_dcscalc==1 
         %% Calculate the scattering directly

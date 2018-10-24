@@ -3,10 +3,6 @@
 %   the ElectronInteractions completely no change is needed for the paths
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% The illustration variable toggles whether explainative remarks show up
-global illustration
-illustration = 0;
-
 %% 0 Initialization
 clear;
 clc;
@@ -45,7 +41,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 
 % File output base path
 outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\AcidEventPosLogging_1\\');
+            'ElectronInteractions\\LEEMRes\\RealScatt_30_1\\');
         
 %% Globals for tracking purposes
 global  secSpawningTheta scattVector thetaLog;
@@ -55,6 +51,14 @@ global  secSpawningTheta scattVector thetaLog;
 secSpawningTheta =  [];
 scattVector      =  [];
 thetaLog         =  [];
+
+
+% The illustration variable toggles whether explainative remarks show up
+global illustration debugOutput;
+illustration = 0;
+debugOutput = {};
+%% Debug parameters
+debugCurrAcidArrayDiff = 0;
 
 %% 1 Creating the PAG grid
 rho_pag=0.4; % pag per nm^3
@@ -126,11 +130,11 @@ event{1}.lowEimfp=3.67;
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=300;
+ntrials=1000;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);
-Esweep=[80];
+Esweep=[30];
 % Esweep=[30];
 pathlen=[];
 Energy=[];
@@ -439,6 +443,23 @@ for E_count=1:length(Esweep)
         end
         %%% The activation event coordinate
         acid_fine_xyz   =   [acid_fine_xyz; acid_act_xyz];
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%     Debug code to figure out why the fine position arrays is
+        %%%     not as long as the pixelated one
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %{
+        if size(acid_xyz,1)-size(acid_fine_xyz,1)~= debugCurrAcidArrayDiff
+            debugObject = {};
+            debugObject.condition   =   'The difference between the two acid arrays changes';
+            debugObject.level       =   'trajsim_outer';
+            debugObject.coarseArrayLength   = size(acid_xyz,1);
+            debugObject.fineArrayLength     = size(acid_fine_xyz,1);
+            debugOutput{size(debugOutput,2)+1} = debugObject;
+            debugCurrAcidArrayDiff = size(acid_xyz,1)-size(acid_fine_xyz,1);
+        end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %}
         
         %%% Same thing for ions
         SE_act_xyz_idx  =polymdata.SE_act_xyz_idx;

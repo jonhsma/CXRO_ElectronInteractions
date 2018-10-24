@@ -3,10 +3,6 @@
 %   the ElectronInteractions completely no change is needed for the paths
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% The illustration variable toggles whether explainative remarks show up
-global illustration
-illustration = 0;
-
 %% 0 Initialization
 clear;
 clc;
@@ -45,7 +41,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 
 % File output base path
 outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\AcidEventPosLogging_1\\');
+            'ElectronInteractions\\LEEMRes\\RealScatt_80_3_PosArrayIssues\\');
         
 %% Globals for tracking purposes
 global  secSpawningTheta scattVector thetaLog;
@@ -56,28 +52,34 @@ secSpawningTheta =  [];
 scattVector      =  [];
 thetaLog         =  [];
 
+
+% The illustration variable toggles whether explainative remarks show up
+global illustration debugOutput;
+illustration = 0;
+debugOutput = {};
+
 %% 1 Creating the PAG grid
 rho_pag=0.4; % pag per nm^3
 rho_polym=6; % polymer per nm^3
 % rho_pag=0;
-px_nm=[1 1 1]*0.25;
+px_nm=[1 1 1]*01;
 
 % univ is the volume of concern
 % size of the grid in nm
-univ.size_nm=[50.25 50.25 50.25]; % nm
+univ.size_nm=[51 51 51]; % nm
 % voxel size in nm
 univ.px_nm=px_nm;
 % size of the grid in # of voxels
-univ.npx=ceil(univ.size_nm./univ.px_nm+1);
+univ.npx=floor(univ.size_nm./univ.px_nm);
 
 % x,y,z coordinates of the voxels in nm
-xgrid=-univ.size_nm(1)/2:px_nm(1):univ.size_nm(1)/2;%-px_nm(1);
-ygrid=-univ.size_nm(2)/2:px_nm(2):univ.size_nm(2)/2;%-px_nm(2);
-zgrid=-univ.size_nm(3)/2:px_nm(3):univ.size_nm(3)/2;%-px_nm(3);
-% To generate a meshgrid such that the indices correspond to axes (x,y,z)
+xgrid=-univ.size_nm(1)/2+px_nm(1)/2     :px_nm(1)   :univ.size_nm(1)/2-px_nm(1)/2;
+ygrid=-univ.size_nm(2)/2+px_nm(2)/2     :px_nm(2)   :univ.size_nm(2)/2-px_nm(2)/2;
+zgrid=-univ.size_nm(3)/2+px_nm(3)/2     :px_nm(3)   :univ.size_nm(3)/2-px_nm(3)/2;
+% To generate a meshgrid whose indices correspond to axes (x,y,z)
 [ygrid,xgrid,zgrid]     =       meshgrid(ygrid,xgrid,zgrid);
 
-[xgrid,zgrid,ygrid]     =       meshgrid(xgrid,xgrid,zgrid);
+
 % converting line spaces into meshgrids
 univ.grid.x=xgrid;
 univ.grid.y=ygrid;
@@ -126,7 +128,7 @@ event{1}.lowEimfp=3.67;
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=1;
+ntrials=3;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);
@@ -439,6 +441,19 @@ for E_count=1:length(Esweep)
         end
         %%% The activation event coordinate
         acid_fine_xyz   =   [acid_fine_xyz; acid_act_xyz];
+        
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%%     Debug code to figure out why the fine 
+        if size(acid_xyz,1)-size(acid_fine_xyz,1)~= debugcurDiff
+            debugObject = {};
+            debugObject.condition   =   'The difference between the two acid arrays changes';
+            debugObject.level       =   'trajsim_outer';
+            debugObject.coarseArrayLength   = size(acid_xyz,1);
+            debugObject.fineArrayLength     = size(acid_fine_xyz,1);
+            debugOutput{size(debugOutput,2)+1} = debugObject;
+            debugcurDiff = size(acid_xyz,1)-size(acid_fine_xyz,1);
+        end
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         %%% Same thing for ions
         SE_act_xyz_idx  =polymdata.SE_act_xyz_idx;
