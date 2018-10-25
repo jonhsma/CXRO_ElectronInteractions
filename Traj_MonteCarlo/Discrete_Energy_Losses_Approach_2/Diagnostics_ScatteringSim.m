@@ -5,13 +5,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pull up a certain workspace from the data folder
 clear;
-nameOfRun = 'RealScatt_80_1_1nmGrid';
+nameOfRun = 'RealScatt_80_0';
 load(strcat('..\..\..\..\',...
         'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
         nameOfRun,'\',...
         'WorkSpace.mat'));
-res     =   1;
-doseStr =   '2.00';
+res     =   0.4;
+doseStr =   '32.00';
+incEngy =   '80.00';
+set(0,'DefaultFigureWindowStyle','docked')
 %% Pull up the acid distribution
 counter = 1;
 counter_f = 1;
@@ -22,7 +24,8 @@ for i = 1:1000
         load(strcat('..\..\..\..\',...
             'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
             nameOfRun,...
-            '\Ein=80.00_Dose=',doseStr,'epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
+            '\Ein=',incEngy,'_Dose=',doseStr,...
+            'epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T',num2str(i),'.mat'))
         if size(acid_xyz,1)>=1
             acid_xyz_accul(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
             counter = counter+size(acid_xyz,1);
@@ -91,7 +94,7 @@ scatter3(acid_fine_direction(:,1),...
 title('Distribution of direction of acids-machine precision');
 pbaspect([1 1 1]);
 
-radialBins = -res/8:res/4:5+res/8;
+radialBins = 0:res/4:5;
 
 figure(5004);
 hold off

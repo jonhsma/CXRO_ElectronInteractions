@@ -116,9 +116,9 @@ global illustration scattVector thetaLog debugOutput;
             %% 3.1 Mermin based collision event simulation
             controlparm.onlyimfp=0;
             if isfield(scattdata.optical,'inel_dcsdata')
-                Elossrand_opt=genrandEloss_OptData(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
+                Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
             else
-                Elossrand_opt=genrandEloss_OptData(scattdata.optical,Eold,controlparm);
+                Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,controlparm);
             end
             Eloss_opt=Elossrand_opt.Eloss; % the optical energy loss
             theta_opt=Elossrand_opt.theta; % the optical theta
@@ -223,9 +223,12 @@ global illustration scattVector thetaLog debugOutput;
         %% 5. Energy Deposition [PAG activations? SE-gen?]
         %%% In react-propagate scenario, scattering takes place at the "old
         %%% coordinates"
-        xEvent     =   xold;
-        yEvent     =   yold;
-        zEvent     =   zold;
+        %%% In propagate-react scenario, scattering takes place at the "new
+        %%% coordinates"
+        
+        xEvent     =   xnew;
+        yEvent     =   ynew;
+        zEvent     =   znew;
         
         [pagidx,npags,polymidx,npolyms]=pag_v_polym([xEvent yEvent zEvent],pag_grid,pagimg,polym_img,pag_rcnrad); % react-then-move approach
         pag_ratio=npags/(npags+npolyms);
