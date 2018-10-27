@@ -7,19 +7,19 @@
 
 %% Select the runs to compare
 runsToCompare =...
-    { 'RealScatt_30_2_PropScatt';...
-    'RealScatt_30_1'};
+    { 'RealScatt_80_1_1nmGrid';...
+    'RealScatt_80_2_1nmGrid'};
 nRuns = size(runsToCompare,1);
 incEngy =...
-    {'30.00';'30.00'};
+    {'80.00';'80.00'};
 doseStr =...
-    {'32.00';'32.00'};
+    {'2.00';'2.00'};
 resultObject = cell([1 nRuns]);
 
 
 %% Display Settings
 %%% Setting the resolution of the histograms
-res = 0.25;
+res = 1;
 legendNotes = runsToCompare;
 for ii = 1:nRuns
     target             = strrep(runsToCompare{ii},'_','\_');

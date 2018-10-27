@@ -41,7 +41,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 
 % File output base path
 outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\RealScatt_80_5_PropScatt_1nmGrind\\');
+            'ElectronInteractions\\LEEMRes\\RealScatt_80_6_PropScatt_OffCntr\\');
         
 %% Globals for tracking purposes
 global  secSpawningTheta scattVector thetaLog;
@@ -59,12 +59,18 @@ illustration = 0;
 debugOutput = {};
 %% Debug parameters
 debugCurrAcidArrayDiff = 0;
-
+%% Model Parameters
+%%% The limit where scattering ceases
+SCATTERING_LOW_ENERGY_CUTOFF    =       20;
+%%% The energy where the electron enters low energy regime
+LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
+%%% Low energy random walk mean free path.
+LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %% 1 Creating the PAG grid
 rho_pag=0.4; % pag per nm^3
 rho_polym=6; % polymer per nm^3
 % rho_pag=0;
-px_nm=[1 1 1]*01;
+px_nm=[1 1 1]*0.25;
 
 % univ is the volume of concern
 % size of the grid in nm
@@ -122,15 +128,15 @@ event{1}.pag.rcnrad=3; % nm
 event{1}.pag.rho=rho_pag;
 % event{1}.controlparms.model_pag_devel=1;
 event{1}.univ=univ;
-event{1}.scatt_Elim=20;
-event{1}.lowEthr=20;
-event{1}.lowEimfp=3.67;
+event{1}.scatt_Elim     =   SCATTERING_LOW_ENERGY_CUTOFF;
+event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
+event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 3 Scan sweep parameters
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=1;
+ntrials=1000;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);

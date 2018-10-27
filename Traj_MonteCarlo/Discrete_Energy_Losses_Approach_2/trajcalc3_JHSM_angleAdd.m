@@ -142,8 +142,7 @@ global illustration scattVector thetaLog debugOutput;
             %% 3.2 Low energy random walk (Currently inaccessible)
             act='LowEnergy';
             theta = acos(2*rand-1);
-            phi=2*pi*rand;
-            
+            phi=2*pi*rand;            
         end
         
         % The angles in the scattering results are relative to the
@@ -203,7 +202,7 @@ global illustration scattVector thetaLog debugOutput;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         
-        %% 4. Post-event electron propagation
+        %% 4. Electron propagation
         rnew=exprnd(imfp); % exponential distribution        
 
         znew=zold+rnew*newUnitVec(3);

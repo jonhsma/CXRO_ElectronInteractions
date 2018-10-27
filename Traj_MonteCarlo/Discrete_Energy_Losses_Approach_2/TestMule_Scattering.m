@@ -21,7 +21,6 @@ addiParam = [];
 addiParam.onlyimfp =0;
 
 object = genrandEloss_OptData(scattdata.optical,80,scattdata.optical.inel_dcsdata,addiParam);
-optdata.inel_dcsdata
 
 %% The cross-section data
 energy = 80;
@@ -38,8 +37,12 @@ else
     dsigdOmega=dcs_data.dsigdOmega(idx,:);
 end
 figure(1000)
-plot(thetavec,dsigdOmega);
+hold off
+plot(thetavec,dsigdOmega/max(dsigdOmega));
+hold on
+plot(thetavec,sin(thetavec).*dsigdOmega/max(sin(thetavec).*dsigdOmega),'.');
 title('Cross-section per unit solid angle as a function of \theta');
+legend('d\sigma/d\Omega','Corresponding sine-weighted P(\theta)');
 xlabel('\theta angle')   
 
 %% The Monte Carlo--Toss the Dice
