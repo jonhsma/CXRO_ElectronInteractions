@@ -1,0 +1,23 @@
+Simulation started at 30-Oct-2018 16:31:29
+
+Energy 1 of 2; Trial 1 of 1000
+
+...Co-ordinate 1 of 2
+......Electron 1 of 2
+.........Scattcalc_lowE: Ese = 80.0000 eV
+............trajcalc3: E = 80.0000 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [37,1,0,742,0.0475,0,1,1,23.169,11.169,SE]
+............trajcalc3: E = 56.8310 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [41,1,0,691,0.0560,0,1,1,26.695,14.695,SE]
+............trajcalc3: E = 30.1361 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [40,1,1,708,0.0535,1,1,1,11.040,6.040,acid]
+...Took 0.78 s
+
+...Co-ordinate 2 of 2
+......Electron 2 of 2
+.........Scattcalc_lowE: Ese = 80.0000 eV
+............trajcalc3: E = 80.0000 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [37,1,0,737,0.0478,0,1,1,42.222,30.222,SE]
+............trajcalc3: E = 37.7778 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [38,1,1,729,0.0495,1,1,1,5.191,0.191,acid]
+............trajcalc3: E = 32.5869 eV

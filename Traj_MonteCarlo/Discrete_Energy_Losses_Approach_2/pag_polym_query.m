@@ -26,6 +26,8 @@ diff_sub    =   distPAG(idxPAG);
 if ~isempty(diff_sub)
     %%% Returning the indicies (for quering posPAG array) of the relavant PAGs 
     pagIdx  =   idxPAG(diff_sub==min(diff_sub));
+else
+    pagIdx  =   [];
 end
 %% Identifying the ionizable polymers
 %%% Total number of polymers inside the reaction radius

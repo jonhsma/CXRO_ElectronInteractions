@@ -24,7 +24,6 @@ global illustration scattVector thetaLog debugOutput;
     pagact_prob=0.1;
 
     %%%% get the PAG data
-    %pagimg=pagdata.pagimg;
     posPAG              =   pagdata.posPAG;
     %position of removed pags
     posPAG_removed      =   pagdata.posPAG_removed;
@@ -34,18 +33,11 @@ global illustration scattVector thetaLog debugOutput;
     acid_act_e_xyz      =   pagdata.acid_act_e_xyz;
 
     %%% polymer distribution matrix
-    %polym_img=polymdata.polym_img;
     posPolymer      =   polymdata.posPolymer;
     SE_act_xyz      =   polymdata.SE_act_xyz;
 
-    % pagimg=event.pag.img;
     pag_rcnrad=event.pag.rcnrad;
-%    pag_grid.x=event.univ.grid.x;
-%    pag_grid.y=event.univ.grid.y;
-%    pag_grid.z=event.univ.grid.z;
 
-%    pag_density=event.pag.rho; % pag density [/nm3 converted to /cm3];
-    Moldensity=1.2/120*6.02*1e23; % molecules/cm3
 
     while Eold>scatt_Elim
         fprintf(logfile_fid,'............trajcalc3: E = %.4f eV\n',Eold);
@@ -377,7 +369,8 @@ global illustration scattVector thetaLog debugOutput;
         Enew=Eold-Eloss_val;
 
         fprintf(logfile_fid,'............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [%d,%d,%d,%d,%.4f,%d,%d,%d,%.3f,%.3f,%s]\n',npags,length(pagidx),npags_removed,npolyms,pag_ratio,nacid,nion,nSE,Eloss_val,Ese,act);
-
+        
+        %% 6. Documenting the event
         xyzglobal.x=[xyzglobal.x xnew];
         xyzglobal.y=[xyzglobal.y ynew];
         xyzglobal.z=[xyzglobal.z znew];
@@ -400,15 +393,11 @@ global illustration scattVector thetaLog debugOutput;
         events{count}.nacid=nacid;
         events{count}.nacid_unsat=nacid_unsat;
         events{count}.nSE=nSE;
-        %%%%% update the pag image
-    %     events{count}.pag=event.pag;
-    %     events{count}.pag.img=pagimg;
-        events{count}.pag.rcnrad=pag_rcnrad;
-%        events{count}.pag.rho=pag_density;
-    %     events{count}.pag.acid_act_xyz_idx=acid_act_xyz_idx;
-%        events{count}.univ=event.univ;
 
-        %%%%% update the "old" variable values
+        events{count}.pag.rcnrad=pag_rcnrad;
+
+
+        %%%%% update the "old" (initial) variable values
         Eold=Enew;
         if length(Eold)>1
             dbg=1;

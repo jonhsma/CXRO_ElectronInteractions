@@ -10,6 +10,7 @@
 
 %% 0.0 Path and other basic initialization
 clear;
+clear global
 clc;
 close all;
 set(0,'DefaultFigureWindowStyle','docked')
@@ -46,7 +47,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 
 %% 0.0.1 File output base path
 outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\NoCoarseGrainTest_greasePan\\');
+            'ElectronInteractions\\LEEMRes\\NoCoarseGrain_0_Calib\\');
         
 %% 0.1 Globals for tracking
 global  secSpawningTheta scattVector thetaLog;
@@ -67,9 +68,17 @@ echoConfig.acid.perTrial    =   1;
 echoConfig.acid.perElectron =   1;
 echoConfig.acid.perTraj     =   1;
 
+echoConfig.traj3.perTrial   =   1;
+echoConfig.traj3.perEnergy  =   1;
+
+echoConfig.acidDist.active  =   1;
+echoConfig.acidDist.range   =   10; % 10 means from -10 to 10 m,
+echoConfig.acidDist.res     =   0.5;
+
 %%% Default graph numbers
 FIGURE_TRAJ_PER_TRIAL       =   7201;
-FIGURE_TRAJ_PER_ENERGY      =   7202;
+FIGURE_TRAJ_PER_ENERGY      =   72000;
+FIGURE_ACID_DIST_PERENERGY  =   72100;
 %% 0.3 Debug parameters
 global debugOutput ;
 debugOutput = {};
@@ -125,24 +134,18 @@ event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
 event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 %% 2 Scan sweep parameters
 % Number of trials per energy
-nTrials=10;
-eSweep=[80];
-
-tStart=tic;
-
-pathlen=[];
-Energy=[];
+nTrials     =   1000;
+eSweep      =   [80 30];
+tStart      =   tic;
 %% 3.1 Initiating electron incidence and dose parameters
 %%% No-matter-what-you're-using parameters
-nElectrons = 10; % number of electron per trial
-
+nElectrons = 2; % number of electron per trial
 %% 3.1.1 Stochastic volumetric dosing parameters
 dosingLimits =... The space within which dosing occurs
     [-0.5,-0.5,-0.5;...
     0.5,0.5,0.5]';
 % Is the total number of electrons definite (1) or a Poisson number (0)
 absoluteDosing = 0;
-
 %% 3.1.2 Dosing trajectory generator
 % The dosing trajectory (1:k) is the x position of the k-th electron
 dosingPath = zeros([3 100]);
@@ -167,7 +170,7 @@ else
     dose = nElectrons/prod(dosingLimits(:,2)-dosingLimits(:,1));
 end
 %% 4 The Simulation Loops
-%fig1=figure;
+
 logfile_fid=fopen('logfile.dat','w');
 fprintf(logfile_fid,'Simulation started at %s\n',datestr(now));
 
@@ -179,8 +182,7 @@ scanArchive = cell([length(eSweep) nTrials]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 meanAcids_thruE     =   zeros([1 length(eSweep)]);
 stdAcids_thruE      =   zeros([1 length(eSweep)]);
-
-% A loop through the energies of interest
+%% 4.1 Loop through the energies of interest
 for E_count=1:length(eSweep)
     %% 4..1 Iteration for an energy of interest
     event{1}.Ein=eSweep(E_count);
@@ -193,7 +195,7 @@ for E_count=1:length(eSweep)
     nacids_total2=[];
     Energy_global=[];
     imfp_global=[];
-    steplen_global=[];
+    stepLen_global=[];
     act_global={};
     theta_global=[];
     phi_global=[];
@@ -227,10 +229,14 @@ for E_count=1:length(eSweep)
     radius_ions_global      =   [];
     posAcid_TrAccu          =   [];
     posAcidAct_TrAccu       =   [];
-    
+    ion_xyz                 =   [];
     %% 4..2 Loop through the number of trials
     for trial_count=1:nTrials
         %% 4..2.1 Iteration for trial (Each trial is a clean start: a new system)
+        
+        %%% Logging metadata
+        scanArchive{E_count,trial_count}.energy         = eSweep(E_count);
+                
         %%% Array for acid positions of the acid
         acid_xyz=[];
         %%% Array for acid activation event positions
@@ -239,7 +245,7 @@ for E_count=1:length(eSweep)
         %%% Still need to figure out
         radius_acids=[];
         radius_ions=[];
-        ion_xyz=[];
+        ioyn_xz=[];
 
         tst_trials=tic;
         fprintf(logfile_fid,'\nEnergy %d of %d; Trial %d of %d\n',E_count,length(eSweep),trial_count,nTrials);
@@ -248,51 +254,11 @@ for E_count=1:length(eSweep)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% Legacy pag and polymer distribution generation
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-        %{
-        % The pag loading is re-initizlized here
-        % And so is the polymer loading
-        pagimg=rho_pag*prod(univ.px_nm).*ones(univ.npx);
-        polym_img=rho_polym*prod(univ.px_nm).*ones(univ.npx);
-        
-        %%%% Load your own pag and polym images
-%         tmpdata=load('Scratch_Folder\PAG_Polym_Images_29eVTests.mat');
-%         pagimg=tmpdata.pagimg_pre;
-%         polym_img=tmpdata.polymimg_orig;
-        
-        rng('shuffle');
-        pagimg=poissrnd(pagimg);
-        
-        rng('shuffle');
-        polym_img=poissrnd(polym_img);
-        rng('shuffle');
-        %}      
         %% 4..2.2 Pag and polymer positions generation
         
         posPAG      = randPosGen(SYSTEM_LIMITS,RHO_PAG*prod(SYSTEM_SIZE));
         posPolymer  = randPosGen(SYSTEM_LIMITS,RHO_POLYMER*prod(SYSTEM_SIZE));
         
-        %%% registering the properties of the original pag loading
-        %%% Commented out as the notion of a grid is gone. Need a new way
-        %%% to give the same information
-        %{
-        pagimg_orig=pagimg;
-        polymimg_orig=polym_img;
-        
-        fprintf(logfile_fid,'Initial <PAG> = %.4f/nm^3\n',mean(pagimg_orig(:))/prod(univ.px_nm));
-        fprintf(logfile_fid,'Initial <Polymer> = %.4f/nm^3\n',mean(polymimg_orig(:))/prod(univ.px_nm));
-        fprintf('\nEnergy %d of %d; Trial %d of %d\n',E_count,length(Esweep),trial_count,ntrials);
-        event{1}.pag.img=pagimg;
-        
-        %pagdata.pagimg              =   pagimg;
-        %polymdata.polym_img         =   polym_img;
-        
-        % Initialize the acid image
-        %acidimg=zeros(size(pagimg));
-        
-        %xyz_acids=[];radius_acids=[];
-        %nacids_thrutrial=[];
-        %}
-
         % Initializing the pag info structure (pagdata)
         
         pagdata.posPAG              =   posPAG;
@@ -313,11 +279,12 @@ for E_count=1:length(eSweep)
         
         %%% The sequence of positions to be dosed
         dosingSequence     =   dosingSequenceHandle(nElectrons);
+        scanArchive{E_count,trial_count}.dosingSequence = dosingSequence;
                 
         %%% Initializing the archive element (delayed till this point to
         %%% accomodate stochastic dosing (different number of electron per
         %%% each trial
-        scanArchive{trial_count,E_count}    =   cell([1 size(dosingSequence,2)]);
+        scanArchive{E_count,trial_count}.incidences    =   cell([1 size(dosingSequence,2)]);
         
         for incidence   =   1:size(dosingSequence,2)
             %% 4..3.1 Iteration for dosed positions
@@ -364,15 +331,15 @@ for E_count=1:length(eSweep)
                     size(posPAG_rmv_init,2)+1:...
                     size(pagdata.posPAG_removed,2))');
             end
-            %% 4..3.1 Documenting the results
+            %% 4..3.2 Documenting the results
             
-            scanArchive{E_count,trial_count}{incidence} = eventdata;
+            scanArchive{E_count,trial_count}.incidences{incidence} = eventdata;
 
             % Record the time spent on each incidence
             tend_coordinates=toc(tst_incidence);
             fprintf(logfile_fid,'...Took %.2f s\n',tend_coordinates);
         end
-        %% 4..2.3 Per Trial Logging and counting
+        %% 4..2.3 Post Trial Logging and counting
         
         %%% Do acid counting etc. right before next trial and energy values
         %%% are used:
@@ -391,13 +358,6 @@ for E_count=1:length(eSweep)
         nAcids_thruTrial(trial_count)       =   size(acid_xyz,1);
         meanAcids_thruTrial(trial_count)    =   size(acid_xyz,1)/size(dosingSequence,2);
         
-        %%% Update the global images
-        %{
-        %%% The pick-and-replace image
-        acidimg_global(acid_act_xyz_idx)    =acidimg(acid_act_xyz_idx);
-        %%% The culmulative image
-        acidimg_global2(acid_act_xyz_idx)   =acidimg_global2(acid_act_xyz_idx)+acidimg(acid_act_xyz_idx);
-        %}
         
         %%% Acid echo
         if echoConfig.acid.perTrial
@@ -429,10 +389,19 @@ for E_count=1:length(eSweep)
  
         %%% Same thing for ions
         SE_act_xyz  =   polymdata.SE_act_xyz;
-        ion_xyz=[ion_xyz;SE_act_xyz'];
-        
+        %%% The acuulmulative arrays
+        ion_xyz     =   [ion_xyz; SE_act_xyz'];
         nIons_thruTrial(trial_count)        =   size(SE_act_xyz,2);
         
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%% Putting things into the database
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %%% The positions of the acid and activation
+        scanArchive{E_count,trial_count}.acid_xyz       = acid_xyz;
+        scanArchive{E_count,trial_count}.activation_xyz = acid_act_e_xyz;
+        % The array indices are not included as they provide no information
+        % unless I includ the acid array as well
+        scanArchive{E_count,trial_count}.ion_xyz        = SE_act_xyz;
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %% Legacy radius statistics
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -461,57 +430,95 @@ for E_count=1:length(eSweep)
         else
             radius_acids_thrutrial{trial_count}=NaN;
         end
-        dbg=1;
-        
-        %%% Selective Saving
+        dbg=1;        
+        %% 4..2.4 Per Trial File Output
         save(sprintf(strcat(outputBasePath,...
             'Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat'),...
             eSweep(E_count),dose,event{1}.pag.rcnrad,trial_count),...
             'acid_xyz','acid_fine_xyz',...
-            'xyz_electron_global',...
             'ion_xyz');            
-        %% 4..2.4 Per Trial Trajectory Echo
-        figure(FIGURE_TRAJ_PER_TRIAL);
-        grid on
-        hold off
-        lengenEntries = cell(size(dosingSequence,2)+1);
-        for inIterator = 1:size(dosingSequence,2)
-            qX = [];
-            qY = [];
-            qZ = [];
-            qU = [];
-            qV = [];
-            qW = [];
-            nEvents     =   length(...
-                scanArchive{E_count,trial_count}{inIterator});
-            for eventIterator = 1:nEvents
-                this = scanArchive{E_count,trial_count}{inIterator}{eventIterator};
-                qX = [qX this.xyz_init(1)];
-                qY = [qY this.xyz_init(2)];
-                qZ = [qZ this.xyz_init(3)];
-                qU = [qU this.xyz(1)];
-                qV = [qV this.xyz(2)];
-                qW = [qW this.xyz(3)];
+        %% 4..2.5 Per Trial Trajectory Echo
+        if echoConfig.traj3.perTrial 
+            figure(FIGURE_TRAJ_PER_TRIAL);
+            grid on
+            hold off
+            if size(dosingSequence,2) <= 20
+                lengenEntries = cell(size(dosingSequence,2)+2);
+                for inIterator = 1:size(dosingSequence,2)
+                    qX = [];
+                    qY = [];
+                    qZ = [];
+                    qU = [];
+                    qV = [];
+                    qW = [];
+                    nEvents     =   length(...
+                        scanArchive{E_count,trial_count}.incidences{inIterator});
+                    for eventIterator = 1:nEvents
+                        this = scanArchive{E_count,trial_count}.incidences{inIterator}{eventIterator};
+                        qX = [qX this.xyz_init(1)];
+                        qY = [qY this.xyz_init(2)];
+                        qZ = [qZ this.xyz_init(3)];
+                        qU = [qU this.xyz(1)];
+                        qV = [qV this.xyz(2)];
+                        qW = [qW this.xyz(3)];
+                    end
+                    quiver3(qX,qY,qZ,qU-qX,qV-qY,qW-qZ,0,'-','LineWidth',2,...
+                        'Color',hsv2rgb(...
+                        [inIterator/size(dosingSequence,2),...
+                        1,1]));
+                    hold on
+                    legendEntries{inIterator} = strcat('Electron ',num2str(inIterator));
+                end
+                if length(acid_xyz) >=1
+                    quiver3(acid_act_e_xyz(:,1),acid_act_e_xyz(:,2),acid_act_e_xyz(:,3),...
+                        acid_xyz(:,1) - acid_act_e_xyz(:,1),...
+                        acid_xyz(:,2) - acid_act_e_xyz(:,2),...
+                        acid_xyz(:,3) - acid_act_e_xyz(:,3),...
+                        0,'--');
+                    scatter3(acid_xyz(:,1),acid_xyz(:,2),acid_xyz(:,3),'o')            
+                    legendEntries{size(dosingSequence,2)+1} = 'Acid Activation';
+                    legendEntries{size(dosingSequence,2)+2} = 'Acids';
+                end
+            else
+                qX = [];
+                qY = [];
+                qZ = [];
+                qU = [];
+                qV = [];
+                qW = [];
+                for inIterator = 1:size(scanArchive{E_count,trial_count}.incidences,2)
+                    nEvents     =   length(...
+                        scanArchive{E_count,trial_count}.incidences{inIterator});
+                    for eventIterator = 1:nEvents
+                        this = scanArchive{E_count,trial_count}.incidences{inIterator}{eventIterator};
+                        qX = [qX this.xyz_init(1)];
+                        qY = [qY this.xyz_init(2)];
+                        qZ = [qZ this.xyz_init(3)];
+                        qU = [qU this.xyz(1)];
+                        qV = [qV this.xyz(2)];
+                        qW = [qW this.xyz(3)];
+                    end
+                end
+                quiver3(qX,qY,qZ,qU-qX,qV-qY,qW-qZ,0,'.-','LineWidth',1);
+                legendEntries   =   {'Trajectories'};
+                hold on            
+                if length(posAcid_TrAccu) >=1
+                    quiver3(acid_act_e_xyz(:,1),acid_act_e_xyz(:,2),acid_act_e_xyz(:,3),...
+                        acid_xyz(:,1) - acid_act_e_xyz(:,1),...
+                        acid_xyz(:,2) - acid_act_e_xyz(:,2),...
+                        acid_xyz(:,3) - acid_act_e_xyz(:,3),...
+                        0,'--');
+                    scatter3(acid_xyz(:,1),acid_xyz(:,2),acid_xyz(:,3),'o') 
+                    legendEntries = [legendEntries {'Activations'},{'Acids Activated'}];
+                end
             end
-            quiver3(qX,qY,qZ,qU-qX,qV-qY,qW-qZ,0,'-','LineWidth',2);
-            hold on
-            legendEntries{inIterator} = strcat('Electron ',num2str(inIterator));
+            legend(legendEntries);
+            title('Trajectories and activation events in the last iteration')
+            daspect([1 1 1])
+            drawnow;
         end
-        if length(acid_xyz) >=1
-            quiver3(acid_act_e_xyz(:,1),acid_act_e_xyz(:,2),acid_act_e_xyz(:,3),...
-                acid_xyz(:,1) - acid_act_e_xyz(:,1),...
-                acid_xyz(:,2) - acid_act_e_xyz(:,2),...
-                acid_xyz(:,3) - acid_act_e_xyz(:,3),...
-                0,'--');
-            scatter3(acid_xyz(:,1),acid_xyz(:,2),acid_xyz(:,3),'o')            
-            legendEntries{size(dosingSequence,2)+1} = 'Acid Activation Moment';
-        end
-        legend(legendEntries);
-        title('Trajectories and activation event in the last iteration')
-        daspect([1 1 1])
-        drawnow;
     end
-    
+    %% 4..1.3 Per Energy House Keeping
     meanAcids_thruE(E_count)    =   mean(nAcids_thruTrial);
     stdAcids_thruE(E_count)     =   std(nAcids_thruTrial);
     
@@ -521,51 +528,135 @@ for E_count=1:length(eSweep)
 
     fprintf(logfile_fid,'%d; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));
     fprintf(1,'%d trials; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));    
-    %% 4..1.3 Per Energy Trajectory Echo
-    figure(FIGURE_TRAJ_PER_ENERGY);
-    grid on
-    hold off
-    qX = [];
-    qY = [];
-    qZ = [];
-    qU = [];
-    qV = [];
-    qW = [];
-    for trialIter   = 1:nTrials
-        for inIterator = 1:size(scanArchive{E_count,trialIter},2)
-            nEvents     =   length(...
-                scanArchive{E_count,trialIter}{inIterator});
-            for eventIterator = 1:nEvents
-                this = scanArchive{E_count,trialIter}{inIterator}{eventIterator};
-                qX = [qX this.xyz_init(1)];
-                qY = [qY this.xyz_init(2)];
-                qZ = [qZ this.xyz_init(3)];
-                qU = [qU this.xyz(1)];
-                qV = [qV this.xyz(2)];
-                qW = [qW this.xyz(3)];
+    %% 4..1.4 Per Energy Trajectory Echo
+    if echoConfig.traj3.perEnergy
+        figure(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count));
+        %%% Count the number of events
+        totalEventCountAtEnergy = 0;
+        grid on
+        hold off
+        qX = [];
+        qY = [];
+        qZ = [];
+        qU = [];
+        qV = [];
+        qW = [];
+        for trialIter   = 1:nTrials
+            for inIterator = 1:size(scanArchive{E_count,trialIter}.incidences,2)
+                nEvents     =   length(...
+                    scanArchive{E_count,trialIter}.incidences{inIterator});
+                for eventIterator = 1:nEvents
+                    totalEventCountAtEnergy = totalEventCountAtEnergy +1;
+                    this = scanArchive{E_count,trialIter}.incidences{inIterator}{eventIterator};
+                    qX = [qX this.xyz_init(1)];
+                    qY = [qY this.xyz_init(2)];
+                    qZ = [qZ this.xyz_init(3)];
+                    qU = [qU this.xyz(1)];
+                    qV = [qV this.xyz(2)];
+                    qW = [qW this.xyz(3)];
+                end
             end
         end
+        quiver3(qX,qY,qZ,qU-qX,qV-qY,qW-qZ,0,'.-','LineWidth',1);
+        hold on            
+        if length(posAcid_TrAccu) >=1
+            quiver3(posAcidAct_TrAccu(:,1),posAcidAct_TrAccu(:,2),posAcidAct_TrAccu(:,3),...
+                posAcid_TrAccu(:,1) - posAcidAct_TrAccu(:,1),...
+                posAcid_TrAccu(:,2) - posAcidAct_TrAccu(:,2),...
+                posAcid_TrAccu(:,3) - posAcidAct_TrAccu(:,3),...
+                0,'--');
+            scatter3(posAcid_TrAccu(:,1),posAcid_TrAccu(:,2),posAcid_TrAccu(:,3),...
+                'o')
+        end
+        title({strcat('Acid and Trajectory visuallization at h\nu = ',num2str(eSweep(E_count)),' eV');...
+            strcat(num2str(trial_count),' trials with',' ',...
+            num2str(nElectrons),' electrons per trial on average')});
+        legend({'Trajectories','Activations','Acids'});
+        daspect([1 1 1]);
+        drawnow;
     end
-    quiver3(qX,qY,qZ,qU-qX,qV-qY,qW-qZ,0,'.-','LineWidth',1);
-    hold on            
-    if length(posAcid_TrAccu) >=1
-        quiver3(posAcidAct_TrAccu(:,1),posAcidAct_TrAccu(:,2),posAcidAct_TrAccu(:,3),...
-            posAcid_TrAccu(:,1) - posAcidAct_TrAccu(:,1),...
-            posAcid_TrAccu(:,2) - posAcidAct_TrAccu(:,2),...
-            posAcid_TrAccu(:,3) - posAcidAct_TrAccu(:,3),...
-            0,'--');
-        scatter3(posAcid_TrAccu(:,1),posAcid_TrAccu(:,2),posAcid_TrAccu(:,3),...
-            'o')
+    %% 4..1.5 Per Energy Acid Distribution Echo
+    if echoConfig.acidDist.active
+        dispR = echoConfig.acidDist.range;
+        dispS = echoConfig.acidDist.res;
+        
+        binEdges = { -dispR-dispS/2:dispS:dispR+dispS/2, -dispR-dispS/2:dispS:dispR+dispS/2 };
+        axislabels = {'x (nm)','y(nm)','z(nm)'};
+        
+        figure(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count))
+        clf; 
+        
+        annotation('textbox',[0.15 0 .3 .05],'String','Linear Acid Density Map')
+        annotation('textbox',[0.65 0.95 .3 .05],'String','Log Acid Density Map')
+        for ii = 1:3
+            for jj = ii+1:3
+                [freq,posC] = hist3(posAcid_TrAccu(:,[jj ii]),binEdges);
+                sp = subplot(3,3,sub2ind([3 3],ii,jj));
+                im = imagesc([min(posC{2}) max(posC{2})],...
+                    [min(posC{1}) max(posC{1})],...
+                    freq);
+                daspect([1 1 1])
+                colormap(sp,'winter');
+                ylabel(axislabels{jj})
+                xlabel(axislabels{ii})
+
+                sp = subplot(3,3,sub2ind([3 3],jj,ii));
+                imagesc([min(posC{2}) max(posC{2})],...
+                    [min(posC{1}) max(posC{1})],...
+                    log(freq));
+                daspect([1 1 1])
+                colormap(sp,'default');
+                ylabel(axislabels{jj})
+                xlabel(axislabels{ii})
+            end
+            
+            subplot(3,3,sub2ind([3 3],ii,ii))
+            hold off;
+            histogram(posAcid_TrAccu(:,ii),binEdges{1},...
+                'Normalization','pdf');
+            hold on;
+            histogram(posAcidAct_TrAccu(:,ii),binEdges{1},...
+                'Normalization','pdf');
+            xlabel(axislabels{ii})
+            ylabel('Probability Density');
+            if ii ==1
+                legend({'Acid','Activation'},...
+                    'Position',[0.2 0.9 0.1 0.025],...
+                    'FontSize',6)
+            end
+        end 
     end
-    title({strcat('Acid and Trajectory visuallization at h\nu = ',num2str(eSweep(E_count)),' eV');...
-        strcat(num2str(nTrials),' trials with',' ',...
-        num2str(nElectrons),' electrons per trial on average')});
-    legend({'Trajectories','Activations','Acids'});
-    daspect([1 1 1]);
-    drawnow;
     
 end
-%% Final workspace export
+
+%% 5.1 Post processing for backward compatibility
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% The diagnostic script relies on certain arrays that I have abadoned. I
+%%% will recreate them to avoid problems further down the road.
+%%% === WARNING: THESE ARRAYS ONLY STORE DATA FROM THE LAST ENERGY ===
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+theta_global    = zeros([1 totalEventCountAtEnergy]);
+phi_global      = zeros([1 totalEventCountAtEnergy]);
+stepLen_global  = zeros([1 totalEventCountAtEnergy]);
+xyz_electron_global     = zeros([totalEventCountAtEnergy 3]);
+
+jj = 0;
+for trialIter   = 1:nTrials
+    for inIterator = 1:size(scanArchive{E_count,trialIter}.incidences,2)
+        nEvents     =   length(...
+            scanArchive{E_count,trialIter}.incidences{inIterator});
+        for eventIterator = 1:nEvents
+            jj = jj + 1;
+            this = scanArchive{E_count,trialIter}.incidences{inIterator}{eventIterator};
+            theta_global(jj)    =   this.theta;
+            phi_global(jj)      =   this.phi;
+            stepLen_global(jj)  =   this.pathlen;
+            xyz_electron_global(jj,:) =   this.xyz;
+        end
+    end
+end
+%% 5.2 Post Processing for visualization
+%% 6. Final workspace export
 %figure;
 %plot(eSweep,meanAcids_thruE,'-o','linewidth',3.0,'markersize',12);
 % errorbar(Esweep,meanAcids_thruE,stdAcids_thruE./sqrt(1200),'-o','linewidth',3.0,'markersize',12);

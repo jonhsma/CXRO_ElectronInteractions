@@ -5,21 +5,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pull up a certain workspace from the data folder
 clear;
-nameOfRun = 'ForwardScatt_CoordTransform_1';
+nameOfRun = 'NoCoarseGrainTest_greasePan';
 load(strcat('..\..\..\..\',...
         'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
         nameOfRun,'\',...
         'WorkSpace.mat'));
 res     =   1;
-doseStr =   '2.00';
+doseStr =   '0.00';
 incEngy =   '80.00';
+nTrails =   10;
 set(0,'DefaultFigureWindowStyle','docked')
 %% Pull up the acid distribution
 counter = 1;
 counter_f = 1;
 acid_xyz_accul=[];
 acid_fine_xyz_accul=[];
-for i = 1:1000
+for i = 1:nTrials
     try
         load(strcat('..\..\..\..\',...
             'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
@@ -30,11 +31,11 @@ for i = 1:1000
             acid_xyz_accul(counter:counter + size(acid_xyz,1)-1,1:3)=acid_xyz(:,:);
             counter = counter+size(acid_xyz,1);
         end
-        if exist('acid_fine_xyz')==1 && size(acid_fine_xyz,1)>=1
+        if exist('acid_fine_xyz','var')==1 && size(acid_fine_xyz,1)>=1
             acid_fine_xyz_accul(counter_f:counter_f + size(acid_fine_xyz,1)-1,1:3)=acid_fine_xyz(:,:);
             counter_f = counter_f+size(acid_fine_xyz,1);
         end
-        if counter_f~=counter && exist('acid_fine_xyz')==1
+        if counter_f~=counter && exist('acid_fine_xyz','var')==1
             fprintf('Length mismatch between pixelated acid positions and the continuous one\n')
         end        
     catch exception

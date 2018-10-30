@@ -42,7 +42,7 @@ global illustration secSpawningTheta echoConfig;
             %%%% Scattering model with proper coordinate transformation
             [ev2,pagdata,polymdata]=TrajectoryFollower(event{i},scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid);
             if echoConfig.acid.perTraj
-                fprintf('.........# of PAGs activated = %d\n',...
+                fprintf('# of PAGs activated in the last execution of the follower = %d\n',...
                    sum(isnan(pagdata.posPAG(1,:)))-sum(isnan(posPAG_init(1,:))));
             end
             if ~isempty(ev2)
