@@ -7,13 +7,13 @@
 
 %% Select the runs to compare
 runsToCompare =...
-    { 'RealScatt_80_1_1nmGrid';...
-    'RealScatt_80_2_1nmGrid'};
+    { 'RealScatt_80_4_PropScatt';...
+    'NoCoarseGrainTest_xpendable'};
 nRuns = size(runsToCompare,1);
 incEngy =...
     {'80.00';'80.00'};
 doseStr =...
-    {'2.00';'2.00'};
+    {'32.00';'32.00'};
 resultObject = cell([1 nRuns]);
 
 

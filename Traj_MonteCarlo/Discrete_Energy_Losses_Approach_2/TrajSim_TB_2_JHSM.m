@@ -41,7 +41,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 
 % File output base path
 outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\RealScatt_80_6_PropScatt_OffCntr\\');
+            'ElectronInteractions\\LEEMRes\\Legacy_GreasePan\\');
         
 %% Globals for tracking purposes
 global  secSpawningTheta scattVector thetaLog;
@@ -137,7 +137,7 @@ event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=1000;
+ntrials=10;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);
@@ -235,10 +235,12 @@ for E_count=1:length(Esweep)
     % A loop through the number of trials
     for trial_count=1:ntrials
         %% 5..2 Iteration for trial (Each trial is a clean start: a new system)
-        %%% Array for acid positions to the nearest voxel
+        %%% Array for acid positions of the nearest voxel
         acid_xyz=[];
         %%% Array for acid activation event positions
         acid_fine_xyz=[];
+        
+        %%% Still need to figure out
         radius_acids=[];
         radius_ions=[];
         ion_xyz=[];
