@@ -5,22 +5,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Pull up a certain workspace from the data folder
 clear;
-nameOfRun = 'NoCoarseGrainTest_greasePan';
+nameOfRun = 'NoCoarseGrain_2_OffCntr';
 load(strcat('..\..\..\..\',...
         'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
         nameOfRun,'\',...
         'WorkSpace.mat'));
-res     =   1;
+res     =   0.25;
 doseStr =   '0.00';
 incEngy =   '80.00';
-nTrails =   10;
+trialN =   1000;
 set(0,'DefaultFigureWindowStyle','docked')
 %% Pull up the acid distribution
 counter = 1;
 counter_f = 1;
 acid_xyz_accul=[];
 acid_fine_xyz_accul=[];
-for i = 1:nTrials
+for i = 1:trialN
     try
         load(strcat('..\..\..\..\',...
             'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
@@ -50,8 +50,9 @@ mu_acid         = mean(acid_xyz_accul,1);
 mu_acid_fine    = mean(acid_fine_xyz_accul,1);
 
 sampleSize = floor(size(acid_xyz_accul,1)/3)*3;
-fprintf('Standard Deviations of acid positions\n');
+fprintf('Standard Deviations and means of acid positions\n');
 disp(sig_acid)
+disp(mu_acid)
 fprintf('Standard deviations of subsets \n');
 disp(std(acid_xyz_accul(1:sampleSize/3,:)))
 disp(std(acid_xyz_accul(sampleSize/3+1:sampleSize/3*2,:)))

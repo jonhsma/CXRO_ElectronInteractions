@@ -71,7 +71,7 @@ LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 rho_pag=0.4; % pag per nm^3
 rho_polym=6; % polymer per nm^3
 % rho_pag=0;
-px_nm=[1 1 1]*0.25;
+px_nm=[1 1 1]*1;
 
 % univ is the volume of concern
 % size of the grid in nm
@@ -137,7 +137,7 @@ event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 % Number of trials per energy
 % ntrials=sum(absimg(:));
 % abspos=find(absimg~=0);
-ntrials=10;
+ntrials=40;
 tstart=tic;
 % Configuring Esweep
 % Esweep=linspace(20,100,5);

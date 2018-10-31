@@ -8,7 +8,7 @@
 %%%% written to make the code more modulari so using it with previous
 %%%% versions of functions might not be possible
 
-%% 0.0 Path and other basic initialization
+%% 0.0 --> Path and other basic initialization
 clear;
 clear global
 clc;
@@ -44,11 +44,30 @@ filename='DDCSdata_Fuji_Ef=15.5_Elossmin=0.001eV_Erange=[16,200].mat';
 
 scattdata.optical.inel_dcsdata=load([pathname filename]);
 scattdata.E_inel_thr=min(scattdata.optical.E);
-
-%% 0.0.1 File output base path
-outputBasePath  =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\NoCoarseGrain_0_Calib\\');
-        
+%% 0.0.1 --> File output base path
+outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
+            'ElectronInteractions\\LEEMRes\\');
+outputFolder    =   'NoCoarseGrain_3_FullFunction';
+outputBasePath  =   strcat(outputParent,outputFolder,'\\');
+%% 0.0.2 Output folder management
+if ~exist(outputBasePath,'file')
+       mkdir(outputBasePath);
+else
+    prompt = strcat('Folder already exists.',...
+        'Please confirm the folder name.',...
+        'WARNING: FILES IN THE EXISTING FOLDER WILL BE OVERWRITTEN. ',...
+        'Press cancel to abort execution');
+    promptTitle = 'Possible output data folder conflict';
+    prmptDims = [1 120];
+    promptDefInput = {outputFolder};
+    promptAnswer = inputdlg(prompt,promptTitle,prmptDims,promptDefInput);
+    
+    if max(size(promptAnswer))<1
+        return;
+    end
+    outputFolder = promptAnswer{1};
+    outputBasePath  =   strcat(outputParent,outputFolder,'\\');    
+end        
 %% 0.1 Globals for tracking
 global  secSpawningTheta scattVector thetaLog;
 
@@ -57,18 +76,17 @@ global  secSpawningTheta scattVector thetaLog;
 secSpawningTheta =  [];
 scattVector      =  [];
 thetaLog         =  [];
-
-%% 0.2 Illustrations and Echo
+%% 0.2 --> Illustrations and Echo
 % The illustration variable toggles whether explainative remarks show up
 global illustration echoConfig;
 illustration = 0;
 
 %%% Configuration for echos
-echoConfig.acid.perTrial    =   1;
-echoConfig.acid.perElectron =   1;
-echoConfig.acid.perTraj     =   1;
+echoConfig.acid.perTrial    =   0;
+echoConfig.acid.perElectron =   0;
+echoConfig.acid.perTraj     =   0;
 
-echoConfig.traj3.perTrial   =   1;
+echoConfig.traj3.perTrial   =   0;
 echoConfig.traj3.perEnergy  =   1;
 
 echoConfig.acidDist.active  =   1;
@@ -79,11 +97,12 @@ echoConfig.acidDist.res     =   0.5;
 FIGURE_TRAJ_PER_TRIAL       =   7201;
 FIGURE_TRAJ_PER_ENERGY      =   72000;
 FIGURE_ACID_DIST_PERENERGY  =   72100;
-%% 0.3 Debug parameters
+FIGURE_ACID_VS_ENERGY       =   1001;
+%% 0.3 --> Debug parameters
 global debugOutput ;
 debugOutput = {};
 debugCurrAcidArrayDiff = 0;
-%% 1.0 Model Parameters
+%% 1.0 --> Model Parameters
 %%% The limit where scattering ceases
 SCATTERING_LOW_ENERGY_CUTOFF    =       20;
 %%% The energy where the electron enters low energy regime
@@ -92,7 +111,7 @@ LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20;
 LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
-%% 1.1 System specification
+%% 1.1 --> System specification
 %%% These are constants so this is the only time where they are on the LHS
 %%% The x,y,z sizes of the system in nm
 SYSTEM_SIZE         =   [51; 51; 51];
@@ -132,21 +151,21 @@ event{1}.pag.rcnrad     =   ACID_REACTION_RADIUS; % nm
 event{1}.scatt_Elim     =   SCATTERING_LOW_ENERGY_CUTOFF;
 event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
 event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
-%% 2 Scan sweep parameters
+%% 2   --> Scan sweep parameters
 % Number of trials per energy
 nTrials     =   1000;
-eSweep      =   [80 30];
+eSweep      =   [80 55 30];
 tStart      =   tic;
-%% 3.1 Initiating electron incidence and dose parameters
+%% 3.1 --> Initiating electron incidence and dose parameters
 %%% No-matter-what-you're-using parameters
 nElectrons = 2; % number of electron per trial
-%% 3.1.1 Stochastic volumetric dosing parameters
+%% 3.1.1 --> Stochastic volumetric dosing parameters
 dosingLimits =... The space within which dosing occurs
     [-0.5,-0.5,-0.5;...
     0.5,0.5,0.5]';
 % Is the total number of electrons definite (1) or a Poisson number (0)
 absoluteDosing = 0;
-%% 3.1.2 Dosing trajectory generator
+%% 3.1.2 --> Dosing trajectory generator
 % The dosing trajectory (1:k) is the x position of the k-th electron
 dosingPath = zeros([3 100]);
     
@@ -201,6 +220,8 @@ for E_count=1:length(eSweep)
     phi_global=[];
     xyz_electron_global=[];
     
+    %%% Timing
+    tStart_E = tic;
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%% Trial Resolved Registers
@@ -439,7 +460,8 @@ for E_count=1:length(eSweep)
             'ion_xyz');            
         %% 4..2.5 Per Trial Trajectory Echo
         if echoConfig.traj3.perTrial 
-            figure(FIGURE_TRAJ_PER_TRIAL);
+            tdHandle = figure(FIGURE_TRAJ_PER_TRIAL);
+            tdHandle.Name = 'TrajMonitor';
             grid on
             hold off
             if size(dosingSequence,2) <= 20
@@ -522,15 +544,21 @@ for E_count=1:length(eSweep)
     meanAcids_thruE(E_count)    =   mean(nAcids_thruTrial);
     stdAcids_thruE(E_count)     =   std(nAcids_thruTrial);
     
-    tend=toc(tStart);
-    fprintf(logfile_fid,'Total time = %.4f s = %.4f min = %.4f hours\n',tend,tend/60,tend/3600);
-    fprintf('Total time = %.4f s = %.4f min = %.4f hours\n',tend,tend/60,tend/3600);
-
+    tend    = toc(tStart);    
+    tEnd_E  = toc(tStart_E);
+    fprintf(logfile_fid,'Total time elapsed = %.4f s = %.4f min = %.4f hours\n',tend,tend/60,tend/3600);
+    fprintf(logfile_fid,'Of which %.4f s = %.4f min = %.4f hours was spent ib the last energy cycle\n',...
+        tEnd_E,tEnd_E/60,tEnd_E/3600);
+    
+    fprintf('Total time elapsed = %.4f s = %.4f min = %.4f hours\n',tend,tend/60,tend/3600);
+    fprintf('Of which %.4f s = %.4f min = %.4f hours was spent on the last energy cycle\n',...
+        tEnd_E,tEnd_E/60,tEnd_E/3600);
     fprintf(logfile_fid,'%d; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));
     fprintf(1,'%d trials; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));    
     %% 4..1.4 Per Energy Trajectory Echo
     if echoConfig.traj3.perEnergy
-        figure(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count));
+        edHandle = figure(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count));
+        edHandle.Name = strcat('Trajectory-',num2str(eSweep(E_count)),'eV');
         %%% Count the number of events
         totalEventCountAtEnergy = 0;
         grid on
@@ -574,6 +602,19 @@ for E_count=1:length(eSweep)
         legend({'Trajectories','Activations','Acids'});
         daspect([1 1 1]);
         drawnow;
+    else
+        %%% Still the number of events needs to be counted for the legacy
+        %%% variables. Should have moved them to outside of the loop
+        totalEventCountAtEnergy = 0;
+        for trialIter   = 1:nTrials
+            for inIterator = 1:size(scanArchive{E_count,trialIter}.incidences,2)
+                nEvents     =   length(...
+                    scanArchive{E_count,trialIter}.incidences{inIterator});
+                for eventIterator = 1:nEvents
+                    totalEventCountAtEnergy = totalEventCountAtEnergy +1;
+                end
+            end
+        end
     end
     %% 4..1.5 Per Energy Acid Distribution Echo
     if echoConfig.acidDist.active
@@ -583,29 +624,38 @@ for E_count=1:length(eSweep)
         binEdges = { -dispR-dispS/2:dispS:dispR+dispS/2, -dispR-dispS/2:dispS:dispR+dispS/2 };
         axislabels = {'x (nm)','y(nm)','z(nm)'};
         
-        figure(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count))
+        esHandle    =   figure(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count));
+        esHandle.Name = strcat('Summary-',num2str(eSweep(E_count)),'eV');
         clf; 
         
-        annotation('textbox',[0.15 0 .3 .05],'String','Linear Acid Density Map')
-        annotation('textbox',[0.65 0.95 .3 .05],'String','Log Acid Density Map')
+        annotation('textbox',[0.15 0.0025 .23 .05],'String','Linear Acid Density Maps')
+        annotation('textbox',[0.7 0.9475 .21 .05],'String','Log Acid Density Maps')
         for ii = 1:3
             for jj = ii+1:3
                 [freq,posC] = hist3(posAcid_TrAccu(:,[jj ii]),binEdges);
                 sp = subplot(3,3,sub2ind([3 3],ii,jj));
+                hold off
                 im = imagesc([min(posC{2}) max(posC{2})],...
                     [min(posC{1}) max(posC{1})],...
                     freq);
                 daspect([1 1 1])
                 colormap(sp,'winter');
+                hold on
+                contour(posC{2},posC{1},...
+                    freq,[0 0.05*max(max(freq))],'w')
                 ylabel(axislabels{jj})
                 xlabel(axislabels{ii})
 
                 sp = subplot(3,3,sub2ind([3 3],jj,ii));
+                hold off;
                 imagesc([min(posC{2}) max(posC{2})],...
                     [min(posC{1}) max(posC{1})],...
                     log(freq));
                 daspect([1 1 1])
+                hold on
                 colormap(sp,'default');
+                contour(posC{2},posC{1},...
+                    log(freq),3,'w')
                 ylabel(axislabels{jj})
                 xlabel(axislabels{ii})
             end
@@ -625,11 +675,10 @@ for E_count=1:length(eSweep)
                     'FontSize',6)
             end
         end 
-    end
-    
+    end    
 end
 
-%% 5.1 Post processing for backward compatibility
+%% 5 Post processing for backward compatibility
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% The diagnostic script relies on certain arrays that I have abadoned. I
 %%% will recreate them to avoid problems further down the road.
@@ -655,14 +704,31 @@ for trialIter   = 1:nTrials
         end
     end
 end
-%% 5.2 Post Processing for visualization
-%% 6. Final workspace export
-%figure;
-%plot(eSweep,meanAcids_thruE,'-o','linewidth',3.0,'markersize',12);
-% errorbar(Esweep,meanAcids_thruE,stdAcids_thruE./sqrt(1200),'-o','linewidth',3.0,'markersize',12);
-%xlabel('E (eV)');
-%ylabel('Mean number of acids');
-%set(gca,'fontsize',30,'linewidth',3.0);
-
+%% 6.1 Additional Graphs
+aveHandle = figure(FIGURE_ACID_VS_ENERGY);
+aveHandle.Name = 'Acid_IncidentEnergy';
+plot(eSweep,meanAcids_thruE,'-o','linewidth',3.0,'markersize',12);
+errorbar(eSweep,meanAcids_thruE,stdAcids_thruE/sqrt(nTrials),...
+    '--o','linewidth',2.0,'markersize',5);
+xlabel('E (eV)');
+ylabel('Mean number of acids');
+set(gca,'fontsize',20,'linewidth',2.0);
+%% 6.2 Saving Graphs
+if ~exist(strcat(outputBasePath, '\graphics'),'file')
+       mkdir(strcat(outputBasePath, '\graphics'));
+end
+graphicFolderName = strcat(outputBasePath, '\graphics');   
+figList = findobj(allchild(0), 'flat', 'Type', 'figure');
+for iFig = 1:length(figList)
+  figHandle = figList(iFig);
+  figName   = get(figHandle, 'Name');
+  %savefig(figHandle, fullfile(graphicFolderName, figName, '.fig'));
+  if ~isempty(num2str(figHandle.Number))>0
+    saveas(figHandle,fullfile(graphicFolderName,...
+        strcat('figure',num2str(figHandle.Number),...
+        figName,'.pdf')));
+  end
+end
+%% 6.2 Final workspace export
 save(sprintf(strcat(outputBasePath,...
             'WorkSpace')));

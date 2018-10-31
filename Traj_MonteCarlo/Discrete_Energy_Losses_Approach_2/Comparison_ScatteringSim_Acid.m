@@ -7,19 +7,20 @@
 
 %% Select the runs to compare
 runsToCompare =...
-    { 'RealScatt_80_4_PropScatt';...
-    'NoCoarseGrain_Test_1'};
+    {'RealScatt_80_6_PropScatt_OffCntr';...
+    'RealScatt_80_4_PropScatt'};
+    %'NoCoarseGrain_0_Calib'};
 nRuns = size(runsToCompare,1);
 incEngy =...
     {'80.00';'80.00'};
 doseStr =...
-    {'32.00';'0.00'};
+    {'32.00';'32.00'};
 resultObject = cell([1 nRuns]);
 
 
 %% Display Settings
 %%% Setting the resolution of the histograms
-res = 1;
+res = 0.5;
 legendNotes = runsToCompare;
 for ii = 1:nRuns
     target             = strrep(runsToCompare{ii},'_','\_');
@@ -102,31 +103,20 @@ end
 %% Acid linear Histograms
 binEdges = -5-res/2:res:5+res/2;
 figure(5010);
-subplot(3,1,1)
-hold off
-for ii=1:nRuns
-    this = resultObject{1,ii};
-    histogram(this.r3(:,1),...
-        'BinEdges',binEdges,'Normalization','probability');
-    hold on
-end
-title('Distribution of acid positions-pixelated coorinates');
-legend(legendNotes)
-subplot(3,1,2)
-hold off
-for ii=1:nRuns
-    this = resultObject{1,ii};
-    histogram(this.r3(:,2),...
-        'BinEdges',binEdges,'Normalization','probability');
-    hold on
-end
-subplot(3,1,3)
-hold off
-for ii=1:nRuns
-    this = resultObject{1,ii};
-    histogram(this.r3(:,3),...
-        'BinEdges',binEdges,'Normalization','probability');
-    hold on
+
+for iDim = 1:3
+    subplot(3,1,iDim)
+    hold off
+    for ii=1:nRuns
+        this = resultObject{ii};
+        histogram(this.acid_xyz_accul(:,iDim),...
+            'BinEdges',binEdges,'Normalization','probability');
+        hold on
+    end
+    if iDim ==1
+        title('Distribution of acid positions-pixelated coorinates');
+        legend(legendNotes)
+    end
 end
 xlabel('position (nm)')
 %% Acid radial histograms
