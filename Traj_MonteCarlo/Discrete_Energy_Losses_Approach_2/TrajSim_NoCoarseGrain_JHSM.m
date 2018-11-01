@@ -47,7 +47,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'NoCoarseGrain_3_FullFunction';
+outputFolder    =   'NoCoarseGrain_5_PizzaEmission';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 %% 0.0.2 Output folder management
 if ~exist(outputBasePath,'file')
@@ -154,9 +154,9 @@ event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
 nTrials     =   1000;
-eSweep      =   [80 55 30];
+eSweep      =   [80 60 45 30];
 tStart      =   tic;
-%% 3.1 --> Initiating electron incidence and dose parameters
+%% 3.1 --> Initial electron incidence and dose parameters
 %%% No-matter-what-you're-using parameters
 nElectrons = 2; % number of electron per trial
 %% 3.1.1 --> Stochastic volumetric dosing parameters
@@ -174,7 +174,7 @@ manualDose = 0;
 % If array is not empty the path will be used automatically unless mandate
 % by mandatoryRandom (which allows you to keep the path)
 mandatorySequenceRandom = 0;
-%% 3.2 Generatlized electron dosing sequence generator
+%% 3.1.3 Generatlized electron dosing sequence generator
 % The dosingSequence Handle will give an array of size 3-by-n nomatter
 % which method is selected for each trial. Function handle allows random distribution to
 % be randomized for every trial
@@ -188,6 +188,27 @@ else
     dosingSequenceHandle = @(n)randPosGen(dosingLimits,n);
     dose = nElectrons/prod(dosingLimits(:,2)-dosingLimits(:,1));
 end
+%% 3.2 --> Electron angular distribution handle (Not having real effect at the moment)
+% One can specify the per unit solid angle distribution (as a function of
+% theta) of the incident electrons
+
+%%% Resolution of theta axis. The PDF is generated onece so the resolution
+%%% of the theta axis shouldn't matter
+incTGThetaN    = 1000;   
+incTGThetaAxis = 0:pi/incTGThetaN:pi;
+%% 3.2.1 --> The probability distribution. Need not worry about normalization
+%%% DO NOT sine weight as sine weighing is included in the CDF generation
+incTGPDF       = sin(incTGThetaAxis).^38;
+%% 3.2.2 Obtain the culmulative ditribution
+incTGCDF       = zeros([1 incTGThetaN+1]);
+for i = 2:incTGThetaN+1
+    incTGCDF(i)       = trapz(incTGThetaAxis(1:i),...
+        sin(incTGThetaAxis(1:i)).*incTGPDF(1:i));
+end
+%%% Ensur the culmulative distribution goes to 1 at pi
+incTGCDF    =   incTGCDF/incTGCDF(end);
+%%% Declear the handle
+thetaGenHandle = @(x)randgen(incTGThetaAxis,incTGCDF,x); 
 %% 4 The Simulation Loops
 
 logfile_fid=fopen('logfile.dat','w');
@@ -250,7 +271,7 @@ for E_count=1:length(eSweep)
     radius_ions_global      =   [];
     posAcid_TrAccu          =   [];
     posAcidAct_TrAccu       =   [];
-    ion_xyz                 =   [];
+    ionXyz_TrAccu           =   [];
     %% 4..2 Loop through the number of trials
     for trial_count=1:nTrials
         %% 4..2.1 Iteration for trial (Each trial is a clean start: a new system)
@@ -324,11 +345,12 @@ for E_count=1:length(eSweep)
             %Suchit's initialization
             %event{1}.theta_in=-pi+pi*rand;                 
             %Jonathan's initialization
-            cosTheta    =   rand(1)*2-1;
-            event{1}.theta_in = acos(cosTheta);
+            %cosTheta    =   rand(1)*2-1;
+            %event{1}.theta_in = acos(cosTheta);            
+            event{1}.theta_in = thetaGenHandle(1);
             theta_init  =   [theta_init event{1}.theta_in];
             rng('shuffle');
-            event{1}.phi_in=2*pi*rand; % Actually this does nothing, as in trajcalc3, first phi used is sampled from distributions
+            event{1}.phi_in=2*pi*rand; 
 
             %%% Initialize the array that stores all events from this
             %%% electron
@@ -336,10 +358,8 @@ for E_count=1:length(eSweep)
 
             % Again, registering the pre scattering pag 
             % and polymer loading
-            %pagimg_pre      =   pagdata.pagimg;
             posPAG_init     =   pagdata.posPAG;
             posPAG_rmv_init =   pagdata.posPAG_removed;
-            %polym_img       =   polymdata.polym_img;
             posPolymer_init =   polymdata.posPolymer;
 
             % The scattering engine itself
@@ -411,7 +431,7 @@ for E_count=1:length(eSweep)
         %%% Same thing for ions
         SE_act_xyz  =   polymdata.SE_act_xyz;
         %%% The acuulmulative arrays
-        ion_xyz     =   [ion_xyz; SE_act_xyz'];
+        ionXyz_TrAccu     =   [ionXyz_TrAccu; SE_act_xyz'];
         nIons_thruTrial(trial_count)        =   size(SE_act_xyz,2);
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -432,9 +452,9 @@ for E_count=1:length(eSweep)
         %%% same spot, these numbers don't mean much
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         if nIons_thruTrial(trial_count)>0
-            radius_ions=sqrt((ion_xyz(:,1)-xval).^2+...
-                (ion_xyz(:,2)-yval).^2+...
-                (ion_xyz(:,3)-zval).^2);
+            radius_ions=sqrt((ionXyz_TrAccu(:,1)-xval).^2+...
+                (ionXyz_TrAccu(:,2)-yval).^2+...
+                (ionXyz_TrAccu(:,3)-zval).^2);
             radius_ions_thrutrial{trial_count}=radius_ions;
             radius_ions_global=[radius_ions_global;radius_ions];
         else
@@ -457,7 +477,7 @@ for E_count=1:length(eSweep)
             'Ein=%.2f_Dose=%.2fepnm2_Ef=15.5_pag-Emin=5_rcnrad=%.2f_PAG=0.4_T%d.mat'),...
             eSweep(E_count),dose,event{1}.pag.rcnrad,trial_count),...
             'acid_xyz','acid_fine_xyz',...
-            'ion_xyz');            
+            'SE_act_xyz');            
         %% 4..2.5 Per Trial Trajectory Echo
         if echoConfig.traj3.perTrial 
             tdHandle = figure(FIGURE_TRAJ_PER_TRIAL);

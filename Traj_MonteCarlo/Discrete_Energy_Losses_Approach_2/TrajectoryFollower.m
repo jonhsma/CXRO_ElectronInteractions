@@ -75,9 +75,9 @@ global illustration scattVector thetaLog debugOutput;
         controlparm.onlyimfp=1;            
 
         if isfield(scattdata.optical,'inel_dcsdata')
-            Elossrand_opt=genrandEloss_OptData(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
+            Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
         else
-            Elossrand_opt=genrandEloss_OptData(scattdata.optical,Eold,controlparm);
+            Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,controlparm);
         end
         if Eold>event.lowEthr
             controlparm.onlyimfp=0;
