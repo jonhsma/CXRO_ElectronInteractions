@@ -5,10 +5,13 @@ if nargin<1
 end
 
 E=varargin{1};
+
 %%%% The mermin fit parameters: OLD
+%{
 A_merm=[0.1152 0.4 0.012];
 Ei_merm=[6.8 26.5 55];
 gamma_merm=[6 13 32];
+%}
 
 %%%% The mermin fit parameters: Newest, lsqfit 
 A_merm=[0.051 0.295 0.224 0.001];
@@ -20,9 +23,10 @@ gamma_merm=[3.14 10.69 26.49 24];
 % gamma_merm=[13 32];
     
 if nargin==2
-    A_merm=mermparms.Ai;
-    Ei_merm=mermparms.Ei;
-    gamma_merm=mermparms.gamma;
+    mermparams     =   varargin{2};
+    A_merm          =   mermparams.Ai;
+    Ei_merm         =   mermparams.Ei;
+    gamma_merm      =   mermparams.gamma_i;
 end
 
 %%%%% physical parameters:
@@ -117,13 +121,13 @@ for count = 1:length(E)
         end
         integrand=1./(pi*ao.*Ei).*ELF.*1./qvec;
         dsigdE(count,i)=trapz(qvec,integrand);
-        Elossmat(count,i)=Eloss(i);
+        eLossMat(count,i)=Eloss(i);
     end
     iimfp=trapz(Eloss,dsigdE(count,:));
     imfp=1./iimfp.*1e9; % invert, then convert to nm
 end
 
-outparms.Elossmat=Elossmat;
+outparms.eLossMat=eLossMat;
 outparms.dsigdE=dsigdE;
 outparms.imfp=imfp;
 % imfp=1./(sigTot.*na).*1e7; % convert to nm

@@ -7,14 +7,14 @@
 
 %% Select the runs to compare
 runsToCompare =...
-    {'RealScatt_80_6_PropScatt_OffCntr';...
-    'RealScatt_80_4_PropScatt'};
+    {'ScatteringRefactor_Ref_1';...
+    'NoCoarseGrain_5_PizzaEmission'};
     %'NoCoarseGrain_0_Calib'};
 nRuns = size(runsToCompare,1);
 incEngy =...
     {'80.00';'80.00'};
 doseStr =...
-    {'32.00';'32.00'};
+    {'0.00';'0.00'};
 resultObject = cell([1 nRuns]);
 
 
@@ -26,6 +26,8 @@ for ii = 1:nRuns
     target             = strrep(runsToCompare{ii},'_','\_');
     legendNotes{ii} = target;
 end
+cumOption   =   'cdf';
+distOption  =   'pdf';
 %% Pull up the acid distribution
 for runCnt = 1:size(runsToCompare,1)
     counter = 1;
@@ -126,7 +128,7 @@ hold off
 for ii=1:nRuns
     this = resultObject{1,ii};
     histogram(this.rabs(:,1),...
-        'BinEdges',binEdges,'Normalization','count');
+        'BinEdges',binEdges,'Normalization',distOption);
     hold on
 end
 title('RadialDistribution of acids')
@@ -138,7 +140,7 @@ hold off
 for ii=1:nRuns
     this = resultObject{1,ii};
     histogram(this.rabs(:,1),...
-        'BinEdges',binEdges,'Normalization','cumcount');
+        'BinEdges',binEdges,'Normalization',cumOption);
     hold on
 end
 title('Culmulative Radial Counts of Acids')
@@ -150,7 +152,7 @@ hold off
 for ii=1:nRuns
     this = resultObject{1,ii};
     histogram(this.rabs_fine(:,1),...
-        'BinEdges',binEdges,'Normalization','count');
+        'BinEdges',binEdges,'Normalization',distOption);
     hold on
 end
 title('RadialDistribution of Activation Events')
@@ -164,7 +166,7 @@ hold off
 for ii=1:nRuns
     this = resultObject{1,ii};
     histogram(this.rabs_fine(:,1),...
-        'BinEdges',binEdges,'Normalization','cumcount');
+        'BinEdges',binEdges,'Normalization',cumOption);
     hold on
 end
 title('Cumulatice Radial Distribution of Activation Events')

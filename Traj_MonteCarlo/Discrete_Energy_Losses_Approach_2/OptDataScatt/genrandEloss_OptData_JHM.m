@@ -6,16 +6,15 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
         error('genrandEloss_OptData: Need at least 2 inputs\n');
     end
     % If there are exactly 2 arguments
-    optdata=varargin{1};
-    Eo=varargin{2};
+    optdata         =   varargin{1};
+    incidentEnergy  =   varargin{2};
     do_dcscalc=1;
     % If there are 3 arguments, DCS doesn't need to be balculated
     if nargin>=3
-        dcs_datafile=varargin{3};
+        dcs_datafile    =   varargin{3};
         do_dcscalc=0;
     end
-
-    %% Calculating IMFP
+    %% Calculating IMFP (And the cross-sections are returned as well)
     Evec=optdata.E;
     imfpvec=optdata.imfp;
     Spvec=optdata.Sp;
@@ -26,7 +25,7 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
     Sp_fit(Sp_fit<0)=0;
 
     % imfpval=interp1(Efit,imfp_fit,Eo);
-    imfpval=interp1(optdata.E,optdata.imfp,Eo,'linear');
+    imfpval=interp1(optdata.E,optdata.imfp,incidentEnergy,'linear');
     if isnan(imfpval)
     %     warning('WARNING in genrandEloss_optData: imfpval = NaN; Energy = %.4f eV; Setting imfp to Inf!!\n',Eo);
         imfpval=Inf;
@@ -50,15 +49,19 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
         theta_sweep.delta_theta=1;
         theta_sweep.theta=[0:theta_sweep.delta_theta:90].*pi/180;
 
-        mermparms.Ai=[0.1152 0.4 0.012];
-        mermparms.Ei=[6.8 26.5 55];
-        mermparms.gamma_i=[6 13 32];
+        mermparams.Ai=[0.1152 0.4 0.012];
+        mermparams.Ei=[6.8 26.5 55];
+        mermparams.gamma_i=[6 13 32];
 
-        thetavec=theta_sweep.theta;
-        dsigdOmega=DCS_Inelastic_opt(mermparms,Eo,theta_sweep);
+        thetavec    =   theta_sweep.theta;
+        dsigdOmega  =   DCS_Inelastic_opt(mermparams,incidentEnergy,theta_sweep);
+        dsigdEComplex   =   dsigdEcalc(incidentEnergy,mermparams);
+        dsigdE      =   dsigdEComplex.dsigdE;
+        Elossvec    =   dsigdEComplex.eLossMat(1,:);
     else
+        %% Pull up the data
         dcs_data=optdata.inel_dcsdata;
-        idx=find(dcs_data.E(1,:)==Eo);
+        idx=find(dcs_data.E(1,:)==incidentEnergy);
         dsigdOmega_fit=[];
         if ~isempty(idx)
             thetavec=dcs_data.thetamat(idx,:); % just a single vector in the most recent one
@@ -70,7 +73,7 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
         else
             dsigdOmega1=dcs_data.dsigdOmega;
             dsigdE1=dcs_data.dsigdE;
-            idx1=find(dcs_data.E(1,:)<Eo);
+            idx1=find(dcs_data.E(1,:)<incidentEnergy);
 
             if isempty(idx1)
  
@@ -81,7 +84,7 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
                 dsigdE=dcs_data.dsigdE(1,:);
             else
                 idx1=idx1(end);
-                idx2=find(dcs_data.E(1,:)>Eo);
+                idx2=find(dcs_data.E(1,:)>incidentEnergy);
                 idx2=idx2(1); % energy always >92, so this shouldn't be a problem by default
                 dsigdOmega=[];
                 dsigdE=[];
@@ -96,13 +99,13 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
                 dcs2=dcs_data.dsigdOmega(idx2,:);
 
                 thetavec_min=1e-3;
-                thetavec=linspace(thetavec_min,pi/2,100);
+                thetavec=linspace(thetavec_min,pi,100);
                 dcs1B=interp1(theta1,dcs1,thetavec,'linear','extrap');
                 dcs2B=interp1(theta2,dcs2,thetavec,'linear','extrap');
 
                 for i = 1:size(dcs1B,2)
                     p=polyfit(dcs_data.E(1,idx1:idx2),[dcs1B(i) dcs2B(i)],1);
-                    dsigdOmega(1,i)=polyval(p,Eo);
+                    dsigdOmega(1,i)=polyval(p,incidentEnergy);
                 end
 
                 dbg=1;
@@ -119,7 +122,7 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
 
                 delta_E=0.1;
                 Elossmin=min([min(Eloss1) min(Eloss2)]);
-                Elossmax=Eo;
+                Elossmax=incidentEnergy;
                 Elossvec=Elossmin:delta_E:Elossmax;
                 if length(Elossvec)<=3
                     Elossvec=linspace(Elossmin,Elossmax,3);
@@ -147,26 +150,27 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
     %                 dsigdE(1,i)=polyval(p,Eo);
 
                     p=polyfit(dcs_data.E(1,idx1:idx2),[dcs1B(i) dcs2B(i)],1);
-                    dsigdE(1,i)=polyval(p,Eo);
+                    dsigdE(1,i)=polyval(p,incidentEnergy);
                 end
                 dbg=1;
             end
         end
     end
-
+    
+    %%% Ensure that the cross-sections are positive
     dsigdE(dsigdE<0)=0;
-    % if max(Elossvec)<Eo
-    %     Elossvec=[Elossvec Eo];
-    %     dsigdE=[dsigdE 0];
-    % end
-
+    %{
+    if max(Elossvec)<Eo
+         Elossvec=[Elossvec Eo];
+         dsigdE=[dsigdE 0];
+    end
+    %}
     if any (dsigdOmega<0)
         dbg=1;
         dsigdOmega(dsigdOmega<0)=0; % happens if interpolating out to 90 degrees, becomes a small negative number. JUST BE AWARE FOR THE FUTURE
     end
     %%%% sample theta and phi randomly
-    % dcs_cdf=cumsum(dsigdOmega);
-    
+    % dcs_cdf=cumsum(dsigdOmega);    
     %% Calculated the culmulative distribution of the differential cross-section
     dcs_cdf     =   zeros([1 length(dsigdOmega)]);
     dcs_cdf(1)  =   0;
@@ -221,9 +225,6 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
         theta_rand=-1*theta_rand; % equal probaiblity for [-pi/2,0], and [0,pi/2]
     end
 
-    % theta_rand=-pi+pi*rand; % temporary just to see.
-
     Elossrand.theta=theta_rand;
-    % Elossrand.theta=pi*rand; % uncomment only when you want to randomize the angle 
     Elossrand.phi=phi_rand;
 end

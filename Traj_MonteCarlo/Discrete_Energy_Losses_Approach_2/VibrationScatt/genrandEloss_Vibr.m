@@ -1,4 +1,4 @@
-function outdata=genrandEloss_Vibr(scattdata,Eo)
+function outdata=genrandEloss_Vibr(scattdata,incidentE)
 
 E=scattdata.ics(:,1);
 ics=scattdata.ics(:,2:end);
@@ -14,9 +14,11 @@ ics=scattdata.ics(:,2:end);
 % E=Efit;
 % ics=icsfit;
 
-idx1=find(E<Eo);[minval,idxtmp]=min(abs(E(idx1)-Eo));idx1=idx1(idxtmp);
-idx2=find(E==Eo);
-idx3=find(E>Eo);[minval,idxtmp]=min(abs(E(idx3)-Eo));idx3=idx3(idxtmp);
+idx1=find(E<incidentE);
+[minval,idxtmp]=min(abs(E(idx1)-incidentE));idx1=idx1(idxtmp);
+idx2=find(E==incidentE);
+idx3=find(E>incidentE);
+[minval,idxtmp]=min(abs(E(idx3)-incidentE));idx3=idx3(idxtmp);
 
 % generate the ICS vector at desired energy, so you can pick with energy
 % loss event to use
@@ -29,7 +31,7 @@ else % did not find an exact match for Eo
     vec2=ics(idx3,:);
     for count=1:size(vec1,2)
         p=polyfit([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],1);
-        icsvec(1,count)=polyval(p,Eo);
+        icsvec(1,count)=polyval(p,incidentE);
     end
     Eochoose=[idx1 idx3];
 end
@@ -68,7 +70,7 @@ else % did not find an exact match for Eo
     
     for count=1:size(vec1,2)
         p=polyfit([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],1);
-        dcsvec(1,count)=polyval(p,Eo);
+        dcsvec(1,count)=polyval(p,incidentE);
     end
 end
 
@@ -89,7 +91,7 @@ if length(Eochoose)==1
     icsval=ics2(Eochoose);
 else
     p=polyfit([Etmp(Eochoose(1)) Etmp(Eochoose(2))],[ics2(Eochoose(1)) ics2(Eochoose(2))],1);
-    icsval=polyval(p,Eo);
+    icsval=polyval(p,incidentE);
 end
 
 outdata.Eloss=Eloss;

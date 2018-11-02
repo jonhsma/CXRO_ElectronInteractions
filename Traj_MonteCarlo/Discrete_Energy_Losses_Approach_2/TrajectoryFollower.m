@@ -41,14 +41,15 @@ global illustration scattVector thetaLog debugOutput;
 
     while Eold>scatt_Elim
         fprintf(logfile_fid,'............trajcalc3: E = %.4f eV\n',Eold);
-        %% 1. Identifying the scattering mechanism 
+        %% 1. Determine the active scattering mechanisms
+        
         
         if strcmp(scattdata.vibr.datasrc,'Khakoo')==1
-            vibr_ics=scattdata.vibr.ics;
-            vibr_ics(isnan(vibr_ics))=0;
-            vibrdata_E=vibr_ics(:,1);
-            vibrdata_icsT=sum(vibr_ics(:,2:end),2);
-            if Eold>max(vibrdata_E) % no vibrational data here, so go with inelasic
+            vibr_ics    =   scattdata.vibr.ics;
+            vibr_ics(isnan(vibr_ics))...
+                        = 0;
+            vibrdata_E  =   vibr_ics(:,1);
+            if Eold     >   max(vibrdata_E) % no vibrational data here, so go with inelasic
                 scattType='HE'; % scattering is of "high-energy" type
                 if illustration
                     fprintf('scattType = HE; count: %d \n',count);
@@ -72,8 +73,9 @@ global illustration scattVector thetaLog debugOutput;
         %% 2. Calculating the IMFP
         %%%% generate the HE one first, needed whether or not we're LE/HE
         % asking for imfp only
-        controlparm.onlyimfp=1;            
-
+        
+        %% 2.1 The Optical component that always gets calculated
+        controlparm.onlyimfp=1;
         if isfield(scattdata.optical,'inel_dcsdata')
             Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
         else
@@ -89,18 +91,59 @@ global illustration scattVector thetaLog debugOutput;
             imfp_opt=event.lowEimfp;
         end
 
-        imfp_vibr=Inf; % by default, no vibrational scattering
-        phi_vibr=0; % temporary, never gets used if the below is commented, so long as imfp_vibr=Inf as above
-        theta_vibr=0; % temporary, never gets used if the below is commented, so long as imfp_vibr=Inf as above
-
-        %%%%% comment out the below if/else block if disabling vibrational.
+        %% 2.2 Vibrational calculations
+        if strcmp(scattType,'LE')==1 % Khakoo data from above if-else
+            if strcmp(scattdata.vibr.datasrc,'Khakoo')==1
+                 vibrScattCmplx     =   genrandEloss_Vibr(scattdata.vibr,Eold);
+                 eLoss_vibr         =   vibrScattCmplx.Eloss;
+                 invImfp_invCM      =   vibrScattCmplx.ics*Moldensity;
+                 imfp_vibr          =   1/invImfp_invCM*1e7; % imfp in nm
+                 theta_vibr         =   vibrScattCmplx.theta;
+                 phi_vibr           =   vibrScattCmplx.phi;
+            else % Frohlich data from above if-else
+                %{
+                if strcmp(scattdata.vibr.datasrc,'Frohlich')==1
+                    if Eold<=Inf % just temporary to speed things up [Inf if you want to execute whats in the if-block]
+                        eps0=scattdata.vibr.eps0;
+                        epsinf=scattdata.vibr.epsinf;
+                        E_optphonon=scattdata.vibr.hbarw;
+                        imfp_vibr1=[];
+                        for Eph_count=1:length(E_optphonon)
+                            [imfp_vibr,imfp_vibr_creation,imfp_vibr_annihilation,theta_vibr]=scattdata.vibr.imfp_func(Eold,eps0,epsinf,E_optphonon);
+                            [imfp_vibr1(Eph_count),imfp_vibr_creation,imfp_vibr_annihilation,theta_vibr]=scattdata.vibr.imfp_func(Eold,eps0,epsinf,E_optphonon(Eph_count));
+                            [imfp_vibr2,imfp_vibr_creation,imfp_vibr_annihilation,theta_vibr]=scattdata.vibr.imfp_func(Eold,eps0,epsinf,E_optphonon(Eph_count));
+                        end
+                        imfp_vibr=1/(sum(1./imfp_vibr1));
+                        imfp_vibr=1/(1/imfp_vibr1 + 1/imfp_vibr2);
+                        if rand<(1/imfp_vibr1)/(1/imfp_vibr1 + 1/imfp_vibr2)
+                            Eloss_val=E_optphonon(1);
+                        end
+                        Eloss_vibr=E_optphonon(1);
+                        Eloss_vec=scattdata.vibr.E;
+                        imfp_vec=scattdata.vibr.imfp;
+                        imfp_vibr=interp1(Eloss_vec,imfp_vec,Eold,'linear','extrap');
+                        theta_vibr=rand*2*pi;
+                        rng('shuffle');
+                        phi_vibr=-pi+2*pi*rand;
+                    else
+                        imfp_vibr=Inf;
+                        phi_vibr=0;
+                        theta_vibr=0;
+                    end
+                end
+                %}
+                fprintf('Somehow it gets to the Frolich branch. Exiting\n');
+            end
+        else
+            imfp_vibr=Inf;  % by default, no vibrational scattering
+            phi_vibr=0;     % temporary, never gets used if the below is commented, so long as imfp_vibr=Inf as above
+            theta_vibr=0;   % temporary, never gets used if the below is commented, so long as imfp_vibr=Inf as above
+        end        
         if imfp_vibr==Inf && imfp_opt==Inf
 %             fprintf(logfile_fid,'Warning in trajCalc3: IMFP (Vibr) = IMFP (Optical) = Inf\n');
-        end
-        rng('shuffle');
-        randval=rand;
-        imfpratio_vibr_opt=(1/imfp_vibr)/((1/imfp_vibr)+(1/imfp_opt));
-        imfp=1/(1/imfp_opt+1/imfp_vibr);            
+        end                
+        %% Caculate the total IMFP
+        imfp    =   1/(1/imfp_opt+1/imfp_vibr);            
         %% 3. Electron propagation, chronologically before the scattering
         rnew=exprnd(imfp); % exponential distribution        
 
@@ -111,46 +154,58 @@ global illustration scattVector thetaLog debugOutput;
         %%%% calculate the path length
         pathlen=sqrt((xnew-xold)^2+(ynew-yold)^2+(znew-zold)^2);
         %% 4. Scattering Logic
-        if randval<imfpratio_vibr_opt % so ifimfp_ratio_vibr_opt=0,never trigger the vibrational path
-            %% Vibrational Scattering - obsolete
-            Eloss_val=Eloss_vibr;
-%             imfp=imfp_vibr; % don't do this
-            theta=theta_vibr;
-            phi=phi_vibr;
-            act='vibr';
-        elseif Eold>event.lowEthr
-            %% 4.1.1 Mermin based collision event simulation
-            controlparm.onlyimfp=0;
-            if isfield(scattdata.optical,'inel_dcsdata')
-                Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
-            else
-                Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,controlparm);
-            end
-            Eloss_opt=Elossrand_opt.Eloss; % the optical energy loss
-            theta_opt=Elossrand_opt.theta; % the optical theta
-            phi_opt=Elossrand_opt.phi; % the optical phi
-
-            Eloss_val=Eloss_opt;
-            theta = theta_opt;
-            phi=phi_opt;
-
-            %%% Determine action by energy loss
-            if Eloss_val==0
-                act='none'; % if Sp=0, no energy loss.
-            elseif Eloss_val<pag_Eamin
-                act='Eloss<pagEaMin';
-            elseif Eloss_val<E_ionize_min
-                act='6eVRes';
-            else
-                act='SE';                                                    
-            end
-        else
-            %% 4.1.2 Low energy random walk (Currently inaccessible)
-            act='LowEnergy';
-            theta = acos(2*rand-1);
-            phi=2*pi*rand;            
-        end
+        %% 4.1 Determin which collision mechanism is at play
         
+        %%% The probability (or should I say odds)of each event is
+        %%% proportional to their inverse IMFP. The original code was right
+        %%% but I'm adding a more genral framework in case additional
+        %%% scattering mechanisms come along
+        
+        scattCandidate  =   {'Optical','Vibrational'};
+        scattInvIMFP    =   [(1/imfp_opt) (1/imfp_vibr)];
+        
+        scattType = weightedCategoricalRandGen(scattCandidate,scattInvIMFP);
+        
+        switch(scattType)
+            case 'Vibrational'
+                %% 4.1.1 Vibrational Scattering
+                %%% Engine has been ran and the results are in
+                Eloss_val=eLoss_vibr;
+                theta=theta_vibr;
+                phi=phi_vibr;
+                act='vibr';
+            case 'Optical'
+                %% 4.1.1 Mermin based collision event simulation
+                controlparm.onlyimfp=0;
+                if isfield(scattdata.optical,'inel_dcsdata')
+                    Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
+                else
+                    Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,controlparm);
+                end
+                Eloss_opt   =   Elossrand_opt.Eloss; % the optical energy loss
+                theta_opt   =   Elossrand_opt.theta; % the optical theta
+                phi_opt     =   Elossrand_opt.phi; % the optical phi
+
+                Eloss_val=Eloss_opt;
+                theta = theta_opt;
+                phi=phi_opt;
+
+                %%% Determine action by energy loss
+                if Eloss_val==0
+                    act='none'; % if Sp=0, no energy loss.
+                elseif Eloss_val<pag_Eamin
+                    act='Eloss<pagEaMin';
+                elseif Eloss_val<E_ionize_min
+                    act='6eVRes';
+                else
+                    act='SE';                                                    
+                end
+            case 'LowEnergy' % Currently unaccessible 
+                %% 4.1.3 Low energy random walk (Currently inaccessible)
+                act='LowEnergy';
+                theta = acos(2*rand-1);
+                phi=2*pi*rand;  
+        end        
         %% 4.2 Transfomration back into the resist frame
         % The angles in the scattering results are relative to the
         % pre-event travelling direction. Thus a coordinate transformation

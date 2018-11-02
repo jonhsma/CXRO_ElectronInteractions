@@ -47,9 +47,18 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'NoCoarseGrain_5_PizzaEmission';
+outputFolder    =   'CDEN_Visualization';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
-%% 0.0.2 Output folder management
+
+%% 0.0.2 --> Scattering Engine Paths
+%%% The subfolders that stores the scattering codes
+scattEnginePaths={...
+    'OptDataScatt\';...
+    'VibrationScatt\'};
+%% 0.0.3 Folder management
+for iPath = 1:size(scattEnginePaths)
+    addpath(scattEnginePaths{iPath})
+end
 if ~exist(outputBasePath,'file')
        mkdir(outputBasePath);
 else
@@ -67,7 +76,7 @@ else
     end
     outputFolder = promptAnswer{1};
     outputBasePath  =   strcat(outputParent,outputFolder,'\\');    
-end        
+end
 %% 0.1 Globals for tracking
 global  secSpawningTheta scattVector thetaLog;
 
@@ -86,7 +95,7 @@ echoConfig.acid.perTrial    =   0;
 echoConfig.acid.perElectron =   0;
 echoConfig.acid.perTraj     =   0;
 
-echoConfig.traj3.perTrial   =   0;
+echoConfig.traj3.perTrial   =   1;
 echoConfig.traj3.perEnergy  =   1;
 
 echoConfig.acidDist.active  =   1;
@@ -153,12 +162,12 @@ event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
 event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1000;
-eSweep      =   [80 60 45 30];
+nTrials     =   1;
+eSweep      =   [80];
 tStart      =   tic;
 %% 3.1 --> Initial electron incidence and dose parameters
 %%% No-matter-what-you're-using parameters
-nElectrons = 2; % number of electron per trial
+nElectrons = 10; % number of electron per trial
 %% 3.1.1 --> Stochastic volumetric dosing parameters
 dosingLimits =... The space within which dosing occurs
     [-0.5,-0.5,-0.5;...
@@ -198,7 +207,7 @@ incTGThetaN    = 1000;
 incTGThetaAxis = 0:pi/incTGThetaN:pi;
 %% 3.2.1 --> The probability distribution. Need not worry about normalization
 %%% DO NOT sine weight as sine weighing is included in the CDF generation
-incTGPDF       = sin(incTGThetaAxis).^38;
+incTGPDF       = ones([1 size(incTGThetaAxis,2)]);%sin(incTGThetaAxis).^38;
 %% 3.2.2 Obtain the culmulative ditribution
 incTGCDF       = zeros([1 incTGThetaN+1]);
 for i = 2:incTGThetaN+1
