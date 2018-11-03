@@ -8,7 +8,7 @@
 %%%% written to make the code more modulari so using it with previous
 %%%% versions of functions might not be possible
 
-%% 0.0 --> Path and other basic initialization
+%% 0.0 Path and other basic initialization
 clear;
 clear global
 clc;
@@ -47,7 +47,7 @@ scattdata.E_inel_thr=min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'CDEN_Visualization';
+outputFolder    =   'AcidGenRefactor_20181103';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engine Paths
@@ -75,7 +75,8 @@ else
         return;
     end
     outputFolder = promptAnswer{1};
-    outputBasePath  =   strcat(outputParent,outputFolder,'\\');    
+    outputBasePath  =   strcat(outputParent,outputFolder,'\\');
+    mkdir(outputBasePath);
 end
 %% 0.1 Globals for tracking
 global  secSpawningTheta scattVector thetaLog;
@@ -115,11 +116,14 @@ debugCurrAcidArrayDiff = 0;
 %%% The limit where scattering ceases
 SCATTERING_LOW_ENERGY_CUTOFF    =       20;
 %%% The energy where the electron enters low energy regime
+%%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
 LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
+%%% Molecular density for vicrational calculations
+MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23; % molecules/cm3
 %% 1.1 --> System specification
 %%% These are constants so this is the only time where they are on the LHS
 %%% The x,y,z sizes of the system in nm
@@ -162,7 +166,7 @@ event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
 event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1;
+nTrials     =   20;
 eSweep      =   [80];
 tStart      =   tic;
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -321,6 +325,7 @@ for E_count=1:length(eSweep)
         
         polymdata.posPolymer        =   posPolymer;
         polymdata.SE_act_xyz        =   [];
+        polymdata.moleculeDensity   =   MOLECULAR_NUMBER_DENSITY;
         
         xyz_electron=[];
 

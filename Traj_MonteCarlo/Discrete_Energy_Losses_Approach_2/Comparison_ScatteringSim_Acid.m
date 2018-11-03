@@ -7,27 +7,27 @@
 
 %% Select the runs to compare
 runsToCompare =...
-    {'ScatteringRefactor_Ref_1';...
-    'NoCoarseGrain_5_PizzaEmission'};
-    %'NoCoarseGrain_0_Calib'};
+    {'NoCoarseGrain_0_Calib'};...
+    %'RealScatt_80_1_1nmGrid''RealScatt_80_2_1nmGrid'};
+    %};
 nRuns = size(runsToCompare,1);
 incEngy =...
-    {'80.00';'80.00'};
+    {'80.00'};%;'80.00'};
 doseStr =...
-    {'0.00';'0.00'};
+    {'0.00'};%;'2.00'};
 resultObject = cell([1 nRuns]);
 
 
 %% Display Settings
 %%% Setting the resolution of the histograms
-res = 0.5;
+res = 0.25;
 legendNotes = runsToCompare;
 for ii = 1:nRuns
     target             = strrep(runsToCompare{ii},'_','\_');
     legendNotes{ii} = target;
 end
 cumOption   =   'cdf';
-distOption  =   'pdf';
+distOption  =   'count';
 %% Pull up the acid distribution
 for runCnt = 1:size(runsToCompare,1)
     counter = 1;
