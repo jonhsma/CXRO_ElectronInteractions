@@ -4,7 +4,17 @@ function [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz] =...
     acidActivation(num2Remove,posPAG,posPAG_removed,...
     pagidx,eventPosition,...
     acid_act_xyz_idx,acid_act_e_xyz)
+
+    global illustration
     
+    if illustration
+        disp('Acid activated')
+    end
+    
+    if isempty(pagidx)
+        return
+    end
+
     %%% Determine which pag to remove 
     remove_idx      =   randi([1 length(pagidx)],num2Remove);
     posPAG_removed  =   [posPAG_removed,...

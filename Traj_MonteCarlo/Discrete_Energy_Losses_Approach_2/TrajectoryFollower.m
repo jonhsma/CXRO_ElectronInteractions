@@ -44,9 +44,7 @@ global illustration scattVector thetaLog debugOutput;
 
     while Eold>scatt_Elim
         fprintf(logfile_fid,'............trajcalc3: E = %.4f eV\n',Eold);
-        %% 1. Determine the active scattering mechanisms
-        
-        
+        %% 1. Determine the active scattering mechanisms        
         if strcmp(scattdata.vibr.datasrc,'Khakoo')==1
             vibr_ics    =   scattdata.vibr.ics;
             vibr_ics(isnan(vibr_ics))...
@@ -92,7 +90,6 @@ global illustration scattVector thetaLog debugOutput;
         else
             imfp_opt=event.lowEimfp;
         end
-
         %% 2.2 Vibrational calculations
         if strcmp(scattType,'LE')==1 % Khakoo data from above if-else
             if strcmp(scattdata.vibr.datasrc,'Khakoo')==1
@@ -143,9 +140,17 @@ global illustration scattVector thetaLog debugOutput;
         end        
         if imfp_vibr==Inf && imfp_opt==Inf
 %             fprintf(logfile_fid,'Warning in trajCalc3: IMFP (Vibr) = IMFP (Optical) = Inf\n');
-        end                
+        end 
+        
+        %% 2.3 Stone Wall type low energy cutoff
+        stoneWallResults = scattEngineStoneWall(Eold,scattdata);
+        imfp_stoneWall      =   stoneWallResults.imfp;
+        theta_stoneWall     =   stoneWallResults.theta;
+        phi_stoneWall       =   stoneWallResults.phi;
+        eLoss_stoneWall     =   stoneWallResults.eLoss;
+        rxnRadius_stoneWall =   stoneWallResults.rxnR;
         %% Caculate the total IMFP
-        imfp    =   1/(1/imfp_opt+1/imfp_vibr);            
+        imfp    =   1/(1/imfp_opt+1/imfp_vibr+1/imfp_stoneWall);            
         %% 3. Electron propagation, chronologically before the scattering
         rnew=exprnd(imfp); % exponential distribution        
 
@@ -163,8 +168,8 @@ global illustration scattVector thetaLog debugOutput;
         %%% but I'm adding a more genral framework in case additional
         %%% scattering mechanisms come along
         
-        interactionCandidate  =   {'Optical','Vibrational'};
-        scattInvIMFP    =   [(1/imfp_opt) (1/imfp_vibr)];
+        interactionCandidate  =   {'Optical','Vibrational','StoneWall'};
+        scattInvIMFP    =   [(1/imfp_opt) (1/imfp_vibr) (1/imfp_stoneWall)];
         
         scattType = weightedCategoricalRandGen(interactionCandidate,scattInvIMFP);
         if illustration
@@ -175,10 +180,11 @@ global illustration scattVector thetaLog debugOutput;
             case 'Vibrational'
                 %% 4.1.1 Vibrational Scattering
                 %%% Engine has been ran and the results are in
-                Eloss_val=eLoss_vibr;
-                theta=theta_vibr;
-                phi=phi_vibr;
-                act='vibr';
+                Eloss_val   =   eLoss_vibr;
+                theta       =   theta_vibr;
+                phi         =   phi_vibr;
+                act         =   'vibr';
+                rxnRadius = pag_rcnrad;
             case 'Optical'
                 %% 4.1.1 Mermin based collision event simulation
                 controlparm.onlyimfp=0;
@@ -194,6 +200,9 @@ global illustration scattVector thetaLog debugOutput;
                 Eloss_val=Eloss_opt;
                 theta = theta_opt;
                 phi=phi_opt;
+                
+                %%% Set the reaction radius
+                rxnRadius = pag_rcnrad;
 
                 %%% Determine action by energy loss
                 if Eloss_val==0
@@ -210,6 +219,12 @@ global illustration scattVector thetaLog debugOutput;
                 act='LowEnergy';
                 theta = acos(2*rand-1);
                 phi=2*pi*rand;  
+            case 'StoneWall'
+                act         =   'StoneWall';
+                Eloss_val   =   eLoss_stoneWall;
+                theta       =   theta_stoneWall;
+                phi         =   phi_stoneWall;
+                rxnRadius   =   rxnRadius_stoneWall;
         end        
         %% 4.2 Transfomration back into the resist frame
         % The angles in the scattering results are relative to the
@@ -283,7 +298,7 @@ global illustration scattVector thetaLog debugOutput;
         zEvent     =   znew;
         
         [pagidx,npags,polymidx,npolyms]=...
-            pag_polym_query([xEvent yEvent zEvent],posPAG,posPolymer,pag_rcnrad);
+            pag_polym_query([xEvent yEvent zEvent],posPAG,posPolymer,rxnRadius);
         
         pag_ratio=npags/(npags+npolyms);
         npags_removed=0;
@@ -394,7 +409,11 @@ global illustration scattVector thetaLog debugOutput;
                 case 'vibr'     %%% !!! This 
                     %nacid=1;% temporary, added on 5/27/2017 to test saturation 
                     nacid_unsat=1;
-                    if npags>0
+                    
+                    %%% Acid generation is mendatory. That looks dubious.
+                    %%% -JHM
+                    if npags>999
+                        
           %             Eloss_val=min([6.8 max([Eloss_val pag_Eamin])]); % modify this value, as its a 6.8 eV event instead.
                         num2Remove=1; % how many PAGS to remove [could be Eloss/Eact in the future!]
                         npags_removed=npags_removed+1;
@@ -417,6 +436,23 @@ global illustration scattVector thetaLog debugOutput;
                     else
                         act='vibr-polym';
                     end
+                    
+                    %%% Conventional SE logic. Tempory -JHM
+                    Ese     =   (Eloss_val>E_ionize_min).*(Eloss_val-E_ionize_min);
+                    nSE     =   double(Eloss_val>E_ionize_min);
+                    
+                    Ese(Ese<0)=0;
+                    if Ese>0
+                        nSE=1;
+                        nion=1;
+                        SE_act_xyz=[SE_act_xyz posPolymer(:,pagidx(remove_idx))];
+                    end
+                case 'StoneWall'
+                    num2Remove  =   1;
+                    [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
+                        =acidActivation(num2Remove,posPAG,posPAG_removed,...
+                        pagidx,[xEvent, yEvent, zEvent],...
+                        acid_act_xyz_idx,acid_act_e_xyz);
             end
         end
 

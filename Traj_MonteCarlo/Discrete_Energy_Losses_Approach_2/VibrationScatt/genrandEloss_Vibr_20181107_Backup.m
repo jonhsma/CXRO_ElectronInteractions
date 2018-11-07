@@ -1,4 +1,4 @@
-function outdata=genrandEloss_Vibr(scattdata,incidentE)
+function outdata=genrandEloss_Vibr_20181107_Backup(scattdata,incidentE)
 
 E   =   scattdata.ics(:,1);
 ics =   scattdata.ics(:,2:end);
@@ -80,9 +80,9 @@ else % did not find an exact match for Eo
     end
 end
 
-dcs_cdf=cumsum(dcsvec);
-dcs_cdf=dcs_cdf-dcs_cdf(1);
-dcs_cdf=dcs_cdf./dcs_cdf(end);
+dcs_cdf     =    cumsum(dcsvec);
+dcs_cdf     =   dcs_cdf-dcs_cdf(1);
+dcs_cdf     =   dcs_cdf./dcs_cdf(end);
 
 theta_rand=randgen(theta_int,dcs_cdf,1);
 theta_rand=pi-theta_rand; % data is deflection, so pi-() gives you elevation angle
