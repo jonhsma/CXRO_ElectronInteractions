@@ -36,7 +36,7 @@ else % did not find an exact match for Eo
     vec2=ics(idx3,:);
     icsvec = zeros([1 size(vec1,2)]);
     for count=1:size(vec1,2)
-        p=polyfit([eJustBelow eJustAbove],[vec1(1,count) vec2(1,count)],1);
+        p=polyfit([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],1);
         icsvec(1,count)=polyval(p,incidentE);
     end
     Eochoose=[idx1 idx3];
