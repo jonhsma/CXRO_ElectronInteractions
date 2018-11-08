@@ -1,4 +1,4 @@
-Simulation started at 07-Nov-2018 13:37:34
+Simulation started at 08-Nov-2018 11:24:13
 
 Energy 1 of 2; Trial 1 of 500
 
@@ -7,7 +7,27 @@ Energy 1 of 2; Trial 1 of 500
 WARNING: scatt_Elim is less than optdata_Emin
 .........Scattcalc_lowE: Ese = 80.0000 eV
 ............trajcalc3: E = 80.0000 eV
-............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [42,1,1,693,0.0571,1,1,1,9.831,4.831,acid]
-............trajcalc3: E = 70.1690 eV
-............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [41,1,0,700,0.0553,0,1,1,38.098,26.098,SE]
-............trajcalc3: E = 32.0714 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [43,1,0,710,0.0571,0,1,1,45.622,33.622,SE]
+............trajcalc3: E = 34.3779 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [39,1,0,729,0.0508,0,1,1,14.829,2.829,SE]
+............trajcalc3: E = 19.5493 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [38,1,0,732,0.0494,0,0,0,0.353,-0.000,vibr-polym]
+............trajcalc3: E = 19.1963 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [40,1,0,723,0.0524,0,0,0,0.173,-0.000,vibr-polym]
+............trajcalc3: E = 19.0238 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [39,1,0,732,0.0506,0,0,0,0.173,-0.000,vibr-polym]
+............trajcalc3: E = 18.8513 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [40,1,0,738,0.0514,0,0,0,0.173,-0.000,vibr-polym]
+............trajcalc3: E = 18.6788 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [40,1,0,729,0.0520,0,0,0,0.173,-0.000,vibr-polym]
+............trajcalc3: E = 18.5063 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [38,1,0,726,0.0497,0,0,0,0.353,-0.000,vibr-polym]
+............trajcalc3: E = 18.1533 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [42,1,0,728,0.0545,0,0,0,1.424,0.000,Eloss<pagEaMin]
+............trajcalc3: E = 16.7297 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [43,1,0,732,0.0555,0,0,0,2.024,0.000,Eloss<pagEaMin]
+............trajcalc3: E = 14.7061 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [40,1,0,710,0.0533,0,0,0,0.173,-0.000,vibr-polym]
+............trajcalc3: E = 14.5336 eV
+............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [44,1,0,707,0.0586,0,0,0,0.353,-0.000,vibr-polym]
+............trajcalc3: E = 14.1806 eV

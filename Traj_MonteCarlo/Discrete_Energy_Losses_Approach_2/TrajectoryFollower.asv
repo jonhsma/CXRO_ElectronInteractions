@@ -318,7 +318,7 @@ global illustration scattVector thetaLog debugOutput;
         if (rand<pag_ratio...%
                 || strcmp(act,'6eVRes')... %
                 || strcmp(act,'LowEnergy-Acid'))...% if activating a PAG
-                && ~(strcmp(act,'vibr')&& Eloss_val<pag_Eamin)  % Vibrational excitations treated differently 
+                && ~strcmp(act,'vibr')  % Vibrational excitations treated differently 
          %% 5.1.1 Acid generation (by volume ratio and 6eV resonance)
             Ese=0;
             nSE=0;

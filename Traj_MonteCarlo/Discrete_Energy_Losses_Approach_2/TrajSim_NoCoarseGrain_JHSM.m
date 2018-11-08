@@ -47,7 +47,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'LowEnergyEnabled_20181107';
+outputFolder    =   'LowEnergyFixed_20181108';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 %% 0.0.2 --> Scattering Engines' Paths
 %%% The subfolders that stores the scattering codes
@@ -133,7 +133,7 @@ LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
 %%% Molecular density for vicrational calculations
-MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23; % molecules/cm3
+MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23*10; % molecules/cm3
 %%%% The energy below which the electron would activate an acid and die
 scattdata.stoneWall.CUTOFF      =   5;
 %%%% The imfp of the stone wall. Should be small if active

@@ -6,7 +6,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function status=Comparison_ScatteringSim_Acid(varargin)
     %% Select the runs to compare
-    displayDefault = 1;
     switch nargin
         case 0
             runsToCompare =...
@@ -26,28 +25,35 @@ function status=Comparison_ScatteringSim_Acid(varargin)
             doseStr         =   configuration.doseStr;
             nTrials         =   configuration.nTrials;
             nRuns = size(runsToCompare,1);
-            if isfield(configuration,'res')...
-                    && isfield(configuration,'cuOption')...
-                    && isfield(configuration,'distOption')
-                displayDefault = 0;
-                res         =   configuration.res;
-                cuOption    =   configuration.cuOption;
-                distOption  =   configuration.distOption;
-            end
     end
 
     resultObject = cell([1 nRuns]);
     %% Display Settings
     %%% Setting the resolution of the histograms
-    if displayDefault
-        res = 0.25;    
-        cuOption   =   'cdf';
-        distOption  =   'count';
+    %%% Run the defaults first
+    res = 0.25;    
+    cuOption    =   'cdf';
+    distOption  =   'count';
+    legendNotes =   runsToCompare;
+    rangeLimit  =   5;
+    if exist('configuration','var')
+        if isfield(configuration,'res')
+            res         =   configuration.res;
+        end
+        if isfield(configuration,'cuOption')
+            cuOption    =   configuration.cuOption;
+        end
+        if isfield(configuration,'distOption')
+            distOption  =   configuration.distOption;
+        end
+        if isfield(configuration,'rangeLimit')
+            rangeLimit  =   configuration.rangeLimit;
+        end
     end
-    legendNotes = runsToCompare;
+    
     for ii = 1:nRuns
         target             = strrep(runsToCompare{ii},'_','\_');
-        legendNotes{ii} = target;
+        legendNotes{ii} = strcat(target,'; N_{trials}=',num2str(nTrials{ii}));
     end
     %% Pull up the acid distribution
     for runCnt = 1:size(runsToCompare,1)
@@ -124,7 +130,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
             sqrt(sum((resultObject{runCnt}.r3_fine-resultObject{runCnt}.r3).^2,2));
     end
     %% Acid linear Histograms
-    binEdges = -5-res/2:res:5+res/2;
+    binEdges = -rangeLimit-res/2:res:rangeLimit+res/2;
     figure(5010);
 
     for iDim = 1:3
@@ -133,7 +139,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
         for ii=1:nRuns
             this = resultObject{ii};
             histogram(this.acid_xyz_accul(:,iDim),...
-                'BinEdges',binEdges,'Normalization','probability');
+                'BinEdges',binEdges,'Normalization',distOption);
             hold on
         end
         if iDim ==1
@@ -143,7 +149,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
     end
     xlabel('position (nm)')
     %% Acid radial histograms
-    binEdges = 0:res:10;
+    binEdges = 0:res:2*rangeLimit;
     figure(5011);
     hold off
     for ii=1:nRuns
@@ -205,7 +211,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
     xlabel('Event distance from origin')
     ylabel('Distance from origin - activated acid voxel center')
     legend(legendNotes,'Location','northwest')
-    axis([0,5,0,5])
+    axis([0,rangeLimit,0,rangeLimit])
 
     figure(3011)
     hold off
@@ -217,6 +223,6 @@ function status=Comparison_ScatteringSim_Acid(varargin)
     title('Distance of activation')
     xlabel('Event distance from orgin')
     ylabel('Distance between acid voxel center and activation event')
-    axis([0,3,0,2.5])
+    axis([0,rangeLimit,0,rangeLimit/4])
     status = 0;
 end

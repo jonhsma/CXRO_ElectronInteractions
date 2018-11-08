@@ -36,3 +36,4 @@ cnfg_Nov5_80eV.cuOption =   'cdf';
 cnfg_Nov5_80eV.distOption =   'pdf';
 
 Comparison_ScatteringSim_Acid(cnfg_Nov5_80eV);
+
