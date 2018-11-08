@@ -60,7 +60,7 @@ end
 %%% Generate the mode culmulative probability distribution
 activeModes     =   find(~isnan(icsvec));   % Holds the active modes
 activeICS       =   icsvec(activeModes);    % Holds the cross-section active modes
-modeCumICS_CDF  =   cumsum(activeICS);      % The cumulativeICS of the active modes only
+modeCumICS_CDF  =   cumsum(activeICS);      % The 
 modeCumICS_CDF  =   modeCumICS_CDF/modeCumICS_CDF(end);
 %%%
 modeIdx     =   activeModes(find(modeCumICS_CDF>rand,1));

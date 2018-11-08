@@ -21,11 +21,11 @@ addpath('..\..\GlobalFunctions');
 cross_sect_data_path='..\..\Traj_MonteCarlo\CrossSect_Data\';
 
 scattdata.vibr=load([cross_sect_data_path 'VibrExcit_Data_Khakoo_2013.mat']);
-
+%%% Determining the vibrational chanel of scattering
 scattdata.vibr.datasrc='Khakoo';
-
+%%% The Frolich IMFP function
 scattdata.vibr.imfp_func=@ephscatt;
-
+%%% Optical data path
 optdata_path='..\..\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
 
 scattdata.optical=load([optdata_path 'Sp_Fuji_IMFP_Inelastic_Components_Ef=15.5eV_Elossmin=0.001eV_Erange=[16,200]_DDCSData.mat']);
@@ -33,13 +33,13 @@ scattdata.optical=load([optdata_path 'Sp_Fuji_IMFP_Inelastic_Components_Ef=15.5e
 TruongData=load('TruongData_PMMA_PS.mat');
 
 pathname='..\..\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
-
+%{
 filename='DDCSdata_Ef=0p5_Elossmin=0.001eV_Erange=[5,1000].mat';
 
 filename='DDCSdata_withICSData_Ef=10_Elossmin=0.001eV_Erange=[5,1000].mat';
 
 filename='DDCSdata_Fuji_Ef=15.5_Elossmin=3eV_Erange=[19,200]_EQCons=Pines.mat';
-
+%}
 filename='DDCSdata_Fuji_Ef=15.5_Elossmin=0.001eV_Erange=[16,200].mat';
 
 scattdata.optical.inel_dcsdata  = load([pathname filename]);
@@ -47,37 +47,46 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'Ref_20181103';
+outputFolder    =   'LowEnergyEnabled_20181107';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
-
 %% 0.0.2 --> Scattering Engines' Paths
 %%% The subfolders that stores the scattering codes
 scattEnginePaths={...
     'OptDataScatt\';...
     'VibrationScatt\';...
     'StoneWall\'};
-%% 0.0.4 Folder management
+%% 0.0.3 Folder management
 for iPath = 1:size(scattEnginePaths)
     addpath(scattEnginePaths{iPath})
 end
-if ~exist(outputBasePath,'file')
-       mkdir(outputBasePath);
-else
-    prompt = strcat('Folder already exists.',...
-        'Please confirm the folder name.',...
-        'WARNING: FILES IN THE EXISTING FOLDER WILL BE OVERWRITTEN. ',...
-        'Press cancel to abort execution');
-    promptTitle = 'Possible output data folder conflict';
-    prmptDims = [1 120];
-    promptDefInput = {outputFolder};
-    promptAnswer = inputdlg(prompt,promptTitle,prmptDims,promptDefInput);
-    
-    if max(size(promptAnswer))<1
-        return;
+
+outputBasePathConfirmed = 0;
+
+while ~outputBasePathConfirmed
+    if ~exist(outputBasePath,'file')
+           mkdir(outputBasePath);
+           outputBasePathConfirmed  =   1;
+    else
+        prompt = strcat('Folder already exists.',...
+            'Please confirm the folder name.',...
+            'WARNING: FILES IN THE EXISTING FOLDER WILL BE OVERWRITTEN. ',...
+            'Press cancel to abort execution');
+        promptTitle = 'Possible output data folder conflict';
+        prmptDims = [1 120];
+        promptDefInput = {outputFolder};
+        promptAnswer = inputdlg(prompt,promptTitle,prmptDims,promptDefInput);
+
+        if max(size(promptAnswer))<1
+            return;
+        end
+        if strcmp(outputFolder,promptAnswer{1})
+            outputBasePath  =   strcat(outputParent,outputFolder,'\\');
+            mkdir(outputBasePath);
+            outputBasePathConfirmed = 1;
+        else 
+            outputFolder = promptAnswer{1};
+        end
     end
-    outputFolder = promptAnswer{1};
-    outputBasePath  =   strcat(outputParent,outputFolder,'\\');
-    mkdir(outputBasePath);
 end
 %% 0.1 Globals for tracking
 global  secSpawningTheta scattVector thetaLog;
@@ -115,10 +124,10 @@ debugOutput = {};
 debugCurrAcidArrayDiff = 0;
 %% 1.0 --> Model Parameters
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       20;
+SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
-LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
+LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       18; 
 %%% Low energy random walk mean free path.
 LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %%% The reaction radius of PAGS
@@ -128,9 +137,9 @@ MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23; % molecules/cm3
 %%%% The energy below which the electron would activate an acid and die
 scattdata.stoneWall.CUTOFF      =   5;
 %%%% The imfp of the stone wall. Should be small if active
-scattdata.stoneWall.IMFP        =   0.001;  
+scattdata.stoneWall.IMFP        =   0.0001;  
 %%%% The reaction radius of the stone wall
-scattdata.stoneWall.ACID_REACTION_RADIUS   =   1;  
+scattdata.stoneWall.ACID_REACTION_RADIUS   =   3;  
 %% 1.1 --> System specification
 %%% These are constants so this is the only time where they are on the LHS
 %%% The x,y,z sizes of the system in nm
@@ -173,7 +182,7 @@ event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
 event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1000;
+nTrials     =   500;
 eSweep      =   [80 30];
 tStart      =   tic;
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -208,11 +217,11 @@ else
     dosingSequenceHandle = @(n)randPosGen(dosingLimits,n);
     dose = nElectrons/prod(dosingLimits(:,2)-dosingLimits(:,1));
 end
-%% 3.2 --> Electron angular distribution handle (Not having real effect at the moment)
+%% 3.2 --> Electron angular distribution handle 
 % One can specify the per unit solid angle distribution (as a function of
 % theta) of the incident electrons
 
-%%% Resolution of theta axis. The PDF is generated onece so the resolution
+%%% Resolution of theta axis. The PDF is generated once so the resolution
 %%% of the theta axis shouldn't matter
 incTGThetaN    = 1000;   
 incTGThetaAxis = 0:pi/incTGThetaN:pi;

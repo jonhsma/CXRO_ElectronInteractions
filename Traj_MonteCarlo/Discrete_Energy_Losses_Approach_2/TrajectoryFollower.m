@@ -71,9 +71,9 @@ global illustration scattVector thetaLog debugOutput;
 
         
         %% 2. Calculating the IMFP
-        %%%% generate the HE one first, needed whether or not we're LE/HE
-        % asking for imfp only
-        
+        %%% It's a bit tricky here. So the engine has the option to give
+        %%% partial only IMFP, only IMFP is calculated. If not the engine
+        %%% will be run from top to bottom
         %% 2.1 The Optical component that always gets calculated
         controlparm.onlyimfp=1;
         if isfield(scattdata.optical,'inel_dcsdata')
