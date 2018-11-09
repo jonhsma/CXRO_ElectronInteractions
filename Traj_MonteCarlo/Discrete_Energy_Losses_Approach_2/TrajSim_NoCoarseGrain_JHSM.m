@@ -47,7 +47,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'LowEnergyFixed_20181108';
+outputFolder    =   'LowEnergyFixed_20181109';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 %% 0.0.2 --> Scattering Engines' Paths
 %%% The subfolders that stores the scattering codes
@@ -127,7 +127,7 @@ debugCurrAcidArrayDiff = 0;
 SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
-LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       18; 
+LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
 LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %%% The reaction radius of PAGS
@@ -183,7 +183,7 @@ event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
 nTrials     =   500;
-eSweep      =   [80 30];
+eSweep      =   [60 45];
 tStart      =   tic;
 %% 3.1 --> Initial electron incidence and dose parameters
 %%% No-matter-what-you're-using parameters
