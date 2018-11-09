@@ -49,7 +49,7 @@ addpath('..\Discrete_Energy_Losses_Approach_2\')
 SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
-LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       18; 
+LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
 LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
 %%% The reaction radius of PAGS
@@ -64,11 +64,15 @@ scattdata.stoneWall.IMFP        =   0.0001;
 scattdata.stoneWall.ACID_REACTION_RADIUS   =   3;  
 
 %% The IMFPs
-energyScale     =   4:1:100;
+energyScale     =   2:1:100;
 imfp            =   energyScale*0;
+imfp_opt_a      =   energyScale*0;
+imfp_vibr_a     =   energyScale*0;
+imfp_stnw_a     =   energyScale*0;
 
 counter = 0;
 for ei = energyScale   
+    counter     =   counter +1;
     %% Optical IMFP
     controlparm.onlyimfp=1;
     if isfield(scattdata.optical,'inel_dcsdata')
@@ -86,6 +90,7 @@ for ei = energyScale
     else
         imfp_opt = LOW_ENERGY_MEAN_FREE_PATH;
     end
+    imfp_opt_a(counter) = imfp_opt;
     %% Vibrational IMFP
     if ei < LOW_ENERGY_BEHAVIOUR_BOUNDARY
         vibrScattCmplx     =   genrandEloss_Vibr(scattdata.vibr,ei);
@@ -94,10 +99,22 @@ for ei = energyScale
     else 
         imfp_vibr          =    inf;
     end
+    imfp_vibr_a(counter) = imfp_vibr;
     %% StoneWall IMFP
     stoneWallResults    = scattEngineStoneWall(ei,scattdata);
     imfp_stoneWall      =   stoneWallResults.imfp;
+    imfp_stnw_a(counter) = imfp_stoneWall;
     %% Total IMFP
-    counter     =   counter +1;
     imfp(counter)    =   1/(1/imfp_opt+1/imfp_vibr+1/imfp_stoneWall);
 end
+
+%% Visualization
+figure(2001);
+hold off;
+plot(energyScale,imfp)
+hold on
+plot(energyScale,imfp_opt_a,'*');
+plot(energyScale,imfp_vibr_a,'o');
+plot(energyScale,imfp_stnw_a,'X');
+title('IMFP as a function of energy')
+legend('Total IMFP','Optical','Vibrational','StoneWall')
