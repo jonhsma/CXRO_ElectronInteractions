@@ -513,7 +513,7 @@ global illustration scattVector thetaLog;
         count=count+1;
         
     end
-    %% 8. Update the resist composition
+    %% 7. Update the resist composition
     pagdata.posPAG              =   posPAG;
     pagdata.posPAG_removed      =   posPAG_removed;
     pagdata.acid_act_xyz_idx    =   acid_act_xyz_idx;

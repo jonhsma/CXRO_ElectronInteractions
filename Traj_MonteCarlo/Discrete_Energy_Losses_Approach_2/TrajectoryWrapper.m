@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [eventdata,pagdata,polymdata]=TrajectoryWrapper(event,scattdata,eventdata,xyzglobal,pagdata,polymdata,logfile_fid)
 
-global illustration secSpawningTheta echoConfig;
+global illustration secSpawningTheta echoConfig demoEcho;
 
     plotscatt=0;
     % if isfield(scattdata.optical,'inel_dcsdata')
@@ -23,7 +23,7 @@ global illustration secSpawningTheta echoConfig;
     if isfield(scattdata.optical,'inel_dcsdata')
         optdata_Emin=min(scattdata.optical.E);
         if scatt_Elim<optdata_Emin
-            fprintf(logfile_fid,'WARNING: scatt_Elim is less than optdata_Emin\n');
+            %fprintf(logfile_fid,'WARNING: scatt_Elim is less than optdata_Emin\n');
         end
     end
 
@@ -37,14 +37,16 @@ global illustration secSpawningTheta echoConfig;
             fprintf('Iteration %d in ScattCalc_lowE\n',i);
         end
         if event{i}.Ese>scatt_Elim
-            fprintf(logfile_fid,'.........Scattcalc_lowE: Ese = %.4f eV\n',event{i}.Ese);
+            %fprintf(logfile_fid,'.........Scattcalc_lowE: Ese = %.4f eV\n',event{i}.Ese);
             posPAG_init     =   pagdata.posPAG;
             %%%% Scattering model with proper coordinate transformation
             [ev2,pagdata,polymdata]=TrajectoryFollower(event{i},scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid);
-            if echoConfig.acid.perTraj
+            
+            if demoEcho
                 fprintf('# of PAGs activated in the last execution of the follower = %d\n',...
                    sum(isnan(pagdata.posPAG(1,:)))-sum(isnan(posPAG_init(1,:))));
             end
+            
             if ~isempty(ev2)
                 for j=1:length(ev2)
                     xyzglobal.x=[xyzglobal.x ev2{j}.xyz(1)];
