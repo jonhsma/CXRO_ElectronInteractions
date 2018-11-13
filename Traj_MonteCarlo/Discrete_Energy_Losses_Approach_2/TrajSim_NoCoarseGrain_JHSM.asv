@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'ParallelTest_20181109';
+outputFolder    =   'ParallelLowERef_20181109';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -111,10 +111,10 @@ echoConfig.acid.perTrial    =   0;
 echoConfig.acid.perElectron =   0;
 echoConfig.acid.perTraj     =   0;
 
-echoConfig.traj3.perTrial   =   0;
-echoConfig.traj3.perEnergy  =   0;
+echoConfig.traj3.perTrial   =   1;
+echoConfig.traj3.perEnergy  =   1;
 
-echoConfig.acidDist.active  =   0;
+echoConfig.acidDist.active  =   1;
 echoConfig.acidDist.range   =   10; % 10 means from -10 to 10 m,
 echoConfig.acidDist.res     =   0.5;
 
@@ -131,7 +131,7 @@ debugCurrAcidArrayDiff = 0;
 
 %% 1.0 --> Model Parameters
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       20;
+SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
@@ -161,39 +161,34 @@ RHO_PAG         =   0.4;
 RHO_POLYMER     =   6;
 
 %% 1.2 Initializing the event structure [holds info about excitations triggered]
-event{1}.xyz=[0 0 0];
-xyzglobal.x=event{1}.xyz(1);
-xyzglobal.y=event{1}.xyz(2);
-xyzglobal.z=event{1}.xyz(3);
+eventPrototype.xyz=[0 0 0];
+xyzglobal.x=eventPrototype.xyz(1);
+xyzglobal.y=eventPrototype.xyz(2);
+xyzglobal.z=eventPrototype.xyz(3);
 
 E_in=91;
 
-event{1}.Ein=E_in;
-event{1}.Eout=0;
-event{1}.Eloss=0;
+eventPrototype.Ein=E_in;
+eventPrototype.Eout=0;
+eventPrototype.Eloss=0;
 % The energy of the "secondary electron" generated or the starting energy
 % if a new trace is created out of this event
 % The primary event is the incidence and the primary electron energy goes
 % there to trigger Scarrcalc_lowE. It signifies an "energetic electron" 
 % (and another event trace) is created
-event{1}.Ese=91;
-event{1}.act='SE';
-event{1}.nacid=0;
-event{1}.nSE=0;
-%event{1}.elecimg=elecimg;
-%event{1}.pag.img=pagimg;
-event{1}.pag.rcnrad     =   ACID_REACTION_RADIUS; % nm
-%event{1}.pag.rho=rho_pag;
-%event{1}.controlparms.model_pag_devel=1;
-%event{1}.univ=univ;
-event{1}.scatt_Elim     =   SCATTERING_LOW_ENERGY_CUTOFF;
-event{1}.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
-event{1}.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
+eventPrototype.Ese=91;
+eventPrototype.act='SE';
+eventPrototype.nacid=0;
+eventPrototype.nSE=0;
+eventPrototype.pag.rcnrad     =   ACID_REACTION_RADIUS; % nm
+eventPrototype.scatt_Elim     =   SCATTERING_LOW_ENERGY_CUTOFF;
+eventPrototype.lowEthr        =   LOW_ENERGY_BEHAVIOUR_BOUNDARY;
+eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   10;
-eSweep      =   [80];
+nTrials     =   1000;
+eSweep      =   [80 60 45 30];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -273,8 +268,8 @@ stdAcids_thruE      =   zeros([1 length(eSweep)]);
 %% 4.1 Loop through the energies of interest
 for E_count=1:length(eSweep)
     %% 4..1 Iteration for an energy of interest
-    event{1}.Ein=eSweep(E_count);
-    event{1}.Ese=eSweep(E_count);
+    eventPrototype.Ein=eSweep(E_count);
+    eventPrototype.Ese=eSweep(E_count);
         
     eventdata_global={};
     Eloss=[];
@@ -324,10 +319,11 @@ for E_count=1:length(eSweep)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     %% Parallelism adaptation
-    eventPrototype = event{1};
     energyScanArchive   =   cell([1 nTrials]);    
     
     %% 4..2 Loop through the number of trials
+    fprintf('Simulations with %4.2f eV incident electrons is started\n',...
+        eSweep(E_count));
     parfor trial_count=1:nTrials
         %% 4..2.1 Iteration for trial (Each trial is a clean start: a new system)
         
@@ -335,19 +331,16 @@ for E_count=1:length(eSweep)
         energyScanArchive{trial_count}.energy         = eSweep(E_count);
                 
         %%% Array for acid positions of the acid
-        acid_xyz=[];
+        acid_xyz    =   [];
         %%% Array for acid activation event positions
-        acid_e_xyz=[];
+        acid_e_xyz  =   [];
         
         %%% Still need to figure out
-        radius_acids=[];
+        radius_acids=   [];
         radius_ions=[];
         ioyn_xz=[];
 
         tst_trials=tic;
-        %fprintf(logfile_fid,'\nEnergy %d of %d; Trial %d of %d\n',E_count,length(eSweep),trial_count,nTrials);
-        %fprintf('\nEnergy %d of %d; Trial %d of %d\n',E_count,length(eSweep),trial_count,nTrials);
-        
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% Legacy pag and polymer distribution generation
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -449,12 +442,6 @@ for E_count=1:length(eSweep)
         %%% For consistency with legacy naming
         acid_fine_xyz       =   acid_act_e_xyz;
         
-        %%% Legacy variable length array
-        %{
-        posAcid_TrAccu      =   [posAcid_TrAccu; acid_xyz];
-        posAcidAct_TrAccu   =   [posAcidAct_TrAccu; acid_fine_xyz];
-        %}
-        
         %%% Acid counting for the trial
         nAcids_thruTrial(trial_count)       =   size(acid_xyz,1);
         meanAcids_thruTrial(trial_count)    =   size(acid_xyz,1)/size(dosingSequence,2);
@@ -495,6 +482,15 @@ for E_count=1:length(eSweep)
     
     scanArchive{E_count}        =   energyScanArchive;
     
+    %%% 
+    %%% Legacy variable length array
+    for trialIter = 1:nTrials
+        posAcid_TrAccu      =   [posAcid_TrAccu;...
+            energyScanArchive{trialIter}.acid_xyz];
+        posAcidAct_TrAccu   =   [posAcidAct_TrAccu;...
+            energyScanArchive{trialIter}.activation_xyz];
+    end
+    
     tend    = toc(tStart);    
     tEnd_E  = toc(tStart_E);
     fprintf(logfile_fid,'Total time elapsed = %.4f s = %.4f min = %.4f hours\n',tend,tend/60,tend/3600);
@@ -508,7 +504,6 @@ for E_count=1:length(eSweep)
     fprintf(1,'%d trials; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));    
     
     %% 4..1.4 Per Energy Trajectory Echo
-    %{
     if echoConfig.traj3.perEnergy
         edHandle = figure(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count));
         edHandle.Name = strcat('Trajectory-',num2str(eSweep(E_count)),'eV');
@@ -523,12 +518,12 @@ for E_count=1:length(eSweep)
         qV = [];
         qW = [];
         for trialIter   = 1:nTrials
-            for inIterator = 1:size(scanArchive{E_count,trialIter}.incidences,2)
+            for inIterator = 1:size(scanArchive{E_count}{trialIter}.incidences,2)
                 nEvents     =   length(...
-                    scanArchive{E_count,trialIter}.incidences{inIterator});
+                    scanArchive{E_count}{trialIter}.incidences{inIterator});
                 for eventIterator = 1:nEvents
                     totalEventCountAtEnergy = totalEventCountAtEnergy +1;
-                    this = scanArchive{E_count,trialIter}.incidences{inIterator}{eventIterator};
+                    this = scanArchive{E_count}{trialIter}.incidences{inIterator}{eventIterator};
                     qX = [qX this.xyz_init(1)];
                     qY = [qY this.xyz_init(2)];
                     qZ = [qZ this.xyz_init(3)];
@@ -560,16 +555,15 @@ for E_count=1:length(eSweep)
         %%% variables. Should have moved them to outside of the loop
         totalEventCountAtEnergy = 0;
         for trialIter   = 1:nTrials
-            for inIterator = 1:size(scanArchive{E_count,trialIter}.incidences,2)
+            for inIterator = 1:size(scanArchive{E_count}{trialIter}.incidences,2)
                 nEvents     =   length(...
-                    scanArchive{E_count,trialIter}.incidences{inIterator});
+                    scanArchive{E_count}{trialIter}.incidences{inIterator});
                 for eventIterator = 1:nEvents
                     totalEventCountAtEnergy = totalEventCountAtEnergy +1;
                 end
             end
         end
-    end
-    %}
+    end    
     
     %% 4..1.5 Per Energy Acid Distribution Echo
     if echoConfig.acidDist.active
@@ -630,7 +624,8 @@ for E_count=1:length(eSweep)
                     'FontSize',6)
             end
         end 
-    end    
+    end        
+    
 end
 
 %% 5 Post processing for backward compatibility
@@ -639,7 +634,7 @@ end
 %%% will recreate them to avoid problems further down the road.
 %%% === WARNING: THESE ARRAYS ONLY STORE DATA FROM THE LAST ENERGY ===
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%{
+
 theta_global    = zeros([1 totalEventCountAtEnergy]);
 phi_global      = zeros([1 totalEventCountAtEnergy]);
 stepLen_global  = zeros([1 totalEventCountAtEnergy]);
@@ -647,12 +642,12 @@ xyz_electron_global     = zeros([totalEventCountAtEnergy 3]);
 
 jj = 0;
 for trialIter   = 1:nTrials
-    for inIterator = 1:size(scanArchive{E_count,trialIter}.incidences,2)
+    for inIterator = 1:size(scanArchive{E_count}{trialIter}.incidences,2)
         nEvents     =   length(...
-            scanArchive{E_count,trialIter}.incidences{inIterator});
+            scanArchive{E_count}{trialIter}.incidences{inIterator});
         for eventIterator = 1:nEvents
             jj = jj + 1;
-            this = scanArchive{E_count,trialIter}.incidences{inIterator}{eventIterator};
+            this = scanArchive{E_count}{trialIter}.incidences{inIterator}{eventIterator};
             theta_global(jj)    =   this.theta;
             phi_global(jj)      =   this.phi;
             stepLen_global(jj)  =   this.pathlen;
@@ -660,7 +655,7 @@ for trialIter   = 1:nTrials
         end
     end
 end
-%}
+
 %% 6.1 Additional Graphs
 aveHandle = figure(FIGURE_ACID_VS_ENERGY);
 aveHandle.Name = 'Acid_IncidentEnergy';
@@ -670,6 +665,7 @@ errorbar(eSweep,meanAcids_thruE,stdAcids_thruE/sqrt(nTrials),...
 xlabel('E (eV)');
 ylabel('Mean number of acids');
 set(gca,'fontsize',20,'linewidth',2.0);
+
 %% 6.2 Saving Graphs
 if ~exist(strcat(outputBasePath, '\graphics'),'file')
        mkdir(strcat(outputBasePath, '\graphics'));
@@ -686,6 +682,7 @@ for iFig = 1:length(figList)
         figName,'.pdf')));
   end
 end
+
 %% 6.2 Final workspace export
 save(sprintf(strcat(outputBasePath,...
             'WorkSpace')));
