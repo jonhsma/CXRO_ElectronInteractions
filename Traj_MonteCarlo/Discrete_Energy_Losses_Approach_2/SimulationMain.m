@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'Parallel_22W_LowE_Ref_20181109';
+outputFolder    =   'GreasePan_20181113';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -187,8 +187,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1000;
-eSweep      =   [80 60 45 30];
+nTrials     =   22;
+eSweep      =   [80];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
