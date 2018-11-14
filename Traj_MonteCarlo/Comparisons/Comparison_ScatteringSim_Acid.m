@@ -8,6 +8,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
     %% Select the runs to compare
     switch nargin
         case 0
+            %%% Defaults in case the code is run without arguments
             runsToCompare =...
                 {'NoCoarseGrain_0_Calib';
                 'Ref_20181103'%'RealScatt_80_2_1nmGrid'};
@@ -64,8 +65,45 @@ function status=Comparison_ScatteringSim_Acid(varargin)
 
         fprintf('Currently Processing')
         disp(runsToCompare(runCnt,:));
-
+        
+        if exist(strcat('..\..\..\..\',...
+                'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
+                runsToCompare{runCnt},'\ScanArchive.mat'),'file')
+            %%% Scan archives for parallelism enabled runs
+            load(strcat('..\..\..\..\',...
+                'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
+                runsToCompare{runCnt},'\ScanArchive.mat'));
+            if ~exist('scanArchive','var')
+                disp('Scan Archive exists but not accessible');
+                continue
+            end
+            %%% Find the right incident energy
+            tic
+            for ii = 1:size(scanArchive,2)
+                if scanArchive{ii}{1}.energy == str2double(incEngy{runCnt})
+                    for jj = 1:min(size(scanArchive{ii},2),nTrials{runCnt})
+                        acid_xyz        =   scanArchive{ii}{jj}.acid_xyz;
+                        acid_fine_xyz   =   scanArchive{ii}{jj}.activation_xyz;
+                        if size(acid_xyz,1)>=1
+                            resultObject{runCnt}.acid_xyz_accul(counter:counter + size(acid_xyz,1)-1,1:3)...
+                                =acid_xyz(:,:);
+                            counter = counter+size(acid_xyz,1);
+                        end
+                        if size(acid_fine_xyz,1)>=1
+                            resultObject{runCnt}.acid_fine_xyz_accul(counter_f:counter_f + size(acid_fine_xyz,1)-1,1:3)...
+                                =acid_fine_xyz(:,:);
+                            counter_f = counter_f+size(acid_fine_xyz,1);
+                        end
+                        if counter_f~=counter
+                            fprintf('Length mismatch between pixelated acid positions and the continuous one')
+                        end      
+                    end
+                end
+            end
+            toc
+        else
         for i = 1:nTrials{runCnt}
+            %%% Legacy per trial data logging
             try
                 load(strcat('..\..\..\..\',...
                     'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
@@ -91,6 +129,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
                 fprintf('Problem reading the %d-th file\n', i);
                 break;
             end
+        end
         end
 
         %%% The means

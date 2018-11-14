@@ -85,7 +85,7 @@ cnfg_Nov8_30eV3.distOption =   'pdf';
 cnfg_Nov8_30eV3.rangeLimit =   10;
 
 Comparison_ScatteringSim_Acid(cnfg_Nov8_30eV3);
-%% Nov 8, 2018 30 eV. Before enabling LE/After fixing low energy
+%% Nov 8, 2018  Two energy comparison
 %%% This is already after I increased the vibrational cross-section and
 %%% turned off "free energy" acid generation events
 cnfg_Nov8.runsToCompare =...

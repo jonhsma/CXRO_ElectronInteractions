@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'GreasePan_20181113';
+outputFolder    =   'Parallel_22W_LowE_Ref_20181113';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -187,8 +187,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   22;
-eSweep      =   [80];
+nTrials     =   1000;
+eSweep      =   [60 50 45 40];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -502,6 +502,10 @@ for E_count=1:length(eSweep)
         tEnd_E,tEnd_E/60,tEnd_E/3600);
     fprintf(logfile_fid,'%d; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));
     fprintf(1,'%d trials; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));    
+    
+    %%% Archive saved in each energy step in case of unexpected termination
+    save(sprintf(strcat(outputBasePath,...
+            'ScanArchive')),'scanArchive');
     
     %% 4..1.4 Per Energy Trajectory Echo
     if echoConfig.traj3.perEnergy
