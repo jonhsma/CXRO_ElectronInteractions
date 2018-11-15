@@ -295,19 +295,32 @@ function loadButton_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton9 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-    loadArchive(hObject, eventdata,handles);
+global scanArchiveGUI
+
+    [fileName, filePath]    =    uigetfile('*.mat');
+    fullFilePath = fullfile(filePath,fileName);
+    if exist(fullFilePath,'file')
+        set(hObject,'String','Loading','enable','off')
+        drawnow;
+        load(fullFilePath)
+        set(hObject,'String','Load database','enable','on')
+        activate(hObject,eventdata, handles)
+        scanArchiveGUI  = scanArchive;
+    else
+        warndlg('File does not exist');
+        if exist('scanArvhiceGUI','var')
+            deactivate(hObject,eventdata, handles)
+        end
+    end
+    
 end
 
 function result = activate(hObject, eventdata, handles)
-    result = set(handles.pushbutton1,'string','Visualize/Hierachy',...
-        'enable','on',...
-        'ForegroundColor',[0 0 0]);
+    result = set(handles.pushbutton1,'string','Visualize/Hierachy','enable','on');
 end
 
 function result = deactivate(hObject, eventdata, handles)
-    result = set(handles.pushbutton1,'string','No valid database',...
-        'enable','off',...
-        'ForegroundColor', [0.6 0.6 0.6]);
+    result = set(handles.pushbutton1,'string','No valid database','enable','off');
 end
 
 
@@ -319,47 +332,34 @@ global scanArchiveGUI
         currEnergy  = round(str2double(get(handles.edit3,'string')));
         currTrial   = round(str2double(get(handles.edit1,'string')));
         currInc     = round(str2double(get(handles.edit2,'string')));
-        
-        hold off
+
         if size(scanArchiveGUI,1)> 1
             if currInc > 0
                 testTraj    =   scanArchiveGUI{currEnergy,currTrial}.incidences{currInc};
-                displayTrajectory(testTraj,'energy',[],[],80,jet(100))
             else
                 testTraj    =   scanArchiveGUI{currEnergy,currTrial}.incidences{1};
                 for ii = 2:length(scanArchiveGUI{currEnergy,currTrial}.incidences)
                     testTraj = [testTraj scanArchiveGUI{currEnergy,currTrial}.incidences{ii}];
                 end
-                displayTrajectory(testTraj,'energy',...
-                    scanArchiveGUI{currEnergy,currTrial}.acid_xyz,...
-                    scanArchiveGUI{currEnergy,currTrial}.activation_xyz,...
-                    80,jet(100))
             end
         else
             if currInc > 0
                 testTraj    =   scanArchiveGUI{currEnergy}{currTrial}.incidences{currInc};
-                displayTrajectory(testTraj,'energy',[],[],80,jet(100))
             else
                 testTraj    =   scanArchiveGUI{currEnergy}{currTrial}.incidences{1};
                 for ii = 2:length(scanArchiveGUI{currEnergy,currTrial}.incidences)
                     testTraj = [testTraj scanArchiveGUI{currEnergy}{currTrial}.incidences{ii}];
                 end
-                displayTrajectory(testTraj,'energy',...
-                    scanArchiveGUI{currEnergy}{currTrial}.acid_xyz,...
-                    scanArchiveGUI{currEnergy}{currTrial}.activation_xyz,...
-                    80,jet(100))
             end
-        end        
+        end
+
+        hold off
+        displayTrajectory(testTraj,'energy',[],[],80,jet(100))
         colormap(jet)
         caxis([0 80])
         daspect([1 1 1])
         colorbar;
         rotate3d on;
-        
-        xlabel('x(nm)')
-        ylabel('y(nm)')
-        zlabel('z(nm)')
-        
         
         y = 1;
     catch exception
@@ -394,41 +394,9 @@ global scanArchiveGUI
             hold on
         end
         daspect([1 1 1])
-        xlabel('x(nm)')
-        ylabel('y(nm)')
-        zlabel('z(nm)')
         rotate3d on;        
         y = 1;
     catch exception
         y = exception;
     end
-end
-
-function result = loadArchive(hObject, eventdata, handles)
-global scanArchiveGUI
-
-    [fileName, filePath]    =    uigetfile('*.mat');
-    fullFilePath = fullfile(filePath,fileName);
-    if exist(fullFilePath,'file')
-        set(hObject,'string','Loading...',...
-            'enable','off',...
-            'ForegroundColor', [0.6 0.6 0.6]);
-        drawnow;
-        load(fullFilePath)
-        set(hObject,'string','Load database',...
-            'enable','on',...
-            'ForegroundColor', [0 0 0])
-        activate(hObject,eventdata, handles)
-        scanArchiveGUI  = scanArchive;
-        result = 1;
-    else
-        warndlg('File does not exist');
-        if ~exist('scanArvhiceGUI','var')
-            deactivate(hObject,eventdata, handles)
-            result = -1;
-        else
-            results = 1;
-        end
-    end
-    
 end
