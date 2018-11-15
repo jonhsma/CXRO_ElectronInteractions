@@ -1,4 +1,7 @@
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% This function displays the trajectory of a trial in the scanArchive
+%%% database
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function y = displayTrajectories_Trial(database,E_count,trIdx)
     %%  Extract the relavant trial
     trialData       =   database{E_count}{trIdx};    
