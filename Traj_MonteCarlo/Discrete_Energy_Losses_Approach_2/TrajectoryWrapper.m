@@ -40,7 +40,7 @@ global illustration secSpawningTheta echoConfig demoEcho;
             %fprintf(logfile_fid,'.........Scattcalc_lowE: Ese = %.4f eV\n',event{i}.Ese);
             posPAG_init     =   pagdata.posPAG;
             %%%% Scattering model with proper coordinate transformation
-            [ev2,pagdata,polymdata]=TrajectoryFollower(event{i},scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid);
+            [ev2,pagdata,polymdata]=TrajectoryFollowerRandomWalk(event{i},scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid);
             
             if demoEcho
                 fprintf('# of PAGs activated in the last execution of the follower = %d\n',...

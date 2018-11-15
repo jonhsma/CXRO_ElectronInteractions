@@ -1,13 +1,16 @@
-Simulation started at 13-Nov-2018 17:20:19
-Total time elapsed = 2487.6571 s = 41.4610 min = 0.6910 hours
-Of which 2487.5209 s = 41.4587 min = 0.6910 hours was spent ib the last energy cycle
-1000; <Acids> = 9.3120; sig_Acids = 2.1045
-Total time elapsed = 4881.6636 s = 81.3611 min = 1.3560 hours
-Of which 2087.6152 s = 34.7936 min = 0.5799 hours was spent ib the last energy cycle
-1000; <Acids> = 7.9870; sig_Acids = 1.9745
-Total time elapsed = 7050.8667 s = 117.5144 min = 1.9586 hours
-Of which 1910.6927 s = 31.8449 min = 0.5307 hours was spent ib the last energy cycle
-1000; <Acids> = 7.4570; sig_Acids = 2.0328
-Total time elapsed = 8885.4163 s = 148.0903 min = 2.4682 hours
-Of which 1706.7801 s = 28.4463 min = 0.4741 hours was spent ib the last energy cycle
-1000; <Acids> = 6.8170; sig_Acids = 1.8881
+Simulation started at 14-Nov-2018 17:23:16
+Total time elapsed = 59.6937 s = 0.9949 min = 0.0166 hours
+Of which 59.6011 s = 0.9934 min = 0.0166 hours was spent ib the last energy cycle
+1100; <Acids> = 2.0000; sig_Acids = 0.0000
+Total time elapsed = 236.8864 s = 3.9481 min = 0.0658 hours
+Of which 174.3240 s = 2.9054 min = 0.0484 hours was spent ib the last energy cycle
+1100; <Acids> = 1.9873; sig_Acids = 0.1121
+Total time elapsed = 537.0625 s = 8.9510 min = 0.1492 hours
+Of which 292.1157 s = 4.8686 min = 0.0811 hours was spent ib the last energy cycle
+1100; <Acids> = 1.9355; sig_Acids = 0.2531
+Total time elapsed = 1199.3003 s = 19.9883 min = 0.3331 hours
+Of which 645.1049 s = 10.7517 min = 0.1792 hours was spent ib the last energy cycle
+1100; <Acids> = 1.6236; sig_Acids = 0.5596
+Total time elapsed = 2128.5406 s = 35.4757 min = 0.5913 hours
+Of which 880.8869 s = 14.6814 min = 0.2447 hours was spent ib the last energy cycle
+1100; <Acids> = 1.3727; sig_Acids = 0.6436
