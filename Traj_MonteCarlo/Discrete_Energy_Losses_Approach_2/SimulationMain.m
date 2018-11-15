@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'RandomWalkVerfication_fixed_20181114';
+outputFolder    =   'PostFollowerOpt_RW_20181115';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -130,6 +130,15 @@ debugOutput = {};
 debugCurrAcidArrayDiff = 0;
 
 %% 1.0 --> Model Parameters
+%--------------------------------------------------------------------------
+% TRAJECTORY FOLLOWER OPTIONS
+%--------------------------------------------------------------------------
+%%% The trajectory follower options. Anything that's not a proper function
+%%% handle will result in using the default function handle
+scattdata.followerHandle        =       @TrajectoryFollowerRandomWalk;
+%--------------------------------------------------------------------------
+
+% GENERAL SCATTERING OPTIONS
 %%% The limit where scattering ceases
 SCATTERING_LOW_ENERGY_CUTOFF    =       0.5;
 %%% The energy where the electron enters low energy regime
@@ -139,10 +148,14 @@ LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20;
 LOW_ENERGY_MEAN_FREE_PATH       =       1;% for random walk test 3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
+
+% VIBRATIONAL OPTIONS
 %%% Molecular density for vicrational calculations
 MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23*10; % molecules/cm3
+
+% STONEWALL OPTIONS
 %%%% The energy below which the electron would activate an acid and die
-scattdata.stoneWall.CUTOFF      =   5;
+scattdata.stoneWall.CUTOFF      =   0.7;
 %%%% The imfp of the stone wall. Should be small if active
 scattdata.stoneWall.IMFP        =   0.0001;  
 %%%% The reaction radius of the stone wall
@@ -187,8 +200,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1100;
-eSweep      =   [5 10 15 30 40 50];
+nTrials     =   1000;
+eSweep      =   [10 20 40];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters

@@ -9,7 +9,7 @@ function [eventdata,pagdata,polymdata]=TrajectoryWrapper(event,scattdata,eventda
 global illustration secSpawningTheta echoConfig demoEcho;
 
     if isfield(scattdata,'followerHandle') &&...
-            isa(scattdata.followerHandle,'function_handle')
+            isdle(scattdata.followerHandle)
         trajectoryFollower  =   scattdata.followerHandle;
     else
         trajectoryFollower  =   @TrajectoryFollower;
