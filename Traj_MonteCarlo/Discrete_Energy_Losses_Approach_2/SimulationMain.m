@@ -140,7 +140,7 @@ scattdata.followerHandle        =       @TrajectoryFollowerRandomWalk;
 
 % GENERAL SCATTERING OPTIONS
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       0.5;
+SCATTERING_LOW_ENERGY_CUTOFF    =       0;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
@@ -200,8 +200,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1000;
-eSweep      =   [10 20 40];
+nTrials     =   1100;
+eSweep      =   [10.1, 20.1, 35.1 50.1];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -525,7 +525,7 @@ for E_count=1:length(eSweep)
     
     %% 4..1.4 Per Energy Trajectory Echo
     if echoConfig.traj3.perEnergy
-        edHandle = figure(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count));
+        edHandle = figure(round(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count)));
         edHandle.Name = strcat('Trajectory-',num2str(eSweep(E_count)),'eV');
         %%% Count the number of events
         totalEventCountAtEnergy = 0;
@@ -593,7 +593,7 @@ for E_count=1:length(eSweep)
         binEdges = { -dispR-dispS/2:dispS:dispR+dispS/2, -dispR-dispS/2:dispS:dispR+dispS/2 };
         axislabels = {'x (nm)','y(nm)','z(nm)'};
         
-        esHandle    =   figure(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count));
+        esHandle    =   figure(round(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count)));
         esHandle.Name = strcat('Summary-',num2str(eSweep(E_count)),'eV');
         clf; 
         
