@@ -6,7 +6,7 @@
 function outcome     =   scattEngineStoneWall(eIncident,scattData)    
     if eIncident < scattData.stoneWall.CUTOFF
         outcome.imfp    =   scattData.stoneWall.IMFP;
-        outcome.eLoss   =   eIncident;
+        outcome.eLoss   =   eIncident+5; % + 5 to ensure termination, even if trajectory terminates at zero
         outcome.rxnR    =   scattData.stoneWall.ACID_REACTION_RADIUS;
     else
         outcome.imfp    =   Inf;

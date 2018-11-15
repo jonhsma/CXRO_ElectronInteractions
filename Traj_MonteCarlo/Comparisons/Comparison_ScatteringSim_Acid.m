@@ -57,6 +57,7 @@ function status=Comparison_ScatteringSim_Acid(varargin)
         legendNotes{ii} = strcat(target,'; N_{trials}=',num2str(nTrials{ii}));
     end
     %% Pull up the acid distribution
+    currentWorkSpace = '';
     for runCnt = 1:size(runsToCompare,1)
         counter = 1;
         counter_f = 1;
@@ -70,9 +71,12 @@ function status=Comparison_ScatteringSim_Acid(varargin)
                 'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
                 runsToCompare{runCnt},'\ScanArchive.mat'),'file')
             %%% Scan archives for parallelism enabled runs
-            load(strcat('..\..\..\..\',...
-                'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
-                runsToCompare{runCnt},'\ScanArchive.mat'));
+            if ~strcmp(currentWorkSpace,runsToCompare{runCnt})
+                load(strcat('..\..\..\..\',...
+                    'JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\',...
+                    runsToCompare{runCnt},'\ScanArchive.mat'));
+                currentWorkSpace = runsToCompare{runCnt};
+            end
             if ~exist('scanArchive','var')
                 disp('Scan Archive exists but not accessible');
                 continue

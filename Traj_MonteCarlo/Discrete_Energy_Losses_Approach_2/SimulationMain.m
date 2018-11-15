@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'Parallel_22W_LowE_Ref_20181113';
+outputFolder    =   'PostFollowerOpt_RW_20181115';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -130,19 +130,32 @@ debugOutput = {};
 debugCurrAcidArrayDiff = 0;
 
 %% 1.0 --> Model Parameters
+%--------------------------------------------------------------------------
+% TRAJECTORY FOLLOWER OPTIONS
+%--------------------------------------------------------------------------
+%%% The trajectory follower options. Anything that's not a proper function
+%%% handle will result in using the default function handle
+scattdata.followerHandle        =       @TrajectoryFollowerRandomWalk;
+%--------------------------------------------------------------------------
+
+% GENERAL SCATTERING OPTIONS
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       2;
+SCATTERING_LOW_ENERGY_CUTOFF    =       0;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
-LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
+LOW_ENERGY_MEAN_FREE_PATH       =       1;% for random walk test 3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
+
+% VIBRATIONAL OPTIONS
 %%% Molecular density for vicrational calculations
 MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23*10; % molecules/cm3
+
+% STONEWALL OPTIONS
 %%%% The energy below which the electron would activate an acid and die
-scattdata.stoneWall.CUTOFF      =   5;
+scattdata.stoneWall.CUTOFF      =   0.7;
 %%%% The imfp of the stone wall. Should be small if active
 scattdata.stoneWall.IMFP        =   0.0001;  
 %%%% The reaction radius of the stone wall
@@ -187,8 +200,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1000;
-eSweep      =   [60 50 45 40];
+nTrials     =   1100;
+eSweep      =   [10.1, 20.1, 35.1 50.1];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -409,7 +422,7 @@ for E_count=1:length(eSweep)
             posPAG_rmv_init =   pagdata.posPAG_removed;
             posPolymer_init =   polymdata.posPolymer;
 
-            % The scattering engine itself
+            %% 4..3.2The scattering engine itself
             [eventdata,pagdata,polymdata]=TrajectoryWrapper({eventP},scattdata,eventdata,xyzglobal,pagdata,polymdata,logfile_fid);
 
             % Display the location of acids created by this electron.
@@ -421,13 +434,15 @@ for E_count=1:length(eSweep)
                     size(pagdata.posPAG_removed,2))');
             end
             %}
-            %% 4..3.2 Documenting the results
+            
+            %% 4..3.3 Documenting the results
             
             energyScanArchive{trial_count}.incidences{incidence} = eventdata;
 
             % Record the time spent on each incidence
             tend_coordinates=toc(tst_incidence);
             %fprintf(logfile_fid,'...Took %.2f s\n',tend_coordinates);
+            
         end
         
         %% 4..2.3 Post Trial Logging and counting
@@ -476,6 +491,7 @@ for E_count=1:length(eSweep)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
     end
+    
     %% 4..1.3 Per Energy House Keeping
     meanAcids_thruE(E_count)    =   mean(nAcids_thruTrial);
     stdAcids_thruE(E_count)     =   std(nAcids_thruTrial);
@@ -509,7 +525,7 @@ for E_count=1:length(eSweep)
     
     %% 4..1.4 Per Energy Trajectory Echo
     if echoConfig.traj3.perEnergy
-        edHandle = figure(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count));
+        edHandle = figure(round(FIGURE_TRAJ_PER_ENERGY + eSweep(E_count)));
         edHandle.Name = strcat('Trajectory-',num2str(eSweep(E_count)),'eV');
         %%% Count the number of events
         totalEventCountAtEnergy = 0;
@@ -577,7 +593,7 @@ for E_count=1:length(eSweep)
         binEdges = { -dispR-dispS/2:dispS:dispR+dispS/2, -dispR-dispS/2:dispS:dispR+dispS/2 };
         axislabels = {'x (nm)','y(nm)','z(nm)'};
         
-        esHandle    =   figure(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count));
+        esHandle    =   figure(round(FIGURE_ACID_DIST_PERENERGY + eSweep(E_count)));
         esHandle.Name = strcat('Summary-',num2str(eSweep(E_count)),'eV');
         clf; 
         

@@ -8,6 +8,16 @@ function [eventdata,pagdata,polymdata]=TrajectoryWrapper(event,scattdata,eventda
 
 global illustration secSpawningTheta echoConfig demoEcho;
 
+    if isfield(scattdata,'followerHandle') &&...
+            isa(scattdata.followerHandle,'function_handle')
+        trajectoryFollower  =   scattdata.followerHandle;
+    else
+        trajectoryFollower  =   @TrajectoryFollower;
+    end
+    
+   
+        
+
     plotscatt=0;
     % if isfield(scattdata.optical,'inel_dcsdata')
     %     scatt_Elim=min(scattdata.optical.E);
@@ -39,9 +49,9 @@ global illustration secSpawningTheta echoConfig demoEcho;
         if event{i}.Ese>scatt_Elim
             %fprintf(logfile_fid,'.........Scattcalc_lowE: Ese = %.4f eV\n',event{i}.Ese);
             posPAG_init     =   pagdata.posPAG;
-            %%%% Scattering model with proper coordinate transformation
-            [ev2,pagdata,polymdata]=TrajectoryFollower(event{i},scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid);
-            
+            %% Trajectory Follower
+            [ev2,pagdata,polymdata]=trajectoryFollower(event{i},scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,logfile_fid);
+            %% Analyse the trajectory and generate secondary trajectories
             if demoEcho
                 fprintf('# of PAGs activated in the last execution of the follower = %d\n',...
                    sum(isnan(pagdata.posPAG(1,:)))-sum(isnan(posPAG_init(1,:))));
