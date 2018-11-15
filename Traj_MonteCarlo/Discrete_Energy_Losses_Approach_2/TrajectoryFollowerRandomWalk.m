@@ -67,11 +67,13 @@ global illustration scattVector thetaLog;
         imfp    =   1/(1/imfp_randomWalk+1/imfp_stoneWall);            
         
         %% 3. Electron propagation, chronologically before the scattering
-        rnew=exprnd(imfp); % exponential distribution        
+        %rnew=exprnd(imfp); % exponential distribution        
+        % Randome walk with fixed distance
+        rnew    =   imfp;
 
-        znew=zold+rnew*cos(theta_old);
-        xnew=xold+rnew*sin(theta_old)*cos(phi_old);
-        ynew=yold+rnew*sin(theta_old)*sin(phi_old);
+        znew    =   zold+rnew*cos(theta_old);
+        xnew    =   xold+rnew*sin(theta_old)*cos(phi_old);
+        ynew    =   yold+rnew*sin(theta_old)*sin(phi_old);
 
         %%%% calculate the path length
         pathlen=sqrt((xnew-xold)^2+(ynew-yold)^2+(znew-zold)^2);

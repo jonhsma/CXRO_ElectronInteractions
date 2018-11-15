@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'Parallel_22W_LowE_Ref_20181113';
+outputFolder    =   'RandomWalkVerfication_fixed_20181114';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -136,7 +136,7 @@ SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
-LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
+LOW_ENERGY_MEAN_FREE_PATH       =       1;% for random walk test 3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
 %%% Molecular density for vicrational calculations
@@ -187,8 +187,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1000;
-eSweep      =   [60 50 45 40];
+nTrials     =   1100;
+eSweep      =   [5 10 15 30 40 50];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -478,6 +478,7 @@ for E_count=1:length(eSweep)
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
     end
+    
     %% 4..1.3 Per Energy House Keeping
     meanAcids_thruE(E_count)    =   mean(nAcids_thruTrial);
     stdAcids_thruE(E_count)     =   std(nAcids_thruTrial);

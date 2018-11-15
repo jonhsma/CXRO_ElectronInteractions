@@ -48,7 +48,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   'RandomWalkVerfication_20181114';
+outputFolder    =   'RandomWalkVerfication_fixed_20181114';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -131,12 +131,12 @@ debugCurrAcidArrayDiff = 0;
 
 %% 1.0 --> Model Parameters
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       2;
+SCATTERING_LOW_ENERGY_CUTOFF    =       0.5;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
-LOW_ENERGY_MEAN_FREE_PATH       =       3.67;
+LOW_ENERGY_MEAN_FREE_PATH       =       1;% for random walk test 3.67;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
 %%% Molecular density for vicrational calculations
