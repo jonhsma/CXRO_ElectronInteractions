@@ -295,6 +295,10 @@ function loadButton_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton9 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+    if isempty(handles)
+        disp('test')
+        GUI_0;
+    end
     loadArchive(hObject, eventdata,handles);
 end
 
