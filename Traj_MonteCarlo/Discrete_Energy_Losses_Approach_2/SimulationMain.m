@@ -1,12 +1,44 @@
-%%%%----------------------Scattering Sims---------------------------%%%%
-%   Note: Now it's written in a portable way that as long as one copies 
-%   the ElectronInteractions completely no change is needed for the paths
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%---------------------Notes of _NoCoarseGrain_ Variant------------------
-%%%% This version involves a big change in data structure. No coarse
-%%%% graining is involved in the simulation itself. Few new functions are
-%%%% written to make the code more modulari so using it with previous
-%%%% versions of functions might not be possible
+%%%%---------------Scattering Trajectory Simulation-------------------%%%%
+% This is a Monte Carlo electron simulation. Electrons are generated and
+% the evolution (propagation, scattering and termination) of individual
+% electrons are simulated in a step-by-step manner. The program is
+% organized is the following way. This script configures the system,
+% initiate simulations and handles the data logistics. Each initiation is
+% sent to the trajectory wrapper. The wrapper does two things. It sends the
+% initiation to the trajectory follower, which simulates the life of the
+% electron (which is pretty short). When the simulation is over, the
+% wrapper reads in the trajectory, goes through each step and sees if a
+% secondary is generated. If so, it does it first job again and initiate
+% another trajectory. The trajectory follower is where the
+% physics/chemistry is simulated. It simulates the life of the elctron and
+% returns it's trajectory and relavant information.
+%=========================================================================
+% Major changes to the flow and structure in chronological order
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Code was inherited from Suchit -SB
+%-------------------------------------------------------------------------
+% Absolute file depedence is abolished. Should run if you move the
+% ElectronInteractions folder as a whole - JHM
+%-------------------------------------------------------------------------
+% Voxelization of acid/polymer loading is abandoned for sub-nm resolution.
+% No side effect on performance observed - JHM
+%-------------------------------------------------------------------------
+% Flexible dosing and angular distribution. Both of them are configurable
+% as they are now function handles. -JHM
+%------------------------------------------------------------------------- 
+% Parallelization of cycles. When debugging, turn off parallelization. New
+% graphical tools developed to observe trajectories after the fact. - JHM
+%-------------------------------------------------------------------------
+% Use of optional trajectory follower allowed. JHM
+%=========================================================================
+% Architectural work in progress
+%+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+% Cleaning up and reorganizing the repository
+%-------------------------------------------------------------------------
+% Make scattering engines more plug-and-play in the sense that changes
+% needed to be made to the follower is minimal when toggling a scattering
+% channel
+%=========================================================================
 
 %% 0.0 Path and other basic initialization
 clear;
@@ -103,6 +135,7 @@ thetaLog         =  [];
 
 %% 0.2 --> Illustrations and Echo
 % The illustration variable toggles whether explainative remarks show up
+% In Parallelization, perTrial echos are not possible
 global illustration echoConfig;
 illustration = 0;
 
@@ -111,11 +144,11 @@ echoConfig.acid.perTrial    =   0;
 echoConfig.acid.perElectron =   0;
 echoConfig.acid.perTraj     =   0;
 
-echoConfig.traj3.perTrial   =   1;
+echoConfig.traj3.perTrial   =   0;
 echoConfig.traj3.perEnergy  =   1;
 
 echoConfig.acidDist.active  =   1;
-echoConfig.acidDist.range   =   10; % 10 means from -10 to 10 m,
+echoConfig.acidDist.range   =   10; % 10 means from -10 to 10 nm,
 echoConfig.acidDist.res     =   0.5;
 
 %%% Default graph numbers
@@ -124,7 +157,7 @@ FIGURE_TRAJ_PER_ENERGY      =   72000;
 FIGURE_ACID_DIST_PERENERGY  =   72100;
 FIGURE_ACID_VS_ENERGY       =   1001;
 
-%% 0.3 --> Debug parameters
+%% 0.3 Debug Grease Pan
 global debugOutput ;
 debugOutput = {};
 debugCurrAcidArrayDiff = 0;
@@ -134,8 +167,8 @@ debugCurrAcidArrayDiff = 0;
 % TRAJECTORY FOLLOWER OPTIONS
 %--------------------------------------------------------------------------
 %%% The trajectory follower options. Anything that's not a proper function
-%%% handle will result in using the default function handle
-scattdata.followerHandle        =       @TrajectoryFollowerRandomWalk;
+%%% handle will result in using the default trajectory follower
+scattdata.followerHandle        =       'default';%@TrajectoryFollowerRandomWalk;
 %--------------------------------------------------------------------------
 
 % GENERAL SCATTERING OPTIONS
@@ -145,7 +178,7 @@ SCATTERING_LOW_ENERGY_CUTOFF    =       0;
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
 %%% Low energy random walk mean free path.
-LOW_ENERGY_MEAN_FREE_PATH       =       1;% for random walk test 3.67;
+LOW_ENERGY_MEAN_FREE_PATH       =       3.67;%1 for random walk test;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;
 
@@ -174,6 +207,12 @@ RHO_PAG         =   0.4;
 RHO_POLYMER     =   6;
 
 %% 1.2 Initializing the event structure [holds info about excitations triggered]
+% The energy of the "secondary electron" generated or the starting energy
+% if a new trace is created out of this event
+% The primary event is the incidence and the primary electron energy goes
+% there to trigger Scarrcalc_lowE. It signifies an "energetic electron" 
+% (and another event trace) is created
+
 eventPrototype.xyz=[0 0 0];
 xyzglobal.x=eventPrototype.xyz(1);
 xyzglobal.y=eventPrototype.xyz(2);
@@ -184,11 +223,6 @@ E_in=91;
 eventPrototype.Ein=E_in;
 eventPrototype.Eout=0;
 eventPrototype.Eloss=0;
-% The energy of the "secondary electron" generated or the starting energy
-% if a new trace is created out of this event
-% The primary event is the incidence and the primary electron energy goes
-% there to trigger Scarrcalc_lowE. It signifies an "energetic electron" 
-% (and another event trace) is created
 eventPrototype.Ese=91;
 eventPrototype.act='SE';
 eventPrototype.nacid=0;
