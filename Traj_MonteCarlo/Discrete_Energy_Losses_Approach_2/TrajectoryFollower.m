@@ -208,13 +208,13 @@ global illustration scattVector thetaLog;
 
                 %%% Determine action by energy loss
                 if Eloss_val==0
-                    act='none'; % if Sp=0, no energy loss.
+                    act='none;'; % if Sp=0, no energy loss.
                 elseif Eloss_val<pag_Eamin
-                    act='Eloss<pagEaMin';
+                    act='Eloss<pagEaMin;';
                 elseif Eloss_val<E_ionize_min
-                    act='6eVRes';
+                    act='6eVRes;';
                 else
-                    act='SE';                                                    
+                    act='SE;';                                                    
                 end
             case 'LowEnergy' % Currently unaccessible 
                 %% 4.1.3 Low energy random walk (Currently inaccessible)
@@ -222,7 +222,7 @@ global illustration scattVector thetaLog;
                 theta = acos(2*rand-1);
                 phi=2*pi*rand;  
             case 'StoneWall'
-                act         =   'StoneWall';
+                act         =   'StoneWall;';
                 Eloss_val   =   eLoss_stoneWall;
                 theta       =   theta_stoneWall;
                 phi         =   phi_stoneWall;
@@ -308,22 +308,12 @@ global illustration scattVector thetaLog;
         npags_removed=0;
 
         %% 5.1 Resolving Low energy electron decisions
-        %%% resolve the actual 
-        if strcmp(act,'LowEnergy')
-            if npags>0
-                Eloss_val=pag_Eamin;
-                act='LowEnergy-Acid';
-            else
-                Eloss_val=E_ionize_min;
-                act='SE';
-            end
-        end
         
         %% 5.2 The possibilities
         if (rand<pag_ratio...%
-                || strcmp(act,'6eVRes')... %
-                || strcmp(act,'LowEnergy-Acid'))...% if activating a PAG
-                && ~(strcmp(act,'vibr')&& Eloss_val<pag_Eamin)  % Vibrational excitations treated differently 
+                || strcmp(act,'6eVRes;')... %
+                || strcmp(act,'LowEnergy-Acid;'))...% if activating a PAG
+                && ~(strcmp(act,'vibr;')&& Eloss_val<pag_Eamin)  % Vibrational excitations treated differently 
          %% 5.1.1 Acid generation (by volume ratio and 6eV resonance)
             Ese=0;
             nSE=0;
@@ -331,16 +321,9 @@ global illustration scattVector thetaLog;
             nacid=0;
             nacid_unsat=1;            
             
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %%%  Satuation test 
-            satuationTest = 0;
-            if satuationTest
-                nacid=1; 
-            end
-            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%           
             if npags>0
                 num2Remove=1; % how many PAGS to remove [could be Eloss/Eact in the future!]
-                npags_removed=npags_removed+1;
+                npags_removed=+1;
                 nacid=1;
                 %%% Determine which pag to remove 
                 [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
@@ -349,8 +332,8 @@ global illustration scattVector thetaLog;
                     acid_act_xyz_idx,acid_act_e_xyz);                
                 
                 %%% Determine if this event spawns a secondary electron
-                Ese=Eloss_val-pag_Eamin;    
-                Ese(Ese<0)=0;
+                Ese         =   Eloss_val-pag_Eamin;    
+                Ese(Ese<0)  =   0;
                 if Ese>0
                     nSE=1;
                     nion=1;
@@ -374,10 +357,8 @@ global illustration scattVector thetaLog;
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 %}
             else
-    %             Eloss_val=0; % if no pag available, no energy loss.
-    %             nacid=0;
                 E_benzene=6.5;
-                Ese=Eloss_val-E_benzene;    Ese(Ese<0)=0;
+                Ese     =   Eloss_val-E_benzene;    Ese(Ese<0)=0;
                 act='acid-none-Polym-noSE';
                 if Ese>0 && ~isempty(polymidx)
                     %%%Signaling the engine to initiate a secondary
@@ -414,38 +395,12 @@ global illustration scattVector thetaLog;
                     end
                 case '6eVRes'   %%% !!!! This branch is not reachable
                     act='6eVRes-Polym';
-                case 'vibr'     %%% !!! This 
-                    %nacid=1;% temporary, added on 5/27/2017 to test saturation 
-                    nacid_unsat=1;
-                    
-                    %%% Acid generation is mendatory. That looks dubious.
-                    %%% -JHM
-                    if npags>999
-                        
-          %             Eloss_val=min([6.8 max([Eloss_val pag_Eamin])]); % modify this value, as its a 6.8 eV event instead.
-                        num2Remove=1; % how many PAGS to remove [could be Eloss/Eact in the future!]
-                        npags_removed=npags_removed+1;
-                        nacid=1;
-                        
-                        [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
-                            =acidActivation(num2Remove,posPAG,posPAG_removed,...
-                            pagidx,[xEvent, yEvent, zEvent],...
-                            acid_act_xyz_idx,acid_act_e_xyz);                        
-                        
-                        Eloss_val=pag_Eamin;
-                        Ese=Eloss_val-pag_Eamin;    Ese(Ese<0)=0;
-                        if Ese>0
-                            nSE=1;
-                            nion=1;
-                            SE_act_xyz=[SE_act_xyz posPolymer(:,pagidx(remove_idx))];
-                        end
-                        acid_act_xyz_idx=[acid_act_xyz_idx pagidx(remove_idx)];
-                        act='vibr-acid';
-                    else
-                        act='vibr-polym';
-                    end
+                case 'vibr'   
+                    act='vibr-polym';                    
                     
                     %%% Conventional SE logic. Tempory -JHM
+                    %%% Should be removed as energy loss is always smaller
+                    %%% than 1 eV
                     Ese     =   (Eloss_val>E_ionize_min).*(Eloss_val-E_ionize_min);
                     nSE     =   double(Eloss_val>E_ionize_min);
                     
