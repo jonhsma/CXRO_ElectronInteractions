@@ -4,10 +4,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 0.0 Path and other basic initialization
-clear;
+%clear;
 clear global
-clc;
-close all;
+%clc;
+%close all;
 set(0,'DefaultFigureWindowStyle','docked')
 
 % Global functions
@@ -32,9 +32,9 @@ pathname='..\..\Traj_MonteCarlo\Discrete_Energy_Losses_Approach_2\DDCSData\';
 filename='DDCSdata_Ef=0p5_Elossmin=0.001eV_Erange=[5,1000].mat';
 
 filename='DDCSdata_withICSData_Ef=10_Elossmin=0.001eV_Erange=[5,1000].mat';
-
-filename='DDCSdata_Fuji_Ef=15.5_Elossmin=3eV_Erange=[19,200]_EQCons=Pines.mat';
 %}
+%filename='DDCSdata_Fuji_Ef=15.5_Elossmin=3eV_Erange=[19,200]_EQCons=Pines.mat';
+
 filename='DDCSdata_Fuji_Ef=15.5_Elossmin=0.001eV_Erange=[16,200].mat';
 
 scattdata.optical.inel_dcsdata  = load([pathname filename]);
@@ -51,6 +51,7 @@ figure(3003);
 imagesc(eMat4EnergyDuffXSection)
 
 figure(3004);
+hold on
 s_eLossXSec = surf(eMat4EnergyDuffXSection,optData.Elossmat,optData.dsigdE);
 xlabel('Incident Energy (eV)')
 ylabel('Energy Loss (eV)')
@@ -60,6 +61,7 @@ s_eLossXSec.EdgeColor = 'none';
 dsigdE_N = optData.dsigdE./...
     (max(optData.dsigdE,[],2)*ones([1 size(optData.dsigdE,2)]));
 figure(3005)
+hold on
 s_eLossXSec_N = surf(eMat4EnergyDuffXSection,optData.Elossmat,dsigdE_N);
 xlabel('Incident Energy (eV)')
 ylabel('Energy Loss (eV)')
