@@ -345,7 +345,7 @@ global scanArchiveGUI
                 displayTrajectory(testTraj,'energy',[],[],80,jet(100))
             else
                 testTraj    =   scanArchiveGUI{currEnergy}{currTrial}.incidences{1};
-                for ii = 2:length(scanArchiveGUI{currEnergy,currTrial}.incidences)
+                for ii = 2:length(scanArchiveGUI{currEnergy}{currTrial}.incidences)
                     testTraj = [testTraj scanArchiveGUI{currEnergy}{currTrial}.incidences{ii}];
                 end
                 displayTrajectory(testTraj,'energy',...

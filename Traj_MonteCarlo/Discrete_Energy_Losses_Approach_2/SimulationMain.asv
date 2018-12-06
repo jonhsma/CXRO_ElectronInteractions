@@ -80,7 +80,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20181205_Ref';
+outputFolder    =   '20181205_TimingTest';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -173,7 +173,7 @@ scattdata.followerHandle        =       'default';%@TrajectoryFollowerRandomWalk
 
 % GENERAL SCATTERING OPTIONS
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       1;
+SCATTERING_LOW_ENERGY_CUTOFF    =       0;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
@@ -188,7 +188,7 @@ MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23*10; % molecules/cm3
 
 % STONEWALL OPTIONS
 %%%% The energy below which the electron would activate an acid and die
-scattdata.stoneWall.CUTOFF      =   5;
+scattdata.stoneWall.CUTOFF      =   0.7;
 %%%% The imfp of the stone wall. Should be small if active
 scattdata.stoneWall.IMFP        =   0.0001;  
 %%%% The reaction radius of the stone wall
@@ -234,8 +234,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   10;
-eSweep      =   [50];
+nTrials     =   1100;
+eSweep      =   [10.1, 20.1, 35.1 50.1];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -371,7 +371,7 @@ for E_count=1:length(eSweep)
     %% 4..2 Loop through the number of trials
     fprintf('\n Simulations with %4.2f eV incident electrons started\n',...
         eSweep(E_count));
-    for trial_count=1:nTrials
+    parfor trial_count=1:nTrials
         %% 4..2.1 Iteration for trial (Each trial is a clean start: a new system)
         
         %%% Logging metadata
