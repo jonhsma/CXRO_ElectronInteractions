@@ -1,0 +1,2105 @@
+The mean of position of acids
+ forscanArchive_20    0.0442    0.0642   -0.0226
+
+The standard deviation in position of acids
+    2.5557    2.6083    2.6054
+
+The standard deviation in position of activation events
+    2.5066    2.5408    2.5572
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+ContingentScriptFor20181206
+The mean of position of acids forscanArchive_20
+    0.0442    0.0642   -0.0226
+
+The standard deviation in position of acids
+    2.5557    2.6083    2.6054
+
+The standard deviation in position of activation events
+    2.5066    2.5408    2.5572
+
+The mean of position of acids forscanArchive_30
+    0.0583    0.0587   -0.0204
+
+The standard deviation in position of acids
+    2.7392    2.7872    2.8489
+
+The standard deviation in position of activation events
+    2.6886    2.7396    2.7949
+
+The mean of position of acids forscanArchive_45
+    0.0208    0.0356    0.0546
+
+The standard deviation in position of acids
+    2.6096    2.5465    2.6061
+
+The standard deviation in position of activation events
+    2.5610    2.4859    2.5406
+
+The mean of position of acids forscanArchive_50
+    0.0018    0.0346   -0.0508
+
+The standard deviation in position of acids
+    2.7045    2.7441    2.5613
+
+The standard deviation in position of activation events
+    2.6526    2.6873    2.5051
+
+The mean of position of acids forscanArchive_65
+   -0.0854    0.0427    0.0770
+
+The standard deviation in position of acids
+    2.7136    2.7807    2.6799
+
+The standard deviation in position of activation events
+    2.6610    2.7199    2.6235
+
+The mean of position of acids forscanArchive_80
+    0.0597   -0.0513   -0.0331
+
+The standard deviation in position of acids
+    2.7691    2.6651    2.7290
+
+The standard deviation in position of activation events
+    2.7072    2.6025    2.6694
+
+The mean of position of acids forscanArchive_20
+    0.0442    0.0642   -0.0226
+
+The standard deviation in position of acids
+    2.5557    2.6083    2.6054
+
+The standard deviation in position of activation events
+    2.5066    2.5408    2.5572
+
+The mean of position of acids forscanArchive_30
+    0.0583    0.0587   -0.0204
+
+The standard deviation in position of acids
+    2.7392    2.7872    2.8489
+
+The standard deviation in position of activation events
+    2.6886    2.7396    2.7949
+
+The mean of position of acids forscanArchive_45
+    0.0208    0.0356    0.0546
+
+The standard deviation in position of acids
+    2.6096    2.5465    2.6061
+
+The standard deviation in position of activation events
+    2.5610    2.4859    2.5406
+
+<a href="matlab: opentoline('C:\Users\JHANSO~1\AppData\Local\Temp\3\Editor\LiveEditorEvaluationHelperESectionEval.mlx',19,1)">19  </a>    eval(strcat('scanArchive =',list{ii},';')) 
+a = 1
+
+a =
+
+     1
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+clc
+ContingentScriptFor20181206
+The mean of position of acids forscanArchive_20
+    0.0442    0.0642   -0.0226
+
+The standard deviation in position of acids
+    2.5557    2.6083    2.6054
+
+The standard deviation in position of activation events
+    2.5066    2.5408    2.5572
+
+The mean of position of acids forscanArchive_30
+    0.0583    0.0587   -0.0204
+
+The standard deviation in position of acids
+    2.7392    2.7872    2.8489
+
+The standard deviation in position of activation events
+    2.6886    2.7396    2.7949
+
+The mean of position of acids forscanArchive_45
+    0.0208    0.0356    0.0546
+
+The standard deviation in position of acids
+    2.6096    2.5465    2.6061
+
+The standard deviation in position of activation events
+    2.5610    2.4859    2.5406
+
+The mean of position of acids forscanArchive_50
+    0.0018    0.0346   -0.0508
+
+The standard deviation in position of acids
+    2.7045    2.7441    2.5613
+
+The standard deviation in position of activation events
+    2.6526    2.6873    2.5051
+
+The mean of position of acids forscanArchive_65
+   -0.0854    0.0427    0.0770
+
+The standard deviation in position of acids
+    2.7136    2.7807    2.6799
+
+The standard deviation in position of activation events
+    2.6610    2.7199    2.6235
+
+The mean of position of acids forscanArchive_80
+    0.0597   -0.0513   -0.0331
+
+The standard deviation in position of acids
+    2.7691    2.6651    2.7290
+
+The standard deviation in position of activation events
+    2.7072    2.6025    2.6694
+
+diary on;
+SimulationMain
+The mean of position of acids forscanArchive_20
+    0.0442    0.0642   -0.0226
+
+The standard deviation in position of acids
+    2.5557    2.6083    2.6054
+
+The standard deviation in position of activation events
+    2.5066    2.5408    2.5572
+
+The mean of position of acids forscanArchive_30
+    0.0583    0.0587   -0.0204
+
+The standard deviation in position of acids
+    2.7392    2.7872    2.8489
+
+The standard deviation in position of activation events
+    2.6886    2.7396    2.7949
+
+The mean of position of acids forscanArchive_45
+    0.0208    0.0356    0.0546
+
+The standard deviation in position of acids
+    2.6096    2.5465    2.6061
+
+The standard deviation in position of activation events
+    2.5610    2.4859    2.5406
+
+The mean of position of acids forscanArchive_50
+    0.0018    0.0346   -0.0508
+
+The standard deviation in position of acids
+    2.7045    2.7441    2.5613
+
+The standard deviation in position of activation events
+    2.6526    2.6873    2.5051
+
+The mean of position of acids forscanArchive_65
+   -0.0854    0.0427    0.0770
+
+The standard deviation in position of acids
+    2.7136    2.7807    2.6799
+
+The standard deviation in position of activation events
+    2.6610    2.7199    2.6235
+
+The mean of position of acids forscanArchive_80
+    0.0597   -0.0513   -0.0331
+
+The standard deviation in position of acids
+    2.7691    2.6651    2.7290
+
+The standard deviation in position of activation events
+    2.7072    2.6025    2.6694
+
+Reference to non-existent field 'rabs'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('tabulateSummary', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\tabulateSummary.m', 14)" style="font-weight:bold">tabulateSummary</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\tabulateSummary.m',14,0)">line 14</a>)
+        acidSpread(ii,5)    =   mean(resultObj{ii}.rabs);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('New_IO_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\New_IO_20181210.m', 37)" style="font-weight:bold">New_IO_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\New_IO_20181210.m',37,0)">line 37</a>)
+tabulateSummary(resultObject)
+
+tabulateSummary(resultObject)
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.556       2.608       2.605       4.486       0.000
+       2.739       2.787       2.849       4.836       0.000
+       2.610       2.546       2.606       4.482       0.000
+       2.705       2.744       2.561       4.627       0.000
+       2.714       2.781       2.680       4.720       0.000
+       2.769       2.665       2.729       4.714       0.000
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.507       2.608       2.605       4.391       0.000
+       2.689       2.787       2.849       4.748       0.000
+       2.561       2.546       2.606       4.381       0.000
+       2.653       2.744       2.561       4.531       0.000
+       2.661       2.781       2.680       4.622       0.000
+       2.707       2.665       2.729       4.607       0.000
+
+ans =
+
+     1
+
+tabulateSummary(dec6RefResult)
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.496       2.516       2.613       4.404       3.948
+       2.850       2.807       2.790       4.877       3.788
+       2.651       2.675       2.597       4.574       3.519
+       2.586       2.569       2.578       4.465       3.518
+       2.680       2.706       2.667       4.649       3.683
+       2.712       2.718       2.778       4.739       3.789
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.468       2.516       2.613       4.333       3.948
+       2.799       2.807       2.790       4.798       3.788
+       2.582       2.675       2.597       4.463       3.519
+       2.528       2.569       2.578       4.359       3.518
+       2.627       2.706       2.667       4.545       3.683
+       2.659       2.718       2.778       4.638       3.789
+
+ans =
+
+     1
+
+tabulateSummary(resultObject)
+{Reference to non-existent field 'rabs'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('tabulateSummary', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\tabulateSummary.m', 14)" style="font-weight:bold">tabulateSummary</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\tabulateSummary.m',14,0)">line 14</a>)
+        acidSpread(ii,5)    =   mean(resultObj{ii}.rabs);
+} 
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\tabulateSummary.m',14,1)">14  </a>        acidSpread(ii,5)    =   mean(resultObj{ii}.rabs);
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\tabulateSummary.m',14,0)
+if system_dependent('IsDebugMode')==1, dbquit; end
+tabulateSummary(resultObject)
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.556       2.608       2.605       4.486       0.000
+       2.739       2.787       2.849       4.836       0.000
+       2.610       2.546       2.606       4.482       0.000
+       2.705       2.744       2.561       4.627       0.000
+       2.714       2.781       2.680       4.720       0.000
+       2.769       2.665       2.729       4.714       0.000
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.507       2.541       2.557       4.391       0.000
+       2.689       2.740       2.795       4.748       0.000
+       2.561       2.486       2.541       4.381       0.000
+       2.653       2.687       2.505       4.531       0.000
+       2.661       2.720       2.624       4.622       0.000
+       2.707       2.603       2.669       4.607       0.000
+
+ans =
+
+     1
+
+tabulateSummary(dec6RefResult)
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.496       2.516       2.613       4.404       3.948
+       2.850       2.807       2.790       4.877       3.788
+       2.651       2.675       2.597       4.574       3.519
+       2.586       2.569       2.578       4.465       3.518
+       2.680       2.706       2.667       4.649       3.683
+       2.712       2.718       2.778       4.739       3.789
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.468       2.477       2.559       4.333       3.876
+       2.799       2.766       2.746       4.798       3.593
+       2.582       2.609       2.539       4.463       3.291
+       2.528       2.509       2.513       4.359       3.305
+       2.627       2.644       2.601       4.545       3.470
+       2.659       2.658       2.717       4.638       3.587
+
+ans =
+
+     1
+
+Reference to non-existent field 'acid_xyz'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('New_IO_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\New_IO_20181210.m', 45)" style="font-weight:bold">New_IO_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\New_IO_20181210.m',45,0)">line 45</a>)
+hist(dec6RefResult{1}.acid_xyz)
+
+Reference to non-existent field 'r_abs'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('New_IO_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\New_IO_20181210.m', 45)" style="font-weight:bold">New_IO_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\New_IO_20181210.m',45,0)">line 45</a>)
+hist(dec6RefResult{1}.r_abs)
+
+figure(9004);
+hold off
+histogram(dec6RefResult{1}.rabs,30,'Normalization','pdf')
+hold on
+histogram(dec6RefResult{2}.rabs,30,'Normalization','pdf')
+           20eV  4.40e+00  3.95e+00           30eV  4.88e+00  3.79e+00         20eV\n  4.40e+00  3.95e+00         30eV\n  4.88e+00  3.79e+00           20eV  4.40e+00  3.95e+00
+           30eV  4.88e+00  3.79e+00
+           20eV  4.40e+00  3.95e+00
+           30eV  4.88e+00  3.79e+00
+
+Incident Energy    RMS(r)       <r>           20eV  4.40e+00  3.95e+00
+           30eV  4.88e+00  3.79e+00
+testCell = cell([1 3])
+
+testCell =
+
+  1×3 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {0×0 double}    {0×0 double}    {0×0 double}
+
+testCell = {'test'}
+
+testCell =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'test'}
+
+Currently Processing    '20181207_LowEnergyOff started; Energy :20'
+
+  <a href="matlab:helpPopup MException" style="font-weight:bold">MException</a> with properties:
+
+    identifier: 'MATLAB:load:couldNotReadFile'
+       message: 'Unable to read file '..\..\..\..\JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\20181207_LowEnergyOff started\Ein=20_Dose=0.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T1.mat'. No such file or directory.'
+         cause: {0×1 cell}
+         stack: [4×1 struct]
+
+Problem reading the 1-th file
+The mean of position of acids
+   NaN
+
+The standard deviation in position of acids
+   NaN
+
+The standard deviation in position of activation events
+   NaN
+
+Currently Processing    '20181207_LowEnergyOff started; Energy :30'
+
+  <a href="matlab:helpPopup MException" style="font-weight:bold">MException</a> with properties:
+
+    identifier: 'MATLAB:load:couldNotReadFile'
+       message: 'Unable to read file '..\..\..\..\JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\20181207_LowEnergyOff started\Ein=30_Dose=0.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T1.mat'. No such file or directory.'
+         cause: {0×1 cell}
+         stack: [4×1 struct]
+
+Problem reading the 1-th file
+The mean of position of acids
+   NaN
+
+The standard deviation in position of acids
+   NaN
+
+The standard deviation in position of activation events
+   NaN
+
+Currently Processing    '20181207_LowEnergyOff started; Energy :40'
+
+  <a href="matlab:helpPopup MException" style="font-weight:bold">MException</a> with properties:
+
+    identifier: 'MATLAB:load:couldNotReadFile'
+       message: 'Unable to read file '..\..\..\..\JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\20181207_LowEnergyOff started\Ein=40_Dose=0.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T1.mat'. No such file or directory.'
+         cause: {0×1 cell}
+         stack: [4×1 struct]
+
+Problem reading the 1-th file
+The mean of position of acids
+   NaN
+
+The standard deviation in position of acids
+   NaN
+
+The standard deviation in position of activation events
+   NaN
+
+Currently Processing    '20181207_LowEnergyOff started; Energy :50'
+
+  <a href="matlab:helpPopup MException" style="font-weight:bold">MException</a> with properties:
+
+    identifier: 'MATLAB:load:couldNotReadFile'
+       message: 'Unable to read file '..\..\..\..\JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\20181207_LowEnergyOff started\Ein=50_Dose=0.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T1.mat'. No such file or directory.'
+         cause: {0×1 cell}
+         stack: [4×1 struct]
+
+Problem reading the 1-th file
+The mean of position of acids
+   NaN
+
+The standard deviation in position of acids
+   NaN
+
+The standard deviation in position of activation events
+   NaN
+
+Currently Processing    '20181207_LowEnergyOff started; Energy :65'
+
+  <a href="matlab:helpPopup MException" style="font-weight:bold">MException</a> with properties:
+
+    identifier: 'MATLAB:load:couldNotReadFile'
+       message: 'Unable to read file '..\..\..\..\JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\20181207_LowEnergyOff started\Ein=65_Dose=0.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T1.mat'. No such file or directory.'
+         cause: {0×1 cell}
+         stack: [4×1 struct]
+
+Problem reading the 1-th file
+The mean of position of acids
+   NaN
+
+The standard deviation in position of acids
+   NaN
+
+The standard deviation in position of activation events
+   NaN
+
+Currently Processing    '20181207_LowEnergyOff started; Energy :80'
+
+  <a href="matlab:helpPopup MException" style="font-weight:bold">MException</a> with properties:
+
+    identifier: 'MATLAB:load:couldNotReadFile'
+       message: 'Unable to read file '..\..\..\..\JonathanCodeIO_CXRO\ElectronInteractions\LEEMRes\20181207_LowEnergyOff started\Ein=80_Dose=0.00epnm2_Ef=15.5_pag-Emin=5_rcnrad=3.00_PAG=0.4_T1.mat'. No such file or directory.'
+         cause: {0×1 cell}
+         stack: [4×1 struct]
+
+Problem reading the 1-th file
+The mean of position of acids
+   NaN
+
+The standard deviation in position of acids
+   NaN
+
+The standard deviation in position of activation events
+   NaN
+
+Index exceeds matrix dimensions.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 70)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',70,0)">line 70</a>)
+            histogram(this.acid_xyz_accul(:,iDim),...
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',70,0)
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.014373 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.019023 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.017958 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.029104 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.020770 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021573 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       1.391       1.519       1.757       2.707       2.316
+       2.111       1.950       1.915       3.453       2.561
+       1.979       1.960       2.005       3.431       2.584
+       2.100       2.101       2.006       3.585       2.728
+       2.060       2.099       2.066       3.594       2.714
+       2.110       2.156       2.142       3.699       2.868
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       1.375       1.446       1.662       2.597       2.172
+       2.040       1.888       1.859       3.344       2.310
+       1.909       1.892       1.923       3.305       2.337
+       2.020       2.024       1.928       3.449       2.481
+       1.992       2.024       1.990       3.467       2.461
+       2.037       2.104       2.076       3.589       2.651
+Undefined function 'Comparison_ScatteringSim_Acid' for input arguments of type 'struct'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)
+TwoMechanisms_20181210
+[Warning: Name is nonexistent or not a directory: \components] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('path', 'C:\Users\jhansonma\Matlab\toolbox\matlab\general\path.m', 109)" style="font-weight:bold">path</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\general\path.m',109,0)">line 109</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('addpath', 'C:\Users\jhansonma\Matlab\toolbox\matlab\general\addpath.m', 94)" style="font-weight:bold">addpath</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\general\addpath.m',94,0)">line 94</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 8)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',8,0)">line 8</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)] 
+{'LoadArchives' is not found in the current folder or on the MATLAB path, but exists
+in:
+    C:\Users\jhansonma\Desktop\Jonathan Codes
+    CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components
+
+<a href = "matlab:cd 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components'">Change the MATLAB current folder</a> or <a href = "matlab:addpath 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components'">add its folder to the MATLAB path</a>.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 33)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',33,0)">line 33</a>)
+    resultObject = LoadArchives(runsToCompare,nRuns,incEngy,nTrials,doseStr);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+} 
+if system_dependent('IsDebugMode')==1, dbquit; end
+TwoMechanisms_20181210
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.016601 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.020897 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.017910 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.018044 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.021228 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021110 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+{Index exceeds matrix dimensions.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 7)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',7,0)">line 7</a>)
+        configuration = varargin{2};
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 62)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',62,0)">line 62</a>)
+    plotAcidDistributions(resultObject,configuration)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+} 
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',7,0)
+if system_dependent('IsDebugMode')==1, dbcont; end
+TwoMechanisms_20181210
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.007058 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.018245 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.021569 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.024568 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.020043 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021479 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+{Undefined function or variable 'runsToCompare'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 36)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',36,0)">line 36</a>)
+        target             = strrep(runsToCompare{ii},'_','\_');
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 62)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',62,0)">line 62</a>)
+    plotAcidDistributions(resultObject,configuration)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+} 
+if system_dependent('IsDebugMode')==1, dbquit; end
+TwoMechanisms_20181210
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.006332 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.018006 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.016954 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.017627 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.020022 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021371 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cellstr', 'C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m', 44)" style="font-weight:bold">cellstr</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,0)">line 44</a>)
+Element 1 is not a string scalar or character array. All elements of cell input must
+be string scalars or character arrays.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>process_inputs', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 547)" style="font-weight:bold">legend>process_inputs</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',547,0)">line 547</a>)
+        strings = cellstr(argin{n});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>make_legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 306)" style="font-weight:bold">legend>make_legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',306,0)">line 306</a>)
+[autoupdate,orient,location,position,children,listen,strings,propargs] =
+process_inputs(ha,argin); %#ok
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 259)" style="font-weight:bold">legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',259,0)">line 259</a>)
+    make_legend(ha,args(arg:end),version);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 61)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)">line 61</a>)
+            legend(legendNotes)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 62)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',62,0)">line 62</a>)
+    plotAcidDistributions(resultObject,configuration)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+} 
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)
+if system_dependent('IsDebugMode')==1, dbcont; end
+TwoMechanisms_20181210
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.005761 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.019010 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.016754 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.022962 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.020027 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021407 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cellstr', 'C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m', 44)" style="font-weight:bold">cellstr</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,0)">line 44</a>)
+Element 1 is not a string scalar or character array. All elements of cell input must
+be string scalars or character arrays.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>process_inputs', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 547)" style="font-weight:bold">legend>process_inputs</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',547,0)">line 547</a>)
+        strings = cellstr(argin{n});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>make_legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 306)" style="font-weight:bold">legend>make_legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',306,0)">line 306</a>)
+[autoupdate,orient,location,position,children,listen,strings,propargs] =
+process_inputs(ha,argin); %#ok
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 259)" style="font-weight:bold">legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',259,0)">line 259</a>)
+    make_legend(ha,args(arg:end),version);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 61)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)">line 61</a>)
+            legend(legendNotes)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 62)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',62,0)">line 62</a>)
+    plotAcidDistributions(resultObject,configuration)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+} 
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)
+legendNotes
+{Undefined function or variable 'legendNotes'.
+} 
+<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,1)">44  </a>                error(message('MATLAB:cellstr:MustContainText', i));
+if system_dependent('IsDebugMode')==1, dbquit; end
+if system_dependent('IsDebugMode')==1, dbquit; end
+TwoMechanisms_20181210
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.005835 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.018027 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.016531 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.017412 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.019673 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021554 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cellstr', 'C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m', 44)" style="font-weight:bold">cellstr</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,0)">line 44</a>)
+Element 1 is not a string scalar or character array. All elements of cell input must
+be string scalars or character arrays.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>process_inputs', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 547)" style="font-weight:bold">legend>process_inputs</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',547,0)">line 547</a>)
+        strings = cellstr(argin{n});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>make_legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 306)" style="font-weight:bold">legend>make_legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',306,0)">line 306</a>)
+[autoupdate,orient,location,position,children,listen,strings,propargs] =
+process_inputs(ha,argin); %#ok
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 259)" style="font-weight:bold">legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',259,0)">line 259</a>)
+    make_legend(ha,args(arg:end),version);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 61)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)">line 61</a>)
+            legend(legendNotes)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('Comparison_ScatteringSim_Acid', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m', 62)" style="font-weight:bold">Comparison_ScatteringSim_Acid</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\Comparison_ScatteringSim_Acid.m',62,0)">line 62</a>)
+    plotAcidDistributions(resultObject,configuration)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 21)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',21,0)">line 21</a>)
+plasmonResult = Comparison_ScatteringSim_Acid(loadPlasmon);
+} 
+if system_dependent('IsDebugMode')==1, dbquit; end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',36,1)">36  </a>    try
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',37,1)">37  </a>        for ii = 1:nRuns
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',47,1)">47  </a>    binEdges = -rangeLimit-res/2:res:rangeLimit+res/2;
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',48,1)">48  </a>    figure(5010);
+legendNotes
+
+legendNotes =
+
+  1×6 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}
+
+legendNotes{1}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;20; N_{trials}=1100'}
+
+if system_dependent('IsDebugMode')==1, dbstep; end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',51,1)">51  </a>        subplot(3,1,iDim)
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',52,1)">52  </a>        hold off
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',53,1)">53  </a>        for ii=1:nRuns
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',59,1)">59  </a>        if iDim ==1
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',60,1)">60  </a>            title('Distribution of acid positions-pixelated coorinates');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,1)">61  </a>            legend(legendNotes)
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\iofun\fileparts.m',27,1)">27  </a>pathstr = '';
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cellstr', 'C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m', 44)" style="font-weight:bold">cellstr</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,0)">line 44</a>)
+Element 1 is not a string scalar or character array. All elements of cell input must be string scalars or character arrays.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>process_inputs', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 547)" style="font-weight:bold">legend>process_inputs</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',547,0)">line 547</a>)
+        strings = cellstr(argin{n});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>make_legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 306)" style="font-weight:bold">legend>make_legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',306,0)">line 306</a>)
+[autoupdate,orient,location,position,children,listen,strings,propargs] = process_inputs(ha,argin); %#ok
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 259)" style="font-weight:bold">legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',259,0)">line 259</a>)
+    make_legend(ha,args(arg:end),version);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 61)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,0)">line 61</a>)
+            legend(legendNotes)
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 24)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',24,0)">line 24</a>)
+plotAcidDistributions(plasmonResult,loadPlasmon)
+
+legend({'20181207;20; N_{trials}=1100'})
+legend({'20181207;20; N_{trials}=1100','20181207;20; N_{trials}=1100'})
+test = {'20181207;20; N_{trials}=1100','20181207;20; N_{trials}=1100'}
+
+test =
+
+  1×2 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;20; N_{trials}=1100'}    {'20181207;20; N_{trials}=1100'}
+
+legend(test)
+TwoMechanisms_20181210
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.016460 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.028553 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.018277 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.018283 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.022432 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.021845 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',37,1)">37  </a>        for ii = 1:nRuns
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',42,1)">42  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',38,1)">38  </a>            target             = strrep(runsToCompare{ii},'_','\_');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',39,1)">39  </a>            legendNotes{ii} = strcat(target(1:8),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',40,1)">40  </a>                ';',incEngy(ii),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',41,1)">41  </a>                '; N_{trials}=',num2str(nTrials{ii}));
+if system_dependent('IsDebugMode')==1, dbcont; end
+legendNotes
+
+legendNotes =
+
+  1×6 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}
+
+legendNotes{2}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;30; N_{trials}=1100'}
+
+legendNotes{3}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;40; N_{trials}=1100'}
+
+legendNotes{5}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;65; N_{trials}=1100'}
+
+legendNotes{6}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;80; N_{trials}=1100'}
+
+if system_dependent('IsDebugMode')==1, dbstep; end
+if system_dependent('IsDebugMode')==1, dbstep; end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',51,1)">51  </a>        subplot(3,1,iDim)
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',52,1)">52  </a>        hold off
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',53,1)">53  </a>        for ii=1:nRuns
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+legend(legendNotes)
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('cellstr', 'C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m', 44)" style="font-weight:bold">cellstr</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,0)">line 44</a>)
+Element 1 is not a string scalar or character array. All elements of cell input must
+be string scalars or character arrays.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>process_inputs', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 547)" style="font-weight:bold">legend>process_inputs</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',547,0)">line 547</a>)
+        strings = cellstr(argin{n});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend>make_legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 306)" style="font-weight:bold">legend>make_legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',306,0)">line 306</a>)
+[autoupdate,orient,location,position,children,listen,strings,propargs] =
+process_inputs(ha,argin); %#ok
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('legend', 'C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p', 259)" style="font-weight:bold">legend</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\scribe\legend.p',259,0)">line 259</a>)
+    make_legend(ha,args(arg:end),version);
+} 
+<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,1)">44  </a>                error(message('MATLAB:cellstr:MustContainText', i));
+legendNotes
+{Undefined function or variable 'legendNotes'.
+} 
+<a href="matlab: opentoline('C:\Users\jhansonma\Matlab\toolbox\matlab\strfun\cellstr.m',44,1)">44  </a>                error(message('MATLAB:cellstr:MustContainText', i));
+if system_dependent('IsDebugMode')==1, dbstep out; end
+if system_dependent('IsDebugMode')==1, dbstep out; end
+legendNotes
+
+legendNotes =
+
+  1×6 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}    {1×1 cell}
+
+legendNotes{1}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;20; N_{trials}=1100'}
+
+legend(legendNotes{1})
+legend(legendNotes{1:2})
+legend(legendNotes{1:6})
+legend(legendNotes{1,6})
+legend(legendNotes{6})
+legend(legendNotes{1:6})
+legendNotes{1:6}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;20; N_{trials}=1100'}
+
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;30; N_{trials}=1100'}
+
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;40; N_{trials}=1100'}
+
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;50; N_{trials}=1100'}
+
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;65; N_{trials}=1100'}
+
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;80; N_{trials}=1100'}
+
+legendNotes{1}
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;20; N_{trials}=1100'}
+
+a{1} = 'test'
+
+a =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'test'}
+
+a{2} = 'test2'
+
+a =
+
+  1×2 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'test'}    {'test2'}
+
+a
+
+a =
+
+  1×2 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'test'}    {'test2'}
+
+a{1}
+
+ans =
+
+    'test'
+
+strcat(target(1:8),...
+                ';',incEngy(ii),...
+                '; N_{trials}=',num2str(nTrials{ii}))
+
+ans =
+
+  1×1 <a href="matlab:helpPopup cell" style="font-weight:bold">cell</a> array
+
+    {'20181207;20; N_{trials}=1100'}
+
+strcat('1','2')
+
+ans =
+
+    '12'
+
+if system_dependent('IsDebugMode')==1, dbquit; end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',47,1)">47  </a>    binEdges = -rangeLimit-res/2:res:rangeLimit+res/2;
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',48,1)">48  </a>    figure(5010);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',50,1)">50  </a>    for iDim = 1:3
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',51,1)">51  </a>        subplot(3,1,iDim)
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',52,1)">52  </a>        hold off
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',53,1)">53  </a>        for ii=1:nRuns
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',59,1)">59  </a>        if iDim ==1
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',60,1)">60  </a>            title('Distribution of acid positions-pixelated coorinates');
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',61,1)">61  </a>            legend(legendNotes)
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',62,1)">62  </a>        end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',63,1)">63  </a>    end
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',51,1)">51  </a>        subplot(3,1,iDim)
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',52,1)">52  </a>        hold off
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',53,1)">53  </a>        for ii=1:nRuns
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbstep
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',57,1)">57  </a>            hold on
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',58,1)">58  </a>        end
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',54,1)">54  </a>            this = resultObject{ii};
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',55,1)">55  </a>            histogram(this.acid_xyz_accul(:,iDim),...
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',56,1)">56  </a>                'BinEdges',binEdges,'Normalization',distOption);
+dbcont
+Currently Processing    '20181207_LowEnergyOff; Energy :20'
+
+Elapsed time is 0.017526 seconds.
+The mean of position of acids
+    0.0205   -0.0904   -0.0434
+
+The standard deviation in position of acids
+    1.3914    1.5190    1.7569
+
+The standard deviation in position of activation events
+    1.3748    1.4460    1.6622
+
+Currently Processing    '20181207_LowEnergyOff; Energy :30'
+
+Elapsed time is 0.021755 seconds.
+The mean of position of acids
+   -0.0706   -0.0641   -0.0522
+
+The standard deviation in position of acids
+    2.1114    1.9501    1.9146
+
+The standard deviation in position of activation events
+    2.0396    1.8881    1.8590
+
+Currently Processing    '20181207_LowEnergyOff; Energy :40'
+
+Elapsed time is 0.018152 seconds.
+The mean of position of acids
+    0.0107    0.0147   -0.0137
+
+The standard deviation in position of acids
+    1.9787    1.9596    2.0046
+
+The standard deviation in position of activation events
+    1.9086    1.8918    1.9230
+
+Currently Processing    '20181207_LowEnergyOff; Energy :50'
+
+Elapsed time is 0.018722 seconds.
+The mean of position of acids
+    0.0629   -0.0337   -0.0144
+
+The standard deviation in position of acids
+    2.0998    2.1010    2.0063
+
+The standard deviation in position of activation events
+    2.0204    2.0238    1.9282
+
+Currently Processing    '20181207_LowEnergyOff; Energy :65'
+
+Elapsed time is 0.020984 seconds.
+The mean of position of acids
+    0.0087    0.0695    0.0235
+
+The standard deviation in position of acids
+    2.0601    2.0991    2.0661
+
+The standard deviation in position of activation events
+    1.9917    2.0242    1.9898
+
+Currently Processing    '20181207_LowEnergyOff; Energy :80'
+
+Elapsed time is 0.022184 seconds.
+The mean of position of acids
+   -0.0015   -0.0354    0.0352
+
+The standard deviation in position of acids
+    2.1096    2.1557    2.1419
+
+The standard deviation in position of activation events
+    2.0366    2.1037    2.0759
+
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       1.391       1.519       1.757       2.707       2.316
+       2.111       1.950       1.915       3.453       2.561
+       1.979       1.960       2.005       3.431       2.584
+       2.100       2.101       2.006       3.585       2.728
+       2.060       2.099       2.066       3.594       2.714
+       2.110       2.156       2.142       3.699       2.868
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       1.375       1.446       1.662       2.597       2.172
+       2.040       1.888       1.859       3.344       2.310
+       1.909       1.892       1.923       3.305       2.337
+       2.020       2.024       1.928       3.449       2.481
+       1.992       2.024       1.990       3.467       2.461
+       2.037       2.104       2.076       3.589       2.651
+Index exceeds matrix dimensions.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 70)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',70,0)">line 70</a>)
+        this = resultObject{1,ii};
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 24)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',24,0)">line 24</a>)
+plotAcidDistributions({plasmonResult{1};...
+
+Reference to non-existent field 'incEnergy'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistributions', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m', 8)" style="font-weight:bold">plotAcidDistributions</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistributions.m',8,0)">line 8</a>)
+        incEngy         =   configuration.incEnergy;
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 29)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',29,0)">line 29</a>)
+plotAcidDistributions({plasmonResult{1},...
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :20'
+
+Elapsed time is 0.019771 seconds.
+The mean of position of acids
+   -0.0352    0.0804    0.0176
+
+The standard deviation in position of acids
+    2.6281    2.7128    2.7399
+
+The standard deviation in position of activation events
+    2.5839    2.6742    2.6865
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :30'
+
+Elapsed time is 0.021461 seconds.
+The mean of position of acids
+   -0.0325   -0.1290    0.0641
+
+The standard deviation in position of acids
+    3.5980    3.5736    3.5111
+
+The standard deviation in position of activation events
+    3.5584    3.5406    3.4827
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :40'
+
+Elapsed time is 0.020897 seconds.
+The mean of position of acids
+   -0.0612   -0.0459   -0.0437
+
+The standard deviation in position of acids
+    3.1484    3.1927    3.1085
+
+The standard deviation in position of activation events
+    3.1121    3.1668    3.0638
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :50'
+
+Elapsed time is 0.022839 seconds.
+The mean of position of acids
+    0.0505    0.0483   -0.0076
+
+The standard deviation in position of acids
+    2.9859    2.9772    3.0606
+
+The standard deviation in position of activation events
+    2.9581    2.9382    3.0307
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :65'
+
+Elapsed time is 0.025838 seconds.
+The mean of position of acids
+    0.0186    0.0749    0.0738
+
+The standard deviation in position of acids
+    3.0309    3.0493    2.9754
+
+The standard deviation in position of activation events
+    2.9774    3.0088    2.9414
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :80'
+
+Elapsed time is 0.028312 seconds.
+The mean of position of acids
+   -0.0706    0.0317    0.0168
+
+The standard deviation in position of acids
+    3.0016    3.0230    3.0345
+
+The standard deviation in position of activation events
+    2.9615    2.9892    2.9951
+
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.628       2.713       2.740       4.666       4.261
+       3.598       3.574       3.511       6.168       5.263
+       3.148       3.193       3.108       5.456       4.385
+       2.986       2.977       3.061       5.210       4.200
+       3.031       3.049       2.975       5.229       4.225
+       3.002       3.023       3.034       5.230       4.231
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.584       2.674       2.687       4.587       4.180
+       3.558       3.541       3.483       6.110       5.199
+       3.112       3.167       3.064       5.394       4.272
+       2.958       2.938       3.031       5.154       4.093
+       2.977       3.009       2.941       5.155       4.109
+       2.962       2.989       2.995       5.165       4.120
+Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 56)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',56,0)">line 56</a>)
+Dimensions of matrices being concatenated are not consistent.
+
+Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 56)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',56,0)">line 56</a>)
+Dimensions of matrices being concatenated are not consistent.
+
+No appropriate method, property, or field 'values' for class 'matlab.graphics.chart.primitive.Histogram'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistCurves', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m', 76)" style="font-weight:bold">plotAcidDistCurves</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',76,0)">line 76</a>)
+        plot(binCenter,h.values);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 66)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',66,0)">line 66</a>)
+plotAcidDistCurves({stoneWallResult{2},...
+
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',76,0)
+No appropriate method, property, or field 'counts' for class 'matlab.graphics.chart.primitive.Histogram'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistCurves', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m', 76)" style="font-weight:bold">plotAcidDistCurves</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',76,0)">line 76</a>)
+        plot(binCenter,h.counts);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 66)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',66,0)">line 66</a>)
+plotAcidDistCurves({stoneWallResult{2},...
+
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',76,0)
+No appropriate method, property, or field 'count' for class 'matlab.graphics.chart.primitive.Histogram'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistCurves', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m', 76)" style="font-weight:bold">plotAcidDistCurves</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',76,0)">line 76</a>)
+        plot(binCenter,h.count);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 66)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',66,0)">line 66</a>)
+plotAcidDistCurves({stoneWallResult{2},...
+
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',76,0)
+Invalid or deleted object.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistCurves', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m', 124)" style="font-weight:bold">plotAcidDistCurves</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',124,0)">line 124</a>)
+        plot(binCenter,h.Values);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 66)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',66,0)">line 66</a>)
+plotAcidDistCurves({stoneWallResult{2},...
+
+plotAcidDistCurves(stoneWallResult,loadStoneWall)
+{Undefined function or variable 'binCenter'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotAcidDistCurves', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m', 62)" style="font-weight:bold">plotAcidDistCurves</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',62,0)">line 62</a>)
+            plot(binCenter,h.Values);
+} 
+<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',62,1)">62  </a>            plot(binCenter,h.Values);
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',66,0)
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotAcidDistCurves.m',62,0)
+if system_dependent('IsDebugMode')==1, dbquit; end
+plotAcidDistCurves(stoneWallResult,loadStoneWall)
+plotAcidDistCurves(stoneWallResult,loadStoneWall)
+Currently Processing    '20181207_LowEnergyOnly; Energy :20'
+
+Elapsed time is 0.018125 seconds.
+The mean of position of acids
+   -0.0352    0.0804    0.0176
+
+The standard deviation in position of acids
+    2.6281    2.7128    2.7399
+
+The standard deviation in position of activation events
+    2.5839    2.6742    2.6865
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :30'
+
+Elapsed time is 0.018590 seconds.
+The mean of position of acids
+   -0.0325   -0.1290    0.0641
+
+The standard deviation in position of acids
+    3.5980    3.5736    3.5111
+
+The standard deviation in position of activation events
+    3.5584    3.5406    3.4827
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :40'
+
+Elapsed time is 0.020760 seconds.
+The mean of position of acids
+   -0.0612   -0.0459   -0.0437
+
+The standard deviation in position of acids
+    3.1484    3.1927    3.1085
+
+The standard deviation in position of activation events
+    3.1121    3.1668    3.0638
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :50'
+
+Elapsed time is 0.022699 seconds.
+The mean of position of acids
+    0.0505    0.0483   -0.0076
+
+The standard deviation in position of acids
+    2.9859    2.9772    3.0606
+
+The standard deviation in position of activation events
+    2.9581    2.9382    3.0307
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :65'
+
+Elapsed time is 0.025206 seconds.
+The mean of position of acids
+    0.0186    0.0749    0.0738
+
+The standard deviation in position of acids
+    3.0309    3.0493    2.9754
+
+The standard deviation in position of activation events
+    2.9774    3.0088    2.9414
+
+Currently Processing    '20181207_LowEnergyOnly; Energy :80'
+
+Elapsed time is 0.028273 seconds.
+The mean of position of acids
+   -0.0706    0.0317    0.0168
+
+The standard deviation in position of acids
+    3.0016    3.0230    3.0345
+
+The standard deviation in position of activation events
+    2.9615    2.9892    2.9951
+
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.628       2.713       2.740       4.666       4.261
+       3.598       3.574       3.511       6.168       5.263
+       3.148       3.193       3.108       5.456       4.385
+       2.986       2.977       3.061       5.210       4.200
+       3.031       3.049       2.975       5.229       4.225
+       3.002       3.023       3.034       5.230       4.231
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       2.584       2.674       2.687       4.587       4.180
+       3.558       3.541       3.483       6.110       5.199
+       3.112       3.167       3.064       5.394       4.272
+       2.958       2.938       3.031       5.154       4.093
+       2.977       3.009       2.941       5.155       4.109
+       2.962       2.989       2.995       5.165       4.120
+Reference to non-existent field 'acid_xyz'.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('plotEfficiency', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotEfficiency.m', 27)" style="font-weight:bold">plotEfficiency</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotEfficiency.m',27,0)">line 27</a>)
+       nAcids(ii)   =   size(resultObject{ii}.acid_xyz,1);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('TwoMechanisms_20181210', 'C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m', 38)" style="font-weight:bold">TwoMechanisms_20181210</a> (<a href="matlab: opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\TwoMechanisms_20181210.m',38,0)">line 38</a>)
+plotEfficiency(plasmonResult,loadPlasmon)
+
+opentoline('C:\Users\jhansonma\Desktop\Jonathan Codes CXRO\ElectronInteractions\Traj_MonteCarlo\Comparisons\components\plotEfficiency.m',27,0)
+[Warning: Ignoring extra legend entries.] 
+title('\sqrt{\<r^2\>}');
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+\sqrt{\<r^2\>}
+] 
+title('\sqrt{r^2}');
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+\sqrt{r^2}
+] 
+title('r^2');
+title('\sqrt(r^2)');
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+\sqrt(r^2)
+] 
+title('\<r^2\>');
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+\<r^2\>
+] 
+title('<r^2>^\frac{1}{2}');
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+<r^2>^\frac{1}{2}
+] 
+title('<r^2> \frac{1}{2}');
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+<r^2> \frac{1}{2}
+] 
+title('<r^2>^{1/2}');
+tabulateSummary(plasmonResult)
+Acid positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       1.391       1.519       1.757       2.707       2.316
+       2.111       1.950       1.915       3.453       2.561
+       1.979       1.960       2.005       3.431       2.584
+       2.100       2.101       2.006       3.585       2.728
+       2.060       2.099       2.066       3.594       2.714
+       2.110       2.156       2.142       3.699       2.868
+Excitation positions
+     sigma_x     sigma_y     sigma_z (<r^2>)^0.5         <r>
+       1.375       1.446       1.662       2.597       2.172
+       2.040       1.888       1.859       3.344       2.310
+       1.909       1.892       1.923       3.305       2.337
+       2.020       2.024       1.928       3.449       2.481
+       1.992       2.024       1.990       3.467       2.461
+       2.037       2.104       2.076       3.589       2.651
+
+ans = 
+
+  <a href="matlab:helpPopup struct" style="font-weight:bold">struct</a> with fields:
+
+          acid: [6×5 double]
+    excitation: [6×5 double]
+
+legend('Plasmon only','LowEnergyAttachmentOnly')
+legend('Plasmon only','LowEnergyAttachmentOnly')
+legend('Plasmon only','LowEnergyAttachmentOnly')
+[Warning: Error updating Text.
+
+ Character vector must have valid interpreter syntax:
+<r>}
+] 
+legend('Plasmon only','LowEnergyAttachmentOnly')
+legend('Plasmon only','LowEnergyAttachmentOnly')
+figure(34)
+xx = 20:1:80
+
+xx =
+
+  Columns 1 through 14
+
+    20    21    22    23    24    25    26    27    28    29    30    31    32    33
+
+  Columns 15 through 28
+
+    34    35    36    37    38    39    40    41    42    43    44    45    46    47
+
+  Columns 29 through 42
+
+    48    49    50    51    52    53    54    55    56    57    58    59    60    61
+
+  Columns 43 through 56
+
+    62    63    64    65    66    67    68    69    70    71    72    73    74    75
+
+  Columns 57 through 61
+
+    76    77    78    79    80
+
+xx = 20:1:80;
+plot(xx,min(floor(xx/20),(xx+11)/31)./xx)
+xx = 20:4:80
+
+xx =
+
+  Columns 1 through 14
+
+    20    24    28    32    36    40    44    48    52    56    60    64    68    72
+
+  Columns 15 through 16
+
+    76    80
+
+plot(xx,min(floor(xx/20),(xx+11)/31)./xx*2)
+plot(xx,min(floor(xx/20),(xx+11)/31)./xx*2)
+legend('Plasmon','LE Attachment','Model')
+plot(xx,min(floor(xx/30)+1,(xx+11)/41)./xx*2)
+plot(xx,min(floor(xx/30)+1,(xx+11)/31)./xx*2)
+plot(xx,min(floor(xx/30)+1,(xx+11)/3)./xx*2)
+plot(xx,min(floor(xx/30)+1,(xx+11)/30)./xx*2)
+plot(xx,min(floor(xx/35)+1,(xx+11)/35)./xx*2)
+plot(xx,min(floor(xx/24),(xx+11)/35)./xx*2)
+plot(xx,min(floor(xx/9),(xx+11)/31)./xx*2)
+plot(xx,min(floor(xx/9),(xx+11)/20)./xx*2)
+plot(xx,min(floor(xx/19),(xx+11)/30)./xx*2)
+plot(xx,min(floor(xx/19),(xx+11)/30)./xx*2)
+plot(xx,min(floor(xx/25),(xx+11)/35)./xx*2)
+plot(xx,min(floor(xx/20),(xx+11)/31)./xx*2)
+plot(xx,min(floor(xx/18),(xx+11)/27)./xx*2)
+plot(xx,min(floor(xx/19.5),(xx+11)/30.5)./xx*2)
+plot(xx,max(floor(xx/20),(xx+11)/31)./xx*2)
+plot(xx,min(ceil(xx/20),(xx+11)/31)./xx*2)

@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% What it does: start a trajectory with the secondary from the input event
-%%%     scatter -> propagate -> scatter -> ..... and so on
-%%% This is a toy model in an attempt to dix the anisotropy problem
+%%%     propagate -> scatter -> scatter ->..... and so on
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,~)
 %% Initializations
@@ -208,13 +207,13 @@ global illustration scattVector thetaLog;
 
                 %%% Determine action by energy loss
                 if Eloss_val==0
-                    act='none;'; % if Sp=0, no energy loss.
+                    act='none'; % if Sp=0, no energy loss.
                 elseif Eloss_val<pag_Eamin
-                    act='Eloss<pagEaMin;';
+                    act='Eloss<pagEaMin';
                 elseif Eloss_val<E_ionize_min
-                    act='6eVRes;';
+                    act='6eVRes';
                 else
-                    act='SE;';                                                    
+                    act='SE';                                                    
                 end
             case 'LowEnergy' % Currently unaccessible 
                 %% 4.1.3 Low energy random walk (Currently inaccessible)
@@ -222,7 +221,7 @@ global illustration scattVector thetaLog;
                 theta = acos(2*rand-1);
                 phi=2*pi*rand;  
             case 'StoneWall'
-                act         =   'StoneWall;';
+                act         =   'StoneWall';
                 Eloss_val   =   eLoss_stoneWall;
                 theta       =   theta_stoneWall;
                 phi         =   phi_stoneWall;
@@ -309,8 +308,8 @@ global illustration scattVector thetaLog;
 
         %% 5.1 The possibilities
         if (rand<pag_ratio...%
-                || strcmp(act,'6eVRes;')... %
-                || strcmp(act,'LowEnergy-Acid;'))...% if activating a PAG
+                || strcmp(act,'6eVRes')... %
+                || strcmp(act,'LowEnergy-Acid'))...% if activating a PAG
                 && ~(strcmp(act,'vibr')&& Eloss_val<pag_Eamin)  % Vibrational excitations treated differently 
          %% 5.1.1 Acid generation (by volume ratio and 6eV resonance)
             Ese=0;

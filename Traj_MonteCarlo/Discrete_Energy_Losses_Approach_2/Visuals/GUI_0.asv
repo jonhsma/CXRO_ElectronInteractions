@@ -328,7 +328,7 @@ global scanArchiveGUI
         if size(scanArchiveGUI,1)> 1
             if currInc > 0
                 testTraj    =   scanArchiveGUI{currEnergy,currTrial}.incidences{currInc};
-                displayTrajectory(testTraj,'energy',[],[],80,jet(100));
+                displayTrajectory(testTraj,'energy',[],[],80,jet(100))
             else
                 testTraj    =   scanArchiveGUI{currEnergy,currTrial}.incidences{1};
                 for ii = 2:length(scanArchiveGUI{currEnergy,currTrial}.incidences)
@@ -337,12 +337,12 @@ global scanArchiveGUI
                 displayTrajectory(testTraj,'energy',...
                     scanArchiveGUI{currEnergy,currTrial}.acid_xyz,...
                     scanArchiveGUI{currEnergy,currTrial}.activation_xyz,...
-                    80,jet(100));
+                    80,jet(100))
             end
         else
             if currInc > 0
                 testTraj    =   scanArchiveGUI{currEnergy}{currTrial}.incidences{currInc};
-                displayTrajectory(testTraj,'energy',[],[],80,jet(100));
+                displayTrajectory(testTraj,'energy',[],[],80,jet(100))
             else
                 testTraj    =   scanArchiveGUI{currEnergy}{currTrial}.incidences{1};
                 for ii = 2:length(scanArchiveGUI{currEnergy}{currTrial}.incidences)
@@ -351,7 +351,7 @@ global scanArchiveGUI
                 displayTrajectory(testTraj,'energy',...
                     scanArchiveGUI{currEnergy}{currTrial}.acid_xyz,...
                     scanArchiveGUI{currEnergy}{currTrial}.activation_xyz,...
-                    80,jet(100));
+                    80,jet(100))
             end
         end        
         colormap(jet)
@@ -423,14 +423,12 @@ global scanArchiveGUI
             'enable','on',...
             'ForegroundColor', [0 0 0])
         activate(hObject,eventdata, handles)
-        result = 1;
         if exist('scanArchive','var')
             scanArchiveGUI  = scanArchive;
         elseif exist('energyScanArchive','var')
-            scanArchiveGUI{1}  =   energyScanArchive;
+            scanArchiveGUI{1,:}  =   energyScanArcive{:};
         else
             result = 1;
-        end
     else
         warndlg('File does not exist');
         if ~exist('scanArvhiceGUI','var')

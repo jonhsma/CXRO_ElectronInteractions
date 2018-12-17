@@ -47,6 +47,7 @@ clc;
 close all;
 set(0,'DefaultFigureWindowStyle','docked')
 
+
 % Global functions
 addpath('..\..\GlobalFunctions');
 
@@ -80,7 +81,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20181205_Ref';
+outputFolder    =   '20181217_SEM_Sim_Test';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -123,6 +124,8 @@ while ~outputBasePathConfirmed
         end
     end
 end
+diary(strcat(outputBasePath,'ConsoleLog'));
+diary on;
 
 %% 0.1 Globals for tracking
 global  secSpawningTheta scattVector thetaLog;
@@ -168,12 +171,12 @@ debugCurrAcidArrayDiff = 0;
 %--------------------------------------------------------------------------
 %%% The trajectory follower options. Anything that's not a proper function
 %%% handle will result in using the default trajectory follower
-scattdata.followerHandle        =       'default';%@TrajectoryFollowerRandomWalk;
+scattdata.followerHandle        =       @TrajectoryFollowerLowEnergyAcid;%'default';%@TrajectoryFollowerRandomWalk;
 %--------------------------------------------------------------------------
 
 % GENERAL SCATTERING OPTIONS
 %%% The limit where scattering ceases
-SCATTERING_LOW_ENERGY_CUTOFF    =       1;
+SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% The energy where the electron enters low energy regime
 %%% (Where low energy interaction is turned on)
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
@@ -234,8 +237,8 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   10;
-eSweep      =   [50];
+nTrials     =   1100;
+eSweep      =   [80 65 50 40 30 20];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
@@ -371,7 +374,8 @@ for E_count=1:length(eSweep)
     %% 4..2 Loop through the number of trials
     fprintf('\n Simulations with %4.2f eV incident electrons started\n',...
         eSweep(E_count));
-    for trial_count=1:nTrials
+    parfor trial_count=1:nTrials
+    %for trial_count=1:nTrials
         %% 4..2.1 Iteration for trial (Each trial is a clean start: a new system)
         
         %%% Logging metadata
@@ -555,7 +559,7 @@ for E_count=1:length(eSweep)
     
     %%% Archive saved in each energy step in case of unexpected termination
     save(sprintf(strcat(outputBasePath,...
-            'ScanArchive')),'scanArchive');
+            strcat('ScanArchive_',num2str(eSweep(E_count))))),'energyScanArchive');
     
     %% 4..1.4 Per Energy Trajectory Echo
     if echoConfig.traj3.perEnergy
@@ -719,6 +723,18 @@ errorbar(eSweep,meanAcids_thruE,stdAcids_thruE/sqrt(nTrials),...
 xlabel('E (eV)');
 ylabel('Mean number of acids');
 set(gca,'fontsize',20,'linewidth',2.0);
+
+aveHandle = figure(FIGURE_ACID_VS_ENERGY+1);
+aveHandle.Name = 'Acid_IncidentEnergy_perEnergy';
+plot(eSweep,meanAcids_thruE./eSweep,...
+    '-o','linewidth',3.0,'markersize',12);
+errorbar(eSweep,meanAcids_thruE./eSweep,...
+    stdAcids_thruE./eSweep/sqrt(nTrials),...
+    '--o','linewidth',2.0,'markersize',5);
+xlabel('E (eV)');
+ylabel('Mean number of acids per incident energy');
+set(gca,'fontsize',20,'linewidth',2.0);
+
 
 %% 6.2 Saving Graphs
 if ~exist(strcat(outputBasePath, '\graphics'),'file')

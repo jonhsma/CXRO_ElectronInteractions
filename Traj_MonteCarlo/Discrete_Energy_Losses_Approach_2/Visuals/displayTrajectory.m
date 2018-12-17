@@ -12,7 +12,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function traceHandle = displayTrajectory(events,varargin)
-    
+    tic
     %%% Taking care of the custom variables
     nArgCustom  =   nargin - 1;
     
@@ -45,6 +45,7 @@ function traceHandle = displayTrajectory(events,varargin)
           
     
     %% Plotting the quivers       
+    tic
     for eventIterator = 1:length(events)
         this = events{eventIterator};
         qX = this.xyz_init(1);
@@ -57,7 +58,7 @@ function traceHandle = displayTrajectory(events,varargin)
         traceHandle = quiver3(qX,qY,qZ,qU-qX,qV-qY,qW-qZ,0,'-','LineWidth',2,...
         'Color',colorOptionWrapper(colorOption,this,eMax,colorMap));
         hold on;
-    end    
+    end  
     
     if length(acid_xyz) >=1
         quiver3(acid_act_e_xyz(:,1),acid_act_e_xyz(:,2),acid_act_e_xyz(:,3),...
@@ -67,7 +68,7 @@ function traceHandle = displayTrajectory(events,varargin)
             0,'--');
         scatter3(acid_xyz(:,1),acid_xyz(:,2),acid_xyz(:,3),'o')            
     end
-
+    toc
     
 end
 

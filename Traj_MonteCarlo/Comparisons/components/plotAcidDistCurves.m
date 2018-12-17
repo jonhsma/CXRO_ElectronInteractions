@@ -1,43 +1,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%% This script compares multiple runs with the scatter sim
-%%% Acid stats and only acid stats are used because loading an entire
-%%% workspace carries the risk of overwriting existing variables
-%%% --> On the todo list maybe
+% This function plots the distributions of a result object
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function resultObject=Comparison_ScatteringSim_Acid(varargin)
-    addpath('components\')
-    %% Select the runs to compare
-    switch nargin
-        case 0
-            %%% Defaults in case the code is run without arguments
-            runsToCompare =...
-                {'NoCoarseGrain_0_Calib';
-                'Ref_20181103'%'RealScatt_80_2_1nmGrid'};
-                };
-            nRuns = size(runsToCompare,1);
-            incEngy =...
-                {'80.00';'80.00'};
-            doseStr =...
-                {'0.00';'0.00'};
-            nTrials = {1000,1000};
-        case 1
-            configuration   =   varargin{1};
-            runsToCompare   =   configuration.runsToCompare;
-            incEngy         =   configuration.incEnergy;
-            doseStr         =   configuration.doseStr;
-            nTrials         =   configuration.nTrials;
-            nRuns = size(runsToCompare,1);
+function handleArray = plotAcidDistCurves(resultObject,varargin)
+    FIGURE_TEMP = 3300;
+    %% Initialization
+    if nargin == 2
+        configuration = varargin{1};
+        incEngy         =   configuration.incEnergy;
+        runsToCompare   =   configuration.runsToCompare;
+        nTrials         =   configuration.nTrials;
     end
-   
-    %% Pull up the acid distribution
-    resultObject = LoadArchives(runsToCompare,nRuns,incEngy,nTrials,doseStr);
+    
+    nRuns = length(resultObject);
     %% Display Settings
     %%% Setting the resolution of the histograms
     %%% Run the defaults first
     res = 0.25;    
     cuOption    =   'cdf';
     distOption  =   'count';
-    legendNotes =   runsToCompare;
     rangeLimit  =   5;
     if exist('configuration','var')
         if isfield(configuration,'res')
@@ -54,15 +34,21 @@ function resultObject=Comparison_ScatteringSim_Acid(varargin)
         end
     end
     
-    for ii = 1:nRuns
-        target             = strrep(runsToCompare{ii},'_','\_');
-        legendNotes{ii} = strcat(target,'; N_{trials}=',num2str(nTrials{ii}));
+    if exist('runsToCompare','var')
+        for ii = 1:nRuns
+            target             = strrep(runsToCompare{ii},'_','\_');
+            legendNotes{ii} = strcat(target(1:8),...
+                ';',incEngy{ii},...
+                '; N_{trials}=',num2str(nTrials{ii}));
+        end
+    else
+           for ii = 1:nRuns           
+            legendNotes{ii} = strcat('Item-',num2str(ii));
+        end
     end
-    %% Acid Statistics
-    plotAcidDistCurves(resultObject,configuration)
-    %{
     %% Acid linear Histograms
     binEdges = -rangeLimit-res/2:res:rangeLimit+res/2;
+    binCenter= -rangeLimit:res:rangeLimit;
     figure(5010);
 
     for iDim = 1:3
@@ -70,8 +56,11 @@ function resultObject=Comparison_ScatteringSim_Acid(varargin)
         hold off
         for ii=1:nRuns
             this = resultObject{ii};
-            histogram(this.acid_xyz_accul(:,iDim),...
+            figure(FIGURE_TEMP)
+            h = histogram(this.acid_xyz_accul(:,iDim),...
                 'BinEdges',binEdges,'Normalization',distOption);
+            figure(5010)
+            plot(binCenter,h.Values);
             hold on
         end
         if iDim ==1
@@ -82,12 +71,16 @@ function resultObject=Comparison_ScatteringSim_Acid(varargin)
     xlabel('position (nm)')
     %% Acid radial histograms
     binEdges = 0:res:2*rangeLimit;
+    binCenter = res/2:res:2*rangeLimit-res/2;
     figure(5011);
     hold off
     for ii=1:nRuns
         this = resultObject{1,ii};
-        histogram(this.rabs(:,1),...
+        figure(FIGURE_TEMP);
+        h = histogram(this.rabs(:,1),...
             'BinEdges',binEdges,'Normalization',distOption);
+        figure(5011)
+        plot(binCenter,h.Values);
         hold on
     end
     title('RadialDistribution of acids')
@@ -98,8 +91,11 @@ function resultObject=Comparison_ScatteringSim_Acid(varargin)
     hold off
     for ii=1:nRuns
         this = resultObject{1,ii};
-        histogram(this.rabs(:,1),...
+        figure(FIGURE_TEMP)
+        h = histogram(this.rabs(:,1),...
             'BinEdges',binEdges,'Normalization',cuOption);
+        figure(5012)
+        plot(binCenter,h.Values);
         hold on
     end
     title('Culmulative Radial Counts of Acids')
@@ -110,53 +106,29 @@ function resultObject=Comparison_ScatteringSim_Acid(varargin)
     hold off
     for ii=1:nRuns
         this = resultObject{1,ii};
-        histogram(this.rabs_fine(:,1),...
+        figure(FIGURE_TEMP)
+        h = histogram(this.rabs_fine(:,1),...
             'BinEdges',binEdges,'Normalization',distOption);
+        figure(5013)
+        plot(binCenter,h.Values);
         hold on
     end
     title('RadialDistribution of Activation Events')
     xlabel('Distance from Origin (nm)')
     legend(legendNotes,'Location','northeast')
 
-
-
     figure(5014);
     hold off
     for ii=1:nRuns
         this = resultObject{1,ii};
-        histogram(this.rabs_fine(:,1),...
+        figure(FIGURE_TEMP);
+        h = histogram(this.rabs_fine(:,1),...
             'BinEdges',binEdges,'Normalization',cuOption);
+        figure(5014)
+        plot(binCenter,h.Values);
         hold on
     end
     title('Cumulatice Radial Distribution of Activation Events')
     xlabel('Distance from Origin (nm)')
     legend(legendNotes,'Location','southeast')
-    %}
-    %% Activation Statistics
-    figure(3010);
-    hold off
-    for ii = 1:nRuns
-        this = resultObject{ii};
-        plot(this.rabs_fine,this.rabs,'.')
-        hold on
-    end
-    title('Event and activation radial positions')
-    xlabel('Event distance from origin')
-    ylabel('Distance from origin - activated acid voxel center')
-    legend(legendNotes,'Location','northwest')
-    axis([0,rangeLimit,0,rangeLimit])
-
-    figure(3011)
-    hold off
-    for ii = 1:nRuns
-        this = resultObject{ii};
-        plot(this.rabs_fine,this.acidEventdist,'.')
-        hold on;
-    end
-    title('Distance of activation')
-    xlabel('Event distance from orgin')
-    ylabel('Distance between acid voxel center and activation event')
-    axis([0,rangeLimit,0,rangeLimit/4])
-    %% Tabulation
-    tabulateSummary(resultObject);
 end
