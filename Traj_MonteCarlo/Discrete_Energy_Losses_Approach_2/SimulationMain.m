@@ -81,7 +81,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20181217_SEM_Sim_Test';
+outputFolder    =   '20181217_SEM_LEonly';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -202,12 +202,14 @@ scattdata.stoneWall.ACID_REACTION_RADIUS   =   3;
 %%% The x,y,z sizes of the system in nm
 SYSTEM_SIZE         =   [51; 51; 51];
 %%% Zero the center of the grid and set the coundaries
-SYSTEM_LIMITS(:,1)  =   -SYSTEM_SIZE/2;
-SYSTEM_LIMITS(:,2)  =   SYSTEM_SIZE/2;
+SYSTEM_LIMITS(:,1)  =   -[SYSTEM_SIZE(1:2)/2; SYSTEM_SIZE(3)];
+SYSTEM_LIMITS(:,2)  =   [SYSTEM_SIZE(1:2)/2; 0];
 %%% Density of photoacid generator (per nanometer cube)
 RHO_PAG         =   0.4;
 %%% Density of polymer  (per nanometer cube)
 RHO_POLYMER     =   6;
+%%% Pass it into the trajectory follower
+scattdata.SYSTEM_LIMITS     =   SYSTEM_LIMITS;
 
 %% 1.2 Initializing the event structure [holds info about excitations triggered]
 % The energy of the "secondary electron" generated or the starting energy
@@ -237,30 +239,31 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   1100;
-eSweep      =   [80 65 50 40 30 20];
+nTrials     =   88;
+eSweep      =   [85 80 65 50 40 30];
 tStart      =   tic;
 
 %% 3.1 --> Initial electron incidence and dose parameters
 %%% No-matter-what-you're-using parameters
-nElectrons = 2; % number of electron per trial
+nElectrons = 25; % number of electron per trial
 
 %% 3.1.1 --> Stochastic volumetric dosing parameters
 dosingLimits =... The space within which dosing occurs
-    [-0.5,-0.5,-0.5;...
-    0.5,0.5,0.5]';
+    [-2.5,2.5;...
+    -2.5,2.5;...
+    0.0,0.0];
 % Is the total number of electrons definite (1) or a Poisson number (0)
-absoluteDosing = 0;
+absoluteDosing = 1;
 
 %% 3.1.2 --> Dosing trajectory generator
 % The dosing trajectory (1:k) is the x position of the k-th electron
 dosingPath = zeros([3 100]);
     
 % The dose number that will show up in the file names
-manualDose = 0;
+manualDose = 1;
 % If array is not empty the path will be used automatically unless mandate
 % by mandatoryRandom (which allows you to keep the path)
-mandatorySequenceRandom = 0;
+mandatorySequenceRandom = 1;
 
 %% 3.1.3 Generatlized electron dosing sequence generator
 % The dosingSequence Handle will give an array of size 3-by-n nomatter
@@ -277,7 +280,7 @@ else
     dose = nElectrons/prod(dosingLimits(:,2)-dosingLimits(:,1));
 end
 
-%% 3.2 --> Electron angular distribution handle 
+%% 3.2 Electron angular distribution handle 
 % One can specify the per unit solid angle distribution (as a function of
 % theta) of the incident electrons
 
@@ -288,8 +291,9 @@ incTGThetaAxis = 0:pi/incTGThetaN:pi;
 
 %% 3.2.1 --> The probability distribution. Need not worry about normalization
 %%% DO NOT sine weight as sine weighing is included in the CDF generation
-incTGPDF       = ones([1 size(incTGThetaAxis,2)]);%sin(incTGThetaAxis).^38;
-
+incTGPDF       = zeros([1 size(incTGThetaAxis,2)]);%sin(incTGThetaAxis).^38;
+incTGPDF(size(incTGPDF,2)) = 1;
+%%% This distribution correspond to a SEM style downward injection
 %% 3.2.2 Obtain the culmulative ditribution
 incTGCDF       = zeros([1 incTGThetaN+1]);
 for i = 2:incTGThetaN+1
@@ -602,7 +606,7 @@ for E_count=1:length(eSweep)
             scatter3(posAcid_TrAccu(:,1),posAcid_TrAccu(:,2),posAcid_TrAccu(:,3),...
                 'o')
         end
-        title({strcat('Acid and Trajectory visuallization at h\nu = ',num2str(eSweep(E_count)),' eV');...
+        title({strcat('Acid and Trajectory visuallization at KE = ',num2str(eSweep(E_count)),' eV');...
             strcat(num2str(nTrials),' trials with',' ',...
             num2str(nElectrons),' electrons per trial on average')});
         legend({'Trajectories','Activations','Acids'});

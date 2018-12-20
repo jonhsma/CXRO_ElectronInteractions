@@ -164,6 +164,46 @@ global illustration scattVector thetaLog;
         %%%% calculate the path length
         pathlen=sqrt((xnew-xold)^2+(ynew-yold)^2+(znew-zold)^2);
         
+        %%% Check if the electron is still inside the resist
+        %%% If not, count that as as escape
+        limits  =   scattdata.SYSTEM_LIMITS;
+        if ~(xnew <= limits(1,2)&& xnew >= limits(1,1) &&...
+            ynew <= limits(2,2)&& ynew >= limits(2,1) &&...
+            znew <= limits(3,2)&& znew >= limits(3,1))
+        
+            act = 'escape';
+            
+            %%%% post energy-loss variables:
+            events{count}.xyz_init  =   [xold yold zold];
+            events{count}.xyz       =   [xnew ynew znew];
+            events{count}.xyzglobal =   xyzglobal;
+            events{count}.pathlen   =   pathlen;
+            events{count}.Ein       =   Eold;
+            events{count}.Eout      =   Enew;
+            events{count}.Eloss     =   0;
+            events{count}.act       =   act;
+            events{count}.imfp      =   imfp;
+            events{count}.rnew      =   rnew;   
+            %%% parameters in scattering frame and the scattering
+            events{count}.theta     =   0;
+            events{count}.phi       =   0;
+            events{count}.scattType =   'escape';
+            %%% parameters in resist frame
+            events{count}.theta_in  =   theta_old;
+            events{count}.theta_out =   theta_old;
+            events{count}.phi_in    =   phi_old;
+            events{count}.phi_out   =   phi_old;
+
+            events{count}.Ese       =   0;
+            events{count}.nacid     =   0;
+            events{count}.nacid_unsat   =   0;
+            events{count}.nSE       =   0;
+
+            events{count}.pag.rcnrad=pag_rcnrad;
+            
+            break;
+        end
+        
         %% 4. Scattering Logic
         
         %% 4.1  Determin which collision mechanism is at play
