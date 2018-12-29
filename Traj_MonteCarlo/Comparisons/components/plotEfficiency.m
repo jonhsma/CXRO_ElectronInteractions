@@ -1,10 +1,15 @@
-function handleArray = plotEfficiency(resultObject,configuration)
+function handleArray = plotEfficiency(resultObject,configuration,varargin)
     FIGURE_TEMP = 3300;
     %% Initialization
     incEngy         =   configuration.incEnergy;
     runsToCompare   =   configuration.runsToCompare;
     nTrials         =   configuration.nTrials;    
     nRuns = length(resultObject);   
+    if nargin >=3
+        electronsPerTrial = varargin{1};
+    else
+        electronsPerTrial = 1;
+    end
     %% Getting the numbers
     energy = zeros([1 nRuns]);
     nAcids = energy;
@@ -16,13 +21,13 @@ function handleArray = plotEfficiency(resultObject,configuration)
     %% Plots    
     figure(8000) 
     hold on
-    plot(energy,nAcids/2,'-x');
+    plot(energy,nAcids/electronsPerTrial,'-x');
     title('Number of acids per electron');
     xlabel('Incident energy (eV)')
     
     figure(8001) 
     hold on
-    plot(energy,nAcids./energy/2,'-x');    
+    plot(energy,nAcids./energy/electronsPerTrial,'-x');    
     title('Number of acids per eV per electron');
     xlabel('Incident energy (eV)')
 end

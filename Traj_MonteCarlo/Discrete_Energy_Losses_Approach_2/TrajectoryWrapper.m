@@ -56,7 +56,10 @@ global illustration secSpawningTheta echoConfig demoEcho;
                 fprintf('# of PAGs activated in the last execution of the follower = %d\n',...
                    sum(isnan(pagdata.posPAG(1,:)))-sum(isnan(posPAG_init(1,:))));
             end
-            
+            % A dummy event array for secondary generation
+            % so that nothing in ev2 is altered. ev2 can thus serve as a
+            % accurate record of the trajectory
+            evInc = ev2;            
             if ~isempty(ev2)
                 for j=1:length(ev2)
                     xyzglobal.x=[xyzglobal.x ev2{j}.xyz(1)];
@@ -69,21 +72,22 @@ global illustration secSpawningTheta echoConfig demoEcho;
                         plot3(ev2{j}.xyz(1),ev2{j}.xyz(2),ev2{j}.xyz(3),'o');drawnow;
                         xlabel('x (nm)');ylabel('y (nm)');zlabel('z (nm)');
                     end
+                    %%% All events go to eventdata
+                    eventdata{length(eventdata)+1}=ev2{j};
                     
+                    %% Secondary seeding
                     %%%% the emitted secondaries have random angles:
                     % Solid angle compensated distribution
                     %.theta_in (and .phi_in) means the theta of the photoelectron generated
                     cosTheta    =   rand(1)*2-1;
-                    ev2{j}.theta_in = acos(cosTheta); 
+                    evInc{j}.theta_in = acos(cosTheta); 
                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    secSpawningTheta = [secSpawningTheta ev2{j}.theta_in];
+                    secSpawningTheta = [secSpawningTheta evInc{j}.theta_in];
                     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                    ev2{j}.phi_in=2*pi*rand;
-                    ev2{j}.scatt_Elim=scatt_Elim;
-                    ev2{j}.lowEthr=lowEthr;
-                    ev2{j}.lowEimfp=lowEimfp;
-                    %%% All events go to eventdata
-                    eventdata{length(eventdata)+1}=ev2{j};
+                    evInc{j}.phi_in=2*pi*rand;
+                    evInc{j}.scatt_Elim=scatt_Elim;
+                    evInc{j}.lowEthr=lowEthr;
+                    evInc{j}.lowEimfp=lowEimfp;                    
                 end
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 %%% eventdata, pagdata and polymdata are "threading
@@ -93,7 +97,7 @@ global illustration secSpawningTheta echoConfig demoEcho;
                 %%% variables threads through the functions without any
                 %%% change.
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-                [eventdata,pagdata,polymdata]=TrajectoryWrapper(ev2,scattdata,eventdata,xyzglobal,pagdata,polymdata,logfile_fid);
+                [eventdata,pagdata,polymdata]=TrajectoryWrapper(evInc,scattdata,eventdata,xyzglobal,pagdata,polymdata,logfile_fid);
             end
         end
     end

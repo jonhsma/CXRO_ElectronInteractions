@@ -2,13 +2,9 @@
 %%% What it does: start a trajectory with the secondary from the input event
 %%%     propagate -> scatter -> scatter ->..... and so on
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% The follower is being made more genearl. The goal is to eliminate the
-% need to alter the codes even if a new scattering mechanism is added.
-% Stage one is to clean the code, especially the energy deposition part
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Elim,xyzglobal,pagdata,polymdata,~)
 %% Initializations
-%global  scattVector thetaLog;
+global illustration scattVector thetaLog;
 
     % Energy thresholds for various events
     pag_Eamin       =   5;
@@ -16,14 +12,14 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
     E_inel_thr      =   scattdata.E_inel_thr;
 
 
-    eIni            =   event.Ese;
+    Eold            =   event.Ese;
     xold            =   event.xyz(1);
     yold            =   event.xyz(2);
     zold            =   event.xyz(3);
     theta_old       =   event.theta_in; % initial condition for theta in z
     phi_old         =   event.phi_in; % initial condition for the polar angle
 
-    eFinal=eIni;
+    Enew=Eold;
     count=1;
     pagact_prob=0.1;
 
@@ -46,9 +42,8 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
     moleculeDensity      =   polymdata.moleculeDensity;
     
     %% The steps loop
-    while eIni>scatt_Elim
-        %% 1. Determine the active scattering mechanisms
-        %{
+    while Eold>scatt_Elim
+        %% 1. Determine the active scattering mechanisms        
         if strcmp(scattdata.vibr.datasrc,'Khakoo')==1
             vibr_ics    =   scattdata.vibr.ics;
             vibr_ics(isnan(vibr_ics))...
@@ -72,7 +67,6 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         if ~exist('scattType')
             error('......TrajCalc2: The vibrational scattering data could not be read. Check the ''scattdata.vibr'' data structure');
         end        
-        %}
         
         %% 2. Calculating the IMFP
         %%% It's a bit tricky here. So the engine has the option to give
@@ -80,7 +74,6 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         %%% will be run from top to bottom
         
         %% 2.1.1 The Optical component that always gets calculated
-        %{
         controlparm.onlyimfp=1;
         if isfield(scattdata.optical,'inel_dcsdata')
             Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
@@ -96,10 +89,8 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         else
             imfp_opt=event.lowEimfp;
         end
-        %}
-        imfp_opt = genMFP_OptData(event,scattdata.optical,eIni);
+        
         %% 2.1.2 Vibrational calculations
-        %{
         if strcmp(scattType,'LE')==1 % Khakoo data from above if-else
             if strcmp(scattdata.vibr.datasrc,'Khakoo')==1
                  vibrScattCmplx     =   genrandEloss_Vibr(scattdata.vibr,Eold);
@@ -149,20 +140,15 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         end        
         if imfp_vibr==Inf && imfp_opt==Inf
 %             fprintf(logfile_fid,'Warning in trajCalc3: IMFP (Vibr) = IMFP (Optical) = Inf\n');
-        end
-        %}
-        imfp_vibr = genMFP_Vibr(scattdata.vibr,eIni,moleculeDensity);
+        end         
         
         %% 2.1.3 Stone Wall type low energy cutoff
-        %{
         stoneWallResults = scattEngineStoneWall(Eold,scattdata);
         imfp_stoneWall      =   stoneWallResults.imfp;
         theta_stoneWall     =   stoneWallResults.theta;
         phi_stoneWall       =   stoneWallResults.phi;
         eLoss_stoneWall     =   stoneWallResults.eLoss;
         rxnRadius_stoneWall =   stoneWallResults.rxnR;
-        %}
-        imfp_stoneWall      =   genMFP_StoneWall(eIni,scattdata.stoneWall);
         
         %% 2.2 Caculate the total IMFP
         imfp    =   1/(1/imfp_opt+1/imfp_vibr+1/imfp_stoneWall);            
@@ -192,8 +178,8 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
             events{count}.xyz       =   [xnew ynew znew];
             events{count}.xyzglobal =   xyzglobal;
             events{count}.pathlen   =   pathlen;
-            events{count}.Ein       =   eIni;
-            events{count}.Eout      =   eFinal;
+            events{count}.Ein       =   Eold;
+            events{count}.Eout      =   Enew;
             events{count}.Eloss     =   0;
             events{count}.act       =   act;
             events{count}.imfp      =   imfp;
@@ -219,6 +205,8 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         end   
         %% 4. Scattering Logic
         
+        %% 4.1  Determin which collision mechanism is at play
+        
         %%% The probability (or should I say odds)of each event is
         %%% proportional to their inverse IMFP. The original code was right
         %%% but I'm adding a more genral framework in case additional
@@ -231,18 +219,20 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         
         switch(scattType)
             case 'Vibrational'
-                vibrScattCmplx     =   genrandEloss_Vibr(scattdata.vibr,eIni);
-                Eloss_val   =   vibrScattCmplx.Eloss;
-                theta       =   vibrScattCmplx.theta;
-                phi         =   vibrScattCmplx.phi;
+                %% 4.1.1 Vibrational Scattering
+                %%% Engine has been ran and the results are in
+                Eloss_val   =   eLoss_vibr;
+                theta       =   theta_vibr;
+                phi         =   phi_vibr;
                 act         =   'vibr';
                 rxnRadius = pag_rcnrad;
             case 'Optical'
+                %% 4.1.1 Mermin based collision event simulation
                 controlparm.onlyimfp=0;
                 if isfield(scattdata.optical,'inel_dcsdata')
-                    Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,eIni,scattdata.optical.inel_dcsdata,controlparm);
+                    Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,scattdata.optical.inel_dcsdata,controlparm);
                 else
-                    Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,eIni,controlparm);
+                    Elossrand_opt=genrandEloss_OptData_JHM(scattdata.optical,Eold,controlparm);
                 end
                 Eloss_opt   =   Elossrand_opt.Eloss; % the optical energy loss
                 theta_opt   =   Elossrand_opt.theta; % the optical theta
@@ -254,17 +244,28 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
                 
                 %%% Set the reaction radius
                 rxnRadius = pag_rcnrad;
-            case 'LowEnergy' % Low energy random walk, Currently unaccessible 
+
+                %%% Determine action by energy loss
+                if Eloss_val==0
+                    act='none'; % if Sp=0, no energy loss.
+                elseif Eloss_val<pag_Eamin
+                    act='Eloss<pagEaMin';
+                elseif Eloss_val<E_ionize_min
+                    act='6eVRes';
+                else
+                    act='SE';                                                    
+                end
+            case 'LowEnergy' % Currently unaccessible 
+                %% 4.1.3 Low energy random walk (Currently inaccessible)
                 act='LowEnergy';
                 theta = acos(2*rand-1);
                 phi=2*pi*rand;  
             case 'StoneWall'
                 act         =   'StoneWall';
-                stoneWallResults = scattEngineStoneWall(eIni,scattdata.stoneWall);
-                Eloss_val   =   stoneWallResults.eLoss;
-                theta       =   stoneWallResults.theta;
-                phi         =   stoneWallResults.phi;
-                rxnRadius   =   stoneWallResults.rxnR;
+                Eloss_val   =   eLoss_stoneWall;
+                theta       =   theta_stoneWall;
+                phi         =   phi_stoneWall;
+                rxnRadius   =   rxnRadius_stoneWall;
         end        
         
         %% 4.2  Transfomration back into the resist frame
@@ -320,10 +321,8 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%% Tracking changes in direction
-        %{
         scattVector =   [scattVector newUnitVec];
         thetaLog    =   [thetaLog   theta_old];
-        %}
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
         %% 4.3  Change in direction and updating the angle iterator
@@ -335,75 +334,88 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         %%% In react-propagate scenario, scattering takes place at the "old
         %%% coordinates"
         %%% In propagate-react scenario, scattering takes place at the "new
-        %%% coordinates"        
+        %%% coordinates"
+        
         xEvent     =   xnew;
         yEvent     =   ynew;
         zEvent     =   znew;
         
-        Ese=0;
-        nSE=0;
-        nion=0;
-        nacid=0;
-        nacid_unsat=1;
+        [pagidx,npags,polymidx,npolyms]=...
+            pag_polym_query([xEvent yEvent zEvent],posPAG,posPolymer,rxnRadius);
         
-        switch(scattType)
-            case 'Optical'
-                 %%% Determine action by energy loss
-                if Eloss_val==0
-                    act='none'; % if Sp=0, no energy loss.
-                elseif Eloss_val<pag_Eamin
-                    act='Eloss<pagEaMin';
-                elseif Eloss_val<E_ionize_min
-                    act='6eVRes';
-                else
-                    act='SE';                                                    
+        pag_ratio=npags/(npags+npolyms);
+        npags_removed=0;
+
+        %% 5.1 The possibilities
+        if (rand<pag_ratio...%
+                || strcmp(act,'6eVRes')... %
+                || strcmp(act,'LowEnergy-Acid'))...% if activating a PAG
+                && ~(strcmp(act,'vibr')&& Eloss_val<pag_Eamin)  % Vibrational excitations treated differently 
+         %% 5.1.1 Acid generation (by volume ratio and 6eV resonance)
+            Ese=0;
+            nSE=0;
+            nion=0;
+            nacid=0;
+            nacid_unsat=1;            
+            
+            if npags>0
+                num2Remove=1; % how many PAGS to remove [could be Eloss/Eact in the future!]
+                npags_removed=+1;
+                nacid=1;
+                %%% Determine which pag to remove 
+                [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
+                    =acidActivation(num2Remove,posPAG,posPAG_removed,...
+                    pagidx,[xEvent, yEvent, zEvent],...
+                    acid_act_xyz_idx,acid_act_e_xyz);                
+                
+                %%% Determine if this event spawns a secondary electron
+                Ese         =   Eloss_val-pag_Eamin;    
+                Ese(Ese<0)  =   0;
+                if Ese>0
+                    nSE=1;
+                    nion=1;
+                    SE_act_xyz=[SE_act_xyz posPAG_removed];
                 end
-                % Look around and see howmany pags are there
-                [pagidx,npags,polymidx,npolyms]=...
-                    pag_polym_query([xEvent yEvent zEvent],posPAG,posPolymer,rxnRadius);
-                pag_ratio=npags/(npags+npolyms);
-                if (rand<pag_ratio|| strcmp(act,'6eVRes'))&& Eloss_val >= pag_Eamin
-                 %% 5.1.1 Acid generation (by volume ratio and 6eV resonance)            
-                    if npags>0
-                        num2Remove=1; % how many PAGS to remove [could be Eloss/Eact in the future!]
-                        npags_removed=+1;
-                        nacid=1;
-                        %%% Determine which pag to remove 
-                        [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
-                            =acidActivation(num2Remove,posPAG,posPAG_removed,...
-                            pagidx,[xEvent, yEvent, zEvent],...
-                            acid_act_xyz_idx,acid_act_e_xyz);                
 
-                        %%% Determine if this event spawns a secondary electron
-                        Ese         =   Eloss_val-pag_Eamin;    
-                        Ese(Ese<0)  =   0;
-                        if Ese>0
-                            nSE=1;
-                            nion=1;
-                            SE_act_xyz=[SE_act_xyz posPAG_removed];
-                        end
-
-                        act='acid';                
-                    else
-                        E_benzene=6.5;
-                        Ese     =   Eloss_val-E_benzene;    Ese(Ese<0)=0;
-                        act='acid-none-Polym-noSE';
-                        if Ese>0 && ~isempty(polymidx)
-                            %%%Signaling the engine to initiate a secondary
-                            nSE=1;
-                            nion=1;
-                            num2add=nion;
-                            add_idx=randi([1 length(polymidx)],num2add);
-                            SE_act_xyz=[SE_act_xyz posPolymer(:,polymidx(add_idx))];
-                            act='acid-none-Polym-SE';
-                        end
-                    end
-                else
-                    nacid=0;
-                    nacid_unsat=0;
-                    nion=0;
-                    nSE=0;
-                    Ese=0;                    
+                act='acid';                
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%     Debug code to figure out why the fine position arrays is
+                %%%     not as long as the pixelated one
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %{
+                if length(acid_act_xyz_idx)~=size(acid_act_xyz,1)
+                    debugObject = {};
+                    debugObject.condition   =   'The two acid vectors have different lengths';
+                    debugObject.level       =   'trajcalc';
+                    debugObject.coarseArrayLength   = length(acid_act_xyz_idx);
+                    debugObject.fineArrayLength     = size(acid_act_xyz,1);
+                    debugOutput{size(debugOutput,2)+1} = debugObject;
+                end                    
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %}
+            else
+                E_benzene=6.5;
+                Ese     =   Eloss_val-E_benzene;    Ese(Ese<0)=0;
+                act='acid-none-Polym-noSE';
+                if Ese>0 && ~isempty(polymidx)
+                    %%%Signaling the engine to initiate a secondary
+                    nSE=1;
+                    nion=1;
+                    num2add=nion;
+                    add_idx=randi([1 length(polymidx)],num2add);
+                    SE_act_xyz=[SE_act_xyz posPolymer(:,polymidx(add_idx))];
+                    act='acid-none-Polym-SE';
+                end
+            end
+        else
+            nacid=0;
+            nacid_unsat=0;
+            nion=0;
+            nSE=0;
+            Ese=0;
+            switch act
+                case 'SE'
+                %% 5.1.2 Secondary electron generation
                     gen_SE=1; % if 1, it will generate secondaries, if 0 then no SE is generated
                     if npolyms>0 % if there was no polymer molecule
                         Ese=(Eloss_val>E_ionize_min).*(Eloss_val-E_ionize_min);
@@ -418,30 +430,35 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
                     else
                         Eloss_val=0; % set to 0 if there was no event
                     end
-                end
-            case 'Vibrational'   
-                            act='vibr-polym';
-                            %%% Conventional SE logic. Tempory -JHM
-                            %%% Should be removed as energy loss is always smaller
-                            %%% than 1 eV
-                            Ese     =   (Eloss_val>E_ionize_min).*(Eloss_val-E_ionize_min);
-                            nSE     =   double(Eloss_val>E_ionize_min);
-                            Ese(Ese<0)=0;
-                            if Ese>0
-                                nSE=1;
-                                nion=1;
-                                SE_act_xyz=[SE_act_xyz posPolymer(:,pagidx(remove_idx))];
-                            end
-            case 'StoneWall'
-                [pagidx,~,~,~]=...
-                    pag_polym_query([xEvent yEvent zEvent],posPAG,posPolymer,rxnRadius);
-                num2Remove  =   1;
-                [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
-                    =acidActivation(num2Remove,posPAG,posPAG_removed,...
-                    pagidx,[xEvent, yEvent, zEvent],...
-                    acid_act_xyz_idx,acid_act_e_xyz);
+                case '6eVRes'   %%% !!!! This branch is not reachable
+                    act='6eVRes-Polym';
+                case 'vibr'   
+                    act='vibr-polym';                    
+                    
+                    %%% Conventional SE logic. Tempory -JHM
+                    %%% Should be removed as energy loss is always smaller
+                    %%% than 1 eV
+                    Ese     =   (Eloss_val>E_ionize_min).*(Eloss_val-E_ionize_min);
+                    nSE     =   double(Eloss_val>E_ionize_min);
+                    
+                    Ese(Ese<0)=0;
+                    if Ese>0
+                        nSE=1;
+                        nion=1;
+                        SE_act_xyz=[SE_act_xyz posPolymer(:,pagidx(remove_idx))];
+                    end
+                case 'StoneWall'
+                    num2Remove  =   1;
+                    [posPAG,posPAG_removed,acid_act_xyz_idx,acid_act_e_xyz]...
+                        =acidActivation(num2Remove,posPAG,posPAG_removed,...
+                        pagidx,[xEvent, yEvent, zEvent],...
+                        acid_act_xyz_idx,acid_act_e_xyz);
+            end
         end
-        eFinal=eIni-Eloss_val;
+
+        Enew=Eold-Eloss_val;
+
+        %fprintf(logfile_fid,'............trajFollower: [npags,len(pagidx),npags_removed,npolyms,pagratio,nacid,nion,nSE,Eloss,Ese,type] = [%d,%d,%d,%d,%.4f,%d,%d,%d,%.3f,%.3f,%s]\n',npags,length(pagidx),npags_removed,npolyms,pag_ratio,nacid,nion,nSE,Eloss_val,Ese,act);        
         
         %% 6. Documenting the event
         xyzglobal.x=[xyzglobal.x xnew];
@@ -453,8 +470,8 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         events{count}.xyz       =   [xnew ynew znew];
         events{count}.xyzglobal =   xyzglobal;
         events{count}.pathlen   =   pathlen;
-        events{count}.Ein       =   eIni;
-        events{count}.Eout      =   eFinal;
+        events{count}.Ein       =   Eold;
+        events{count}.Eout      =   Enew;
         events{count}.Eloss     =   Eloss_val;
         events{count}.act       =   act;
         events{count}.imfp      =   imfp;
@@ -477,7 +494,7 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
         events{count}.pag.rcnrad=pag_rcnrad;
         
         %% 7. Updating the "old" (initial) variable values
-        eIni    =   eFinal;
+        Eold    =   Enew;
 
         xold        =   xnew;
         yold        =   ynew;

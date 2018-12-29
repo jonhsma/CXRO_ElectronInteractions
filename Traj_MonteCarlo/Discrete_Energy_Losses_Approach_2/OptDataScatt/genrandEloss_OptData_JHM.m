@@ -63,7 +63,7 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
         Elossvec    =   dsigdEComplex.eLossMat(1,:);
     else
         %% Pull up the data
-        dcs_data=optdata.inel_dcsdata;
+        dcs_data=dcs_datafile;
         idx=find(dcs_data.E(1,:)==incidentEnergy);
         dsigdOmega_fit=[];
         if ~isempty(idx)
@@ -105,13 +105,12 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
                 thetavec=linspace(thetavec_min,pi,100);
                 dcs1B=interp1(theta1,dcs1,thetavec,'linear','extrap');
                 dcs2B=interp1(theta2,dcs2,thetavec,'linear','extrap');
-
-                for i = 1:size(dcs1B,2)
-                    p=polyfit(dcs_data.E(1,idx1:idx2),[dcs1B(i) dcs2B(i)],1);
-                    dsigdOmega(1,i)=polyval(p,incidentEnergy);
+                
+                dsigdOmega = zeros([1 size(dcs1B,2)]);
+                for i = 1:size(dcs1B,2)                    
+                    dsigdOmega(1,i)=lineInterpol(dcs_data.E(1,idx1:idx2),[dcs1B(i) dcs2B(i)],incidentEnergy);
                 end
 
-                dbg=1;
                 %%%% fit the dsigdE
                 Eloss1=dcs_data.Elossmat(idx1,:);
                 dcs1=dcs_data.dsigdE(idx1,:);
@@ -146,16 +145,11 @@ function Elossrand=genrandEloss_OptData_JHM(varargin)
 
                 dcs1B(Elossvec>max(Eloss1))=0;
                 dcs2B(Elossvec>max(Eloss2))=0;
-
-                for i = 1:size(dcs1B,2)
-                    %%%% fit the dsigdE
-    %                 p=polyfit(dcs_data.E(1,idx1:idx2)',dcs_data.dsigdE(idx1:idx2,i),1);
-    %                 dsigdE(1,i)=polyval(p,Eo);
-
-                    p=polyfit(dcs_data.E(1,idx1:idx2),[dcs1B(i) dcs2B(i)],1);
-                    dsigdE(1,i)=polyval(p,incidentEnergy);
-                end
-                dbg=1;
+                
+                dsigdE = zeros ([1 size(dcs1B,2)]);
+                for i = 1:size(dcs1B,2)                 
+                    dsigdE(1,i)=lineInterpol(dcs_data.E(1,idx1:idx2),[dcs1B(i) dcs2B(i)],incidentEnergy);
+                end               
             end
         end
     end

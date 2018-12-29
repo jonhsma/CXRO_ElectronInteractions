@@ -1,0 +1,23 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% This function isolate all photoemission events and store it in an array
+% to save space. Photoemission simulations are gigantic and the resultant
+% energyScanArchive is usually huge. To avoid saving data in matlab 7.3
+% files, which are usually  huge, this function is written
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+function escapeEvents = extractEscapeEvents(energyScanArchive)
+    % find out the ceiling for memory usage
+    escapeEvents = [];
+    for ii = 1:size(energyScanArchive,2)
+        for jj =  size(energyScanArchive{ii}.incidences,2)
+            for kk =  size(energyScanArchive{ii}.incidences{jj},2)
+                if strcmp(energyScanArchive{ii}.incidences{jj}{kk}.act,...
+                        'escape')
+                    escapeEvents(end+1) = energyScanArchive{ii}.incidences{jj}{kk};
+                end
+            end
+        end
+    end
+    
+    
+end

@@ -36,8 +36,7 @@ else % did not find an exact match for Eo
     vec2=ics(idx3,:);
     icsvec = zeros([1 size(vec1,2)]);
     for count=1:size(vec1,2)
-        p=polyfit([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],1);
-        icsvec(1,count)=polyval(p,incidentE);
+        icsvec(1,count)=lineInterpol([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],incidentE);
     end
     Eochoose=[idx1 idx3];
 end
@@ -88,10 +87,9 @@ else % did not find an exact match for Eo
     vec2=eval(sprintf('scattdata.Epr%d.angledata(:,Elchoose+1)',Eochoose(2)));
     vec2=interp1(theta2,vec2,theta_int,'spline','extrap');
 %     vec2=vec2';
-    
+    dcsvec = zeros([1 size(vec1,2)]);
     for count=1:size(vec1,2)
-        p=polyfit([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],1);
-        dcsvec(1,count)=polyval(p,incidentE);
+        dcsvec(1,count)=lineInterpol([E(idx1) E(idx3)],[vec1(1,count) vec2(1,count)],incidentE);
     end
 end
 
@@ -100,7 +98,7 @@ dcs_cdf     =   dcs_cdf-dcs_cdf(1);
 dcs_cdf     =   dcs_cdf./dcs_cdf(end);
 
 theta_rand=randgen(theta_int,dcs_cdf,1);
-%%% theta_rand is in degree here. I have not idea what is happening.
+%%% theta_rand is in degree here. I have no idea what is happening.
 %theta_rand=pi-theta_rand; % data is deflection, so pi-() gives you elevation angle
 phi_rand=2*pi*rand;
 
@@ -111,9 +109,10 @@ ics2(isnan(ics2))=0;
 ics2=sum(ics2,2);
 if length(Eochoose)==1
     icsval=ics2(Eochoose);
-else
-    p=polyfit([Etmp(Eochoose(1)) Etmp(Eochoose(2))],[ics2(Eochoose(1)) ics2(Eochoose(2))],1);
-    icsval=polyval(p,incidentE);
+else    
+    icsval=lineInterpol([Etmp(Eochoose(1)) Etmp(Eochoose(2))],...
+        [ics2(Eochoose(1)) ics2(Eochoose(2))],...
+        incidentE);
 end
 
 outdata.Eloss=Eloss;

@@ -3,11 +3,11 @@
 %%% It's an adaptation of the narasimhan approach. When an electron falls
 %%% below a certain energ, it excites an acid and it's gone.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-function outcome     =   scattEngineStoneWall(eIncident,scattData)    
-    if eIncident < scattData.stoneWall.CUTOFF
-        outcome.imfp    =   scattData.stoneWall.IMFP;
+function outcome     =   scattEngineStoneWall(eIncident,scattDataStoneWall)    
+    if eIncident < scattDataStoneWall.CUTOFF
+        outcome.imfp    =   scattDataStoneWall.IMFP;
         outcome.eLoss   =   eIncident+5; % + 5 to ensure termination, even if trajectory terminates at zero
-        outcome.rxnR    =   scattData.stoneWall.ACID_REACTION_RADIUS;
+        outcome.rxnR    =   scattDataStoneWall.ACID_REACTION_RADIUS;
     else
         outcome.imfp    =   Inf;
         outcome.eLoss   =   0;
