@@ -11,6 +11,7 @@ function [escapeEvents,incidentEvents] = extractEscapeEvents(energyScanArchive)
     incidentEvents(1) = escapeEvents(1);
     counter = 1;
     loopCounter = 0;
+    terminationCounter = 0;
     for ii = 1:size(energyScanArchive,2)
         for jj =  1:size(energyScanArchive{ii}.incidences,2)
             for kk =  1:size(energyScanArchive{ii}.incidences{jj},2)
@@ -19,16 +20,21 @@ function [escapeEvents,incidentEvents] = extractEscapeEvents(energyScanArchive)
                         'escape')
                     escapeEvents(counter) = energyScanArchive{ii}.incidences{jj}{kk};
                     incidentEvents(counter) = energyScanArchive{ii}.incidences{jj}{1};
-                    
                     if kk<length(energyScanArchive{ii}.incidences{jj})&&...
                             sum(energyScanArchive{ii}.incidences{jj}{kk}.xyz ==...
                            energyScanArchive{ii}.incidences{jj}{kk+1}.xyz_init)>0
                        disp('Warning! trajectory continues after escape')
                     end
                     counter = counter+1;
+                    terminationCounter = terminationCounter + 1;
+                elseif strcmp(energyScanArchive{ii}.incidences{jj}{kk}.act,...
+                        'StoneWall')
+                    terminationCounter = terminationCounter + 1;
                 end
             end
         end
     end   
     disp(loopCounter)
+    disp(terminationCounter)
+    sprintf('Total number of electrons simulated : %d\n',terminationCounter);
 end

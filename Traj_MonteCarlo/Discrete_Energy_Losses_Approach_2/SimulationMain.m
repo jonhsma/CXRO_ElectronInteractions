@@ -81,7 +81,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20181227_Photoemission';
+outputFolder    =   '20190105_Photoemission';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -121,6 +121,7 @@ while ~outputBasePathConfirmed
             outputBasePathConfirmed = 1;
         else 
             outputFolder = promptAnswer{1};
+            outputBasePath  =   strcat(outputParent,outputFolder,'\\');
         end
     end
 end
@@ -148,11 +149,11 @@ echoConfig.acid.perElectron =   0;
 echoConfig.acid.perTraj     =   0;
 
 echoConfig.traj3.perTrial   =   0;
-echoConfig.traj3.perEnergy  =   1;
+echoConfig.traj3.perEnergy  =   0;
 
 echoConfig.acidDist.active  =   1;
-echoConfig.acidDist.range   =   10; % 10 means from -10 to 10 nm,
-echoConfig.acidDist.res     =   0.5;
+echoConfig.acidDist.range   =   20; % 10 means from -10 to 10 nm,
+echoConfig.acidDist.res     =   1;
 
 %%% Default graph numbers
 FIGURE_TRAJ_PER_TRIAL       =   7201;
@@ -240,7 +241,7 @@ eventPrototype.lowEimfp       =   LOW_ENERGY_MEAN_FREE_PATH;
 
 %% 2   --> Scan sweep parameters
 % Number of trials per energy
-nTrials     =   88;
+nTrials     =   176;
 eSweep      =   [85];% 80 65 50 40 30];
 tStart      =   tic;
 
@@ -252,7 +253,7 @@ nElectrons = 100; % number of electron per trial
 dosingLimits =... The space within which dosing occurs
     [-2.5,2.5;...
     -2.5,2.5;...
-    -5,0.0];
+    -10,0.0];
 % Is the total number of electrons definite (1) or a Poisson number (0)
 absoluteDosing = 1;
 
@@ -319,6 +320,10 @@ scanArchive = cell([1 length(eSweep)]);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 meanAcids_thruE     =   zeros([1 length(eSweep)]);
 stdAcids_thruE      =   zeros([1 length(eSweep)]);
+
+% Record the workspace prio to the the simulation
+save(sprintf(strcat(outputBasePath,...
+            'preExecutionWS')));
 
 %% 4.1 Loop through the energies of interest
 for E_count=1:length(eSweep)
@@ -563,8 +568,17 @@ for E_count=1:length(eSweep)
     fprintf(1,'%d trials; <Acids> = %.4f; sig_Acids = %.4f\n',nTrials,mean(nAcids_thruTrial),std(nAcids_thruTrial));    
     
     %%% Archive saved in each energy step in case of unexpected termination
+    %{
     save(sprintf(strcat(outputBasePath,...
             strcat('ScanArchive_',num2str(eSweep(E_count))))),'energyScanArchive');
+    %}
+    parfor ii = 1:nTrials
+        currDB(ii)    =   reorderArchive(energyScanArchive(ii))
+    end
+    databaseName = strcat('DB_',num2str(eSweep(E_count)),'eV');
+    saveDatabase(currDB,outputBasePath,databaseName);
+    archiveName = strcat('ScanArchive_',num2str(eSweep(E_count)),'eV');
+    saveArchive(energyScanArchive,outputBasePath,archiveName);
     
     %% 4..1.4 Per Energy Trajectory Echo
     if echoConfig.traj3.perEnergy

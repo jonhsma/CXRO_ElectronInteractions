@@ -380,7 +380,7 @@ function [events,pagdata,polymdata]=TrajectoryFollower(event,scattdata,scatt_Eli
                         if Ese>0
                             nSE=1;
                             nion=1;
-                            SE_act_xyz=[SE_act_xyz posPAG_removed];
+                            SE_act_xyz=[SE_act_xyz [xEvent; yEvent; zEvent]];
                         end
 
                         act='acid';                

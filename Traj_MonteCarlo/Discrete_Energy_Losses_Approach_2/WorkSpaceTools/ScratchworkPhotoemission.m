@@ -137,7 +137,47 @@ plot(barCenterE(barCenterE<=40&barCenterE>=17),...
 title({'Energy distribution of escaped electrons';...
     strcat('\lambda_E = ',num2str(abs(1./f.b)),'eV')})
 xlabel('KE (eV)')
-set(gca, 'YScale','Log')
+legend('Simulated energy spectrum','Local exponential fit')
 
+%% Depth and angle correlation
+figure(5300);
+plot(zArray, energyAtEscape,'.');
+xlabel('Depth of origin event');
+ylabel('KE (eV) at emission');
+figure(5301);
+plot(zArray, [escapeEvents.theta_out],'.');
+xlabel('Depth of origin event');
+ylabel('\theta at escape');
+axis([-inf inf 0 pi/2]);
+
+figure(5302);
+d0=-1;
+hold off
+histogram([escapeEvents(zArray<d0).theta_out],'Normalization','pdf');
+hold on 
+histogram([escapeEvents(zArray>=d0).theta_out],'Normalization','pdf');
+plot(0:pi/400:pi/2,sin((0:pi/400:pi/2)));
+title('Theta distribution of escaped electrons')
+legend(strcat('< ',num2str(d0),' nm photoemissions'),...
+    strcat('>= ',num2str(d0),' nm photoemissions'),...
+    'Random (sin(\theta)) reference');
+axis([0 pi/2 -inf inf])
+xlabel('\theta');
+ylabel('Relative probability per unit \theta');
+
+%% The simple angle distribution model
+xx = 0:pi/200:pi/2;
+yy = 0.1:0.1:2;
+xx = ones([size(yy,2) 1])*xx;
+yy = yy'*ones([1 size(xx,2)]);
+sampleDist = sin(xx).*exp(-yy./cos(xx));
+sampleDist = sampleDist./mean(sampleDist,2);
+figure(6001);
+surf(xx,yy,sampleDist)
+xlabel('Emission angle \theta');
+ylabel('depth parameter d/\lambda');
+zlabel('Relative probability per degree in \theta');
+title({'Normalized \theta probability funtion';...
+    'using the model P(\theta) \alpha sin(\theta)e^{-d/(\lambda cos\theta))}'});
 
 
