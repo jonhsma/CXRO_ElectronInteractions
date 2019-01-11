@@ -51,9 +51,12 @@ set(0,'DefaultFigureWindowStyle','docked')
 % Global functions
 addpath('..\..\GlobalFunctions');
 
+% Components
+addpath('..\CommonComponents');
+
 cross_sect_data_path='..\..\Traj_MonteCarlo\CrossSect_Data\';
 
-scattdata.vibr=load([cross_sect_data_path 'VibrExcit_Data_Khakoo_2013.mat']);
+scattdata.vibr=load([cross_sect_data_path 'Vibr_Khakoo_2013_x50.mat']);
 %%% Determining the vibrational chanel of scattering
 scattdata.vibr.datasrc='Khakoo';
 %%% The Frolich IMFP function
@@ -81,7 +84,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20190105_Photoemission';
+outputFolder    =   '20190108_PES_NewVibr';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -179,9 +182,10 @@ scattdata.followerHandle        =       'default';%@TrajectoryFollowerRandomWalk
 %%% The limit where scattering ceases
 SCATTERING_LOW_ENERGY_CUTOFF    =       2;
 %%% The energy where the electron enters low energy regime
-%%% (Where low energy interaction is turned on)
+%%% (energy below which the optical MFP is reaplced by the constant LOW_ENERGY_MEAN_FREE_PATH)
+% Now defunct. DOESN'T DO ANYTHING
 LOW_ENERGY_BEHAVIOUR_BOUNDARY   =       20; 
-%%% Low energy random walk mean free path.
+%%% Low energy mean free path of plasmon scattering.
 LOW_ENERGY_MEAN_FREE_PATH       =       3.67;%1 for random walk test;
 %%% The reaction radius of PAGS
 ACID_REACTION_RADIUS            =       3;

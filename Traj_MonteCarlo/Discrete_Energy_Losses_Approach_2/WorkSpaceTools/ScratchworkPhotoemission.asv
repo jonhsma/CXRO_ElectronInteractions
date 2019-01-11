@@ -1,13 +1,9 @@
 %%%% Some un organized scratch work
 %% Loading scanArchive for Dec 28 analysis
-outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
-            'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20190105_Photoemission';
-outputBasePath  =   strcat(outputParent,outputFolder,'\\');
-archive_Dec28 = loadEnergyArchive(outputBasePath,'ScanArchive_85eV');
+archive = loadEnergyArchive(outputBasePath,'ScanArchive_85eV');
 
 %% Dec 28
-[escapeEvents,incidentEvents] = extractEscapeEvents(archive_Dec28);
+[escapeEvents,incidentEvents] = extractEscapeEvents(energyScanArchive);
 coords = zeros([6575,3]);
 %{
 for ii = 1:6575
@@ -194,23 +190,16 @@ PE_Jan09_Archive = loadEnergyArchive(outputBasePath,'ScanArchive_85eV');
 %% Basic plots: Energy Spectrum
 set(0,'DefaultFigureWindowStyle','Docked');
 figure(7200);
-hold off
-binEdges = 4:2:88;
-h0 = histogram([escapeEvents_09.Ein],binEdges);
-hold on
-histogram([escapeEvents.Ein],binEdges);
-set(gca,'YScale','Linear');
+binCenter = 5:2:87;
+h0 = histogram([escapeEvents_09.Ein],binCenter);
+set(gca,'YScale','Log');
 xlabel('KE(eV)');ylabel('Counts');
 title({'Photoemission Simulation','Primary KE = 85 eV','6626 escaped electrons in total'});
-legend({'Sim Spectrum','from old sim'})
 
 figure(7201);
-hold off
 % Log-log scale to see if a polynomial is a better fit
-binEdges = 1:2:87;
-h1 = histogram([escapeEvents_09.Ein],binEdges);
-hold on;
-histogram([escapeEvents.Ein],binEdges);
+binCenter = 1:2:87;
+h1 = histogram([escapeEvents_09.Ein],binCenter);
 axis([10 100 1 1000]);
 set(gca,'YScale','Log');
 set(gca,'XScale','Log');
@@ -219,6 +208,5 @@ grid on;
 grid(gca,'minor');
 xlabel('KE(eV)');ylabel('Counts');
 title({'Photoemission Simulation','Primary KE = 85 eV','6626 escaped electrons in total'});
-legend({'Sim Spectrum','from old sim'})
 % power law works better. In my bucket list it is to figure out if the
 % expression in the Henke paper works
