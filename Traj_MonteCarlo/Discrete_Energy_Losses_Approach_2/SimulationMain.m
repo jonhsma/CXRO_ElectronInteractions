@@ -84,7 +84,7 @@ scattdata.E_inel_thr            = min(scattdata.optical.E);
 %% 0.0.1 --> File output base path
 outputParent    =   strcat('..\\..\\..\\..\\JonathanCodeIO_CXRO\\',...
             'ElectronInteractions\\LEEMRes\\');
-outputFolder    =   '20190108_PES_NewVibr';
+outputFolder    =   '20190111_PES_FixedIMFP';
 outputBasePath  =   strcat(outputParent,outputFolder,'\\');
 
 %% 0.0.2 --> Scattering Engines' Paths
@@ -175,7 +175,7 @@ debugCurrAcidArrayDiff = 0;
 %--------------------------------------------------------------------------
 %%% The trajectory follower options. Anything that's not a proper function
 %%% handle will result in using the default trajectory follower
-scattdata.followerHandle        =       'default';%@TrajectoryFollowerRandomWalk@TrajectoryFollowerLowEnergyAcid;;
+scattdata.followerHandle        =       @TrajectoryFollowerFixedIMFP;%'default';@TrajectoryFollowerRandomWalk@TrajectoryFollowerLowEnergyAcid;;
 %--------------------------------------------------------------------------
 
 % GENERAL SCATTERING OPTIONS
@@ -198,7 +198,7 @@ MOLECULAR_NUMBER_DENSITY        =       1.2/120*6.02*1e23*10; % molecules/cm3
 %%%% The energy below which the electron would activate an acid and die
 scattdata.stoneWall.CUTOFF      =   5;
 %%%% The imfp of the stone wall. Should be small if active
-scattdata.stoneWall.IMFP        =   0.0001;  
+scattdata.stoneWall.IMFP        =   0.001;  
 %%%% The reaction radius of the stone wall
 scattdata.stoneWall.ACID_REACTION_RADIUS   =   3;  
 
@@ -576,11 +576,13 @@ for E_count=1:length(eSweep)
     save(sprintf(strcat(outputBasePath,...
             strcat('ScanArchive_',num2str(eSweep(E_count))))),'energyScanArchive');
     %}
+    % Conversion to a newer data base format
     parfor ii = 1:nTrials
         currDB(ii)    =   reorderArchive(energyScanArchive(ii))
     end
     databaseName = strcat('DB_',num2str(eSweep(E_count)),'eV');
     saveDatabase(currDB,outputBasePath,databaseName);
+    % Exporting the archive
     archiveName = strcat('ScanArchive_',num2str(eSweep(E_count)),'eV');
     saveArchive(energyScanArchive,outputBasePath,archiveName);
     

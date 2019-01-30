@@ -5,10 +5,11 @@
 % files, which are usually  huge, this function is written
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function [escapeEvents,incidentEvents] = extractEscapeEvents(energyScanArchive)
+function [escapeEvents,incidentEvents,preceedingEvents] = extractEscapeEvents(energyScanArchive)
     % find out the ceiling for memory usage
     escapeEvents(1) = energyScanArchive{1}.incidences{1}{1};
     incidentEvents(1) = escapeEvents(1);
+    preceedingEvents(1) = escapeEvents(1);
     counter = 1;
     loopCounter = 0;
     terminationCounter = 0;
@@ -20,6 +21,17 @@ function [escapeEvents,incidentEvents] = extractEscapeEvents(energyScanArchive)
                         'escape')
                     escapeEvents(counter) = energyScanArchive{ii}.incidences{jj}{kk};
                     incidentEvents(counter) = energyScanArchive{ii}.incidences{jj}{1};
+                    if kk > 1 &&...
+                            ~strcmp(energyScanArchive{ii}.incidences{jj}{kk-1}.act,...
+                            'escape')&&...
+                            ~strcmp(energyScanArchive{ii}.incidences{jj}{kk-1}.act,...
+                            'StoneWall')                        
+                        preceedingEvents(counter) = energyScanArchive{ii}.incidences{jj}{kk-1};
+                    else
+                        preceedingEvents(counter) = energyScanArchive{ii}.incidences{jj}{kk};
+                        preceedingEvents(counter).scattType = 'NewTraj';
+                    end
+                    
                     if kk<length(energyScanArchive{ii}.incidences{jj})&&...
                             sum(energyScanArchive{ii}.incidences{jj}{kk}.xyz ==...
                            energyScanArchive{ii}.incidences{jj}{kk+1}.xyz_init)>0
