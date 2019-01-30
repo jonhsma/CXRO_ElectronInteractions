@@ -18,6 +18,7 @@ disp(length(escapeEvents_11));
 
 %% Extract the internal flux at 5 m
 [f_11_up_5,~] = extractZEvent(energyScanArchive,-5,1);
+%
 
 %% Plot the histograms
 binEdges = 4:4:88;
