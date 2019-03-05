@@ -289,15 +289,16 @@ hold off
 plot(binCenter,hx0.Values/hx0.Values(normSpot))
 hold on;
 plot(binCenter,hpe.Values/hpe.Values(normSpot))
-%plot(binCenter,hpe.Values./sqrt(binCenter)/(hpe.Values(normSpot)/sqrt(binCenter(normSpot))))
+plot(binCenter,hpe.Values./sqrt(binCenter)/(hpe.Values(normSpot)/sqrt(binCenter(normSpot))))
 plot(binCenter,hpe.Values./imfp_2/(hpe.Values(normSpot)/imfp_2(normSpot)))
 set(gca,'YScale','Linear');
 xlabel('KE(eV)');
-ylabel('Normalized Counts')
+ylabel('Counts')
 title({'Simulated electron energy spectra';'17,600 incidences; 1,771,061 events';...
     'Primary peak normalized'});
 legend('Passage through z = -5 nm (34983 events)',...
-    'Photoemission (6659 events)',...'Photoemission divided by KE^{1/2}',...
+    'Photoemission (6659 events)',...
+    'Photoemission divided by KE^{1/2}',...
     'Photoemission divided by imfp');
 
 %% Finish the depth dependent flux analysis
@@ -309,55 +310,52 @@ ps0pEV = escapeEvents_09;
 
 figure(666);
 hold off
-h_up_0 = histogram([ps0pEV.Ein],binEdges,'Normalization','count');
+h_up_0 = histogram([ps0pEV.Ein],binEdges,'Normalization','pdf');
 hold on;
-h_up_0p10 = histogram([ps0p1pEV.Ein],binEdges,'Normalization','count');
-h_up_0p25 = histogram([ps0p25pEV.Ein],binEdges,'Normalization','count');
-h_up_0p50 = histogram([ps0p50pEV.Ein],binEdges,'Normalization','count');
-h_up_2p50 = histogram([ps2p50pEV.Ein],binEdges,'Normalization','count');
+h_up_0p10 = histogram([ps0p1pEV.Ein],binEdges,'Normalization','pdf');
+h_up_0p25 = histogram([ps0p25pEV.Ein],binEdges,'Normalization','pdf');
+h_up_0p50 = histogram([ps0p50pEV.Ein],binEdges,'Normalization','pdf');
+h_up_2p50 = histogram([ps2p50pEV.Ein],binEdges,'Normalization','pdf');
 
 figure(8023);
 marker = '-';
-[~,normp] = min(abs(binCenter-85));
 hold off
-plot(binCenter,h_up_0.Values./h_up_0.Values(normp+1),marker)
+plot(binCenter,h_up_0.Values,marker)
 hold on
-plot(binCenter,h_up_0p10.Values./h_up_0p10.Values(normp+1),marker)
-plot(binCenter,h_up_0p25.Values./h_up_0p25.Values(normp+1),marker)
-plot(binCenter,h_up_0p50.Values./h_up_0p50.Values(normp+1),marker)
-plot(binCenter,h_up_2p50.Values./h_up_2p50.Values(normp+1),marker)
+plot(binCenter,h_up_0p10.Values,marker)
+plot(binCenter,h_up_0p25.Values,marker)
+plot(binCenter,h_up_0p50.Values,marker)
+plot(binCenter,h_up_2p50.Values,marker)
 set(gca,'YScale','Linear');
 legend({'Photoemission';...
     '-0.1 nm';'-0.25 nm';'-0.5 nm';'-2.5 nm'});
 title({'Simulated upward flux at different depths';...
     'Energy Probability Density'});
-xlabel('KE (eV)')
-ylabel('Normalized Counts')
-set(gca,'YScale','Linear')
-
 % Downward flux
 figure(666);
 hold off
-h_dn_0p10 = histogram([ps0p1nEV.Ein],binEdges,'Normalization','count');
+h_up_0p10 = histogram([ps0p1pEV.Ein],binEdges,'Normalization','count');
 hold on;
-h_dn_0p25 = histogram([ps0p25nEV.Ein],binEdges,'Normalization','count');
-h_dn_0p50 = histogram([ps0p50nEV.Ein],binEdges,'Normalization','count');
-h_dn_2p50 = histogram([ps2p50nEV.Ein],binEdges,'Normalization','count');
+h_up_0p25 = histogram([ps0p25pEV.Ein],binEdges,'Normalization','count');
+h_up_0p50 = histogram([ps0p50pEV.Ein],binEdges,'Normalization','count');
+h_up
+_2p50 = histogram([ps2p50pEV.Ein],binEdges,'Normalization','count');
 
 figure(8024);
 [~,normp] = min(abs(binCenter-85));
 marker = '-';
 hold off
-plot(binCenter,h_dn_0p10.Values./h_dn_0p10.Values(normp+1),marker)
+plot(binCenter,h_up_0p10.Values./h_up_0p10.Values(normp+1),marker)
 hold on
-plot(binCenter,h_dn_0p25.Values./h_dn_0p25.Values(normp+1),marker)
-plot(binCenter,h_dn_0p50.Values./h_dn_0p50.Values(normp+1),marker)
-plot(binCenter,h_dn_2p50.Values./h_dn_2p50.Values(normp+1),marker)
+plot(binCenter,h_up_0p25.Values./h_up_0p25.Values(normp+1),marker)
+plot(binCenter,h_up_0p50.Values./h_up_0p50.Values(normp+1),marker)
+% plot(binCenter,h_dn_2p50.Values./h_dn_2p50.Values(normp+1),marker)
 set(gca,'YScale','Linear');
 legend({'-0.1 nm';'-0.25 nm';'-0.5 nm';'-2.5 nm'});
 title({'Simulated downward flux at different depths';...
     'Energy Probability Density'});
 xlabel('KE (eV)');
+ylabel('Normalized counts');
 
 
 
