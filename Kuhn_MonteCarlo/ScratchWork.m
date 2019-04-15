@@ -51,7 +51,7 @@ grid on
 %% The results
 error = (testSummary_L.ini.std)./sqrt(testSummary_L.ini.N+1);
 range = 1:5000;
-figure(7201)
+figure(7202)
 hold off
 loglog(range,testSummary_L.ini.mean(range))
 errorbar(range,testSummary_L.ini.mean(range),...
@@ -182,16 +182,16 @@ set(gca,'ZScale','Log')
 %% INFP comparison
 figure(7213)
 hold off
-plot(eScale,smooth(eScan_20190201.Lcoef_ms(2,:),10).^0.5)
+plot(eScale,smooth(eScan_20190201.Lcoef_ms(2,:),20).^0.5)
 hold on
-plot(eScale,exp(smooth(eScan_20190201.Lcoef(1,:),5)))
-ratio = smooth(eScan_20190201.Lcoef_ms(2,:),10).^0.5./...
-    exp(smooth(eScan_20190201.Lcoef(1,:),5));
+plot(eScale,exp(smooth(eScan_20190201.Lcoef(1,:),20)))
+ratio = smooth(eScan_20190201.Lcoef_ms(2,:),20).^0.5./...
+    exp(smooth(eScan_20190201.Lcoef(1,:),20));
 plot(eScale,ratio)
 % The mean square fitting always give larger IMFP
 mean(eScan_20190201.Lcoef_ms(1,:))
 % The intercept is negative
-%% Try forcing the intercept zero
+%% Try log fit rms
 range = 30:400;
 for ei = 1:length(eScale)
         error = eScan_20190201.Lsdse(:,ei)./sqrt(length(eScan_20190201.Lmean)+1);

@@ -13,13 +13,11 @@ function results = energyScan(energyArray,nSegments,scattdata,varargin)
     % The expectation values of R^2
     Lms         =   Lmean;
     Lsse        =   Lmean;
-    
-    if nargin == 4 % A new follower is selected
+    if nargin == 4 % An alternate follower is selected
         follower = varargin{1};
     else
         follower = @TrajectoryFollowerConstEnergy;
     end
-    
     parfor ii = 1:length(energyArray)
         % Initial configuration
         initConfig = struct();
@@ -37,34 +35,39 @@ function results = energyScan(energyArray,nSegments,scattdata,varargin)
             @arrayAllocator);
         
         % Length analysis
-        [sum_L,~] = trajLengthAna(currentTraj);        
+        [sum_L,~] = trajLengthAna(currentTraj);
+        
         range = 30:400;
         % Fit the distance as a function of step
         error = (sum_L.ini.std)./sqrt(sum_L.ini.N+1);
         lm = fitlm(log(range),log(sum_L.ini.mean(range)),...
             'Weights',sum_L.ini.mean(range)./error(range));
         coef = lm.Coefficients.Estimate;
+        
         % Record the coeffcients
         Lcoef(:,ii)     = coef;
         Lcoef_se(:,ii)  = lm.Coefficients.SE; 
         % Fit the distance squared as a function of step
         error = (sum_L.ini.sstd)./sqrt(sum_L.ini.N+1);
         lm = fitlm(range,sum_L.ini.ms(range),...
-            'Weights',1./error(range),...
-            'Intercept',false);
+            'Weights',1./error(range))%,...
+            %'Intercept',false);
         coef = lm.Coefficients.Estimate;
+        
         % Record the coeffcients
         Lcoef_ms(:,ii)     = coef;
         Lcoef_se_ms(:,ii)  = lm.Coefficients.SE; 
         
-
+        
         % Record the expectation values
         Lmean(:,ii)     = sum_L.ini.mean;
         Lse(:,ii)       = sum_L.ini.std;  
         
         Lms(:,ii)       = sum_L.ini.ms;
         Lsse(:,ii)      = sum_L.ini.sstd;
+        
     end
+
     
     % Save the results
     results.Lcoef       = Lcoef;
